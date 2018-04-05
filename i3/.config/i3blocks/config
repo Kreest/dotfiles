@@ -23,29 +23,21 @@ separator_block_width=10
 [playing]
 command=rhythmbox-client --print-playing-format "%ta - %tt (%te/%td)"
 interval=1
-[wifi]
-instance=enp7s0
-instance=wlp8s0
-separator=false
-interval=10
 color=#009933
 
-#[iface]
-#label=
-##instance=wlan0
-#color=#77FF00
+[bandwidth]
+color=#33AA00
+interval=1
+
+#[wifi]
+#instance=wlp2s0
 #separator=false
-#interval=60
+#interval=10
+
 
 [disk]
 label=
-# 
-#instance=/mnt/data
 interval=30
-
-#[disk-io]
-#label=
-#interval=persist
 
 [memory]
 label=
