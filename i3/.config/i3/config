@@ -1,0 +1,363 @@
+# i3 config file (v4)
+### USER VARIABLES ###
+
+
+# Main modifier key
+set $mod  Mod4
+set $mod_ Mod1
+set $fun 151
+
+# Named workspaces
+#               
+set $ws1   "1:"
+set $ws2   "2:"
+set $ws3   "3:"
+set $ws4   "4:"
+set $ws5   "5:5"
+set $ws6   "6:6"
+set $ws7   "7:7"
+set $ws8   "8:8"
+set $ws9   "9:"
+set $ws10  "10:10"
+
+# Keypad keycodes
+set $KP_1 87
+set $KP_2 88
+set $KP_3 89
+set $KP_4 83
+set $KP_5 84
+set $KP_6 85
+set $KP_7 79
+set $KP_8 80
+set $KP_9 81
+set $KP_0 90
+
+# Function key keycodes
+set $F1  62
+set $F2  63
+set $F3  64
+set $F4  65
+set $F5  66
+set $F6  67
+set $F7  68
+set $F8  69
+set $F9  70
+set $F10 71
+set $F11 72
+set $F12 73
+
+# Page up/down keycodes
+set $PG_UP   112
+set $PG_DOWN 117
+
+# Flags
+set $nsi --no-startup-id
+
+# Rofi style options
+set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
+
+# Wallpaper paths
+set $wallpaper      /usr/share/backgrounds/000current.jpg
+set $lock_wallpaper /usr/share/backgrounds/001current.png
+
+# Colors
+# TODO: add colors
+set $black #303030
+set $blue #3475ed
+set $red #ed3437
+set $orange #ed4a34
+set $yellow #edde34
+set $purple #ed34c8
+set $white #ffffff
+set $transparent #0000000
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Noto Mono Regular, Awesome 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+gaps inner 10
+gaps outer 0
+
+# start a terminal
+bindsym $mod+Return exec terminator
+
+# Common app starting
+# rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
+bindsym $mod+q                  exec "rofi $rofi_style -p 'run'        -combi-modi drun,run -show combi -modi combi"
+bindsym $mod+ctrl+q             exec "rofi $rofi_style -p 'run (sudo)' -combi-modi drun,run -show combi -modi combi -run-command 'gksudo {cmd}'"
+bindsym $mod+d                  exec "$list_files   | rofi $rofi_style -p 'files'   -dmenu -i -levenshtein-sort | xargs -I {} gio open {}"
+bindsym $mod+ctrl+d             exec "$list_folders | rofi $rofi_style -p 'folders' -dmenu -i -levenshtein-sort | (read x; [[ -z \\"$x\\" ]] || (gio open \\"$x\\"; $update_folders \\"$x\\"; $update_index \\"$x\\"))"
+bindsym $mod+shift+d            exec "wmctrl -l     | rofi $rofi_style -p 'window'  -dmenu -i -levenshtein-sort | cut -d ' ' -f1 | xargs -I {} i3-msg '[id=\\"{}\\"] focus'"
+bindsym $mod+Shift+q            kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Layout keys
+# split in horizontal orientation
+bindsym $mod+v split v
+bindsym $mod+Shift+v split h
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s                  layout stacking
+bindsym $mod+w                  layout tabbed
+bindsym $mod+e                  layout toggle split
+
+# Floating controls
+bindsym $mod+Shift+p floating toggle
+bindsym $mod+p                  focus mode_toggle
+
+# focus the parent/child container
+bindsym $mod+a                  focus parent
+bindsym $mod+Shift+a            focus child
+
+# Workspace switching
+bindsym $mod+1                  workspace $ws1
+bindsym $mod+2                  workspace $ws2
+bindsym $mod+3                  workspace $ws3
+bindsym $mod+4                  workspace $ws4
+bindsym $mod+5                  workspace $ws5
+bindsym $mod+6                  workspace $ws6
+bindsym $mod+7                  workspace $ws7
+bindsym $mod+8                  workspace $ws8
+bindsym $mod+9                  workspace $ws9
+bindsym $mod+0                  workspace $ws10
+
+# Workspace switching (keypad) (USER)
+bindsym $mod+Mod2+KP_1          workspace $ws1
+bindsym $mod+Mod2+KP_2          workspace $ws2
+bindsym $mod+Mod2+KP_3          workspace $ws3
+bindsym $mod+Mod2+KP_4          workspace $ws4
+bindsym $mod+Mod2+KP_5          workspace $ws5
+bindsym $mod+Mod2+KP_6          workspace $ws6
+bindsym $mod+Mod2+KP_7          workspace $ws7
+bindsym $mod+Mod2+KP_8          workspace $ws8
+bindsym $mod+Mod2+KP_9          workspace $ws9
+bindsym $mod+Mod2+KP_0          workspace $ws10
+
+# Workspace switching (F-keys) (USER)
+bindsym $mod+F1                 workspace $ws5
+bindsym $mod+F2                 workspace $ws6
+bindsym $mod+F3                 workspace $ws7
+bindsym $mod+F4                 workspace $ws8
+
+# Move to workspace
+bindsym $mod+Shift+1            move container to workspace $ws1;  workspace $ws1
+bindsym $mod+Shift+2            move container to workspace $ws2;  workspace $ws2
+bindsym $mod+Shift+3            move container to workspace $ws3;  workspace $ws3
+bindsym $mod+Shift+4            move container to workspace $ws4;  workspace $ws4
+bindsym $mod+Shift+5            move container to workspace $ws5;  workspace $ws5
+bindsym $mod+Shift+6            move container to workspace $ws6;  workspace $ws6
+bindsym $mod+Shift+7            move container to workspace $ws7;  workspace $ws7
+bindsym $mod+Shift+8            move container to workspace $ws8;  workspace $ws8
+bindsym $mod+Shift+9            move container to workspace $ws9;  workspace $ws9
+bindsym $mod+Shift+0            move container to workspace $ws10; workspace $ws10
+
+# Move to workspace (keypad) (USER)
+bindsym $mod+Shift+Mod2+KP_End    move container to workspace $ws1
+bindsym $mod+Shift+Mod2+KP_Down   move container to workspace $ws2
+bindsym $mod+Shift+Mod2+KP_Next   move container to workspace $ws3
+bindsym $mod+Shift+Mod2+KP_Left   move container to workspace $ws4
+bindsym $mod+Shift+Mod2+KP_Begin  move container to workspace $ws5
+bindsym $mod+Shift+Mod2+KP_Right  move container to workspace $ws6
+bindsym $mod+Shift+Mod2+KP_Home   move container to workspace $ws7
+bindsym $mod+Shift+Mod2+KP_Up     move container to workspace $ws8
+bindsym $mod+Shift+Mod2+KP_Prior  move container to workspace $ws9
+bindsym $mod+Shift+Mod2+KP_Insert move container to workspace $ws10
+
+# Workspace switching (F-keys) (USER)
+bindsym $mod+Shift+F1           move container to workspace $ws5;  workspace $ws5
+bindsym $mod+Shift+F2           move container to workspace $ws6;  workspace $ws6
+bindsym $mod+Shift+F3           move container to workspace $ws7;  workspace $ws7
+bindsym $mod+Shift+F4           move container to workspace $ws8;  workspace $ws8
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+### USER BINDINGS ###
+bindsym $mod+grave              workspace back_and_forth
+
+# Workspace cycling
+bindsym $mod+Ctrl+h             workspace prev
+bindsym $mod+Ctrl+l             workspace next
+
+# Workspace cycling and moving
+bindsym $mod+Shift+Tab          move container to workspace next; workspace next
+bindsym $mod+Ctrl+Shift+h       move container to workspace prev; workspace prev
+bindsym $mod+Ctrl+Shift+l       move container to workspace next; workspace next
+
+# Cycle border
+bindsym $mod+b                  border toggle
+bindsym $mod+Shift+b            border normal
+
+# Jump to urgent window
+bindsym $mod+x                  [urgent=latest] focus
+
+# Lock screen
+bindsym $mod+Shift+x            exec /opt/i3lock-color/lock.sh
+
+# Scratchpad setup
+bindsym $mod+Shift+minus        move scratchpad
+bindsym $mod+minus              scratchpad show
+
+# Calculator with sympy setup
+bindsym $mod+c                  exec jupyter qtconsole 
+
+# Shortcuts: open/switch to
+bindsym $mod+$mod_+f            exec wmctrl -xa firefox
+bindsym $mod+$mod_+d            exec wmctrl -xa Discord
+bindsym $mod+$mod_+r            exec wmctrl -xa rhythmbox
+
+# Screenshots based on the "Print" key. Requires the "scrot" tool.
+# With $mod:  Interactively select window or rectangle.
+# With Shift: JPEG instead of PNG.
+# With Ctrl:  Sleep 5 seconds before doing the screenshot.
+bindsym                Print               exec --no-startup-id            scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot taken"
+bindsym                Shift+Print         exec --no-startup-id            scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot taken"
+bindsym --release $mod+Print               exec --no-startup-id            scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window taken"
+bindsym --release $mod+Shift+Print         exec --no-startup-id            scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window taken"
+bindsym                Control+Print       exec --no-startup-id sleep 5 && scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot in 5s"
+bindsym                Control+Shift+Print exec --no-startup-id sleep 5 && scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot in 5s"
+bindsym --release $mod+Control+Print       exec --no-startup-id sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window in 5s"
+bindsym --release $mod+Control+Shift+Print exec --no-startup-id sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window in 5s"
+
+# resize window (you can also use the mouse)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Shift+h             resize shrink width    1 px or   1 ppt
+        bindsym Shift+j             resize grow   height   1 px or   1 ppt
+        bindsym Shift+k             resize shrink height   1 px or   1 ppt
+        bindsym Shift+l             resize grow   width    1 px or   1 ppt
+
+        bindsym Shift+Left          resize shrink width    1 px or   1 ppt
+        bindsym Shift+Down          resize grow   height   1 px or   1 ppt
+        bindsym Shift+Up            resize shrink height   1 px or   1 ppt
+        bindsym Shift+Right         resize grow   width    1 px or   1 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bindsym button4 nop
+bindsym button5 nop
+# Start i3bar to display a workspace bar (plus the system information i3status)
+bar {
+        position top
+        strip_workspace_numbers yes
+
+        status_command i3blocks
+        
+        colors {
+        statusline #76c2d6
+        background $transparent
+
+        # Type                     border     background    text
+        focused_workspace         #444444      #444444    #bf3f34
+        active_workspace          #191919      #191919    #696f89
+        inactive_workspace        #191919      #191919    #696f89
+        urgent_workspace          #551919      #551919    #c7a551
+        }
+
+        #TODO: Disable touchpad scrolling here
+}
+#Redshift control
+bindsym $mod+m                  exec $nsi redshift $(($(cat ~/.rshift) + 200))
+bindsym $mod+shift+m            exec $nsi redshift $(($(cat ~/.rshift) - 200))
+bindsym $mod+ctrl+m             exec $nsi redshift 4000
+bindsym $mod+ctrl+shift+m       exec $nsi redshift 6500
+
+### USER CUSTOMIZATIONS ###
+#Music control
+bindsym $mod+$mod_+l exec rhythmbox-client --next
+bindsym $mod+$mod_+h exec rhythmbox-client --previous
+bindsym $mod+$mod_+j exec rhythmbox-client --pause
+bindsym $mod+$mod_+k exec rhythmbox-client --play
+# TODO: setup remote controls /hack headset controls (or get a new one)
+# bindsym XF86AudioLowerVolume exec rhythmbox-client --next
+# bindsym XF86AudioRaiseVolume exec rhythmbox-client --previous
+bindsym XF86MonBrightnessUp exec $nsi /usr/bin/xbacklight -inc 2 
+bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
+
+bindsym $mod+Shift+f exec $nsi ./scripts/focus.py
+
+focus_follows_mouse no
+
+# Colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #441122 #441122 #ffffff #442211   #666666
+client.focused_inactive #5f676a #5f676a #ffffff #333333   #333333
+client.unfocused        #222222 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+# Default workspace locations
+assign [class="discord"]                          → $ws3
+assign [class="Firefox"]                          → $ws1
+assign [class="qBittorrent"]                      → $ws3
+assign [class="vlc"]                              → $ws4
+assign [class="rhythmbox"]                        → $ws10
+
+#Default window settings
+for_window [class=".*"] border pixel 3
+for_window [title="^Jupyter QtConsole$"] \
+    floating enable, border none, \
+    resize set 600 232, move position 0 20, \
+move scratchpad, scratchpad show
+smart_borders on
+
+### USER EXEC ###
+exec_always $nsi feh --bg-scale $wallpaper
+exec_always $nsi xmodmap -e "clear lock" #disable caps lock switch
+exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+
+#TODO
+#Set up PrtSc
+#Remote audio controls
+#Solve world hunger
+#Try gaps

@@ -1,0 +1,83 @@
+# i3blocks config file
+# vim:ft=dosini
+
+# UNICODE LABELS
+# http://jrgraphix.net/r/Unicode/2600-26FF
+# http://fontawesome.io/cheatsheet/
+# Chess: ♚ ♛ ♜ ♝ ♞ ♟
+
+# Unused properties:
+# short_text
+# full_text
+# name
+# signal
+# urgent
+
+# Global properties
+command=~/.config/i3blocks/scripts/$BLOCK_NAME
+align=center
+markup=none
+separator=false
+separator_block_width=10
+
+[playing]
+command=rhythmbox-client --print-playing-format "%ta - %tt (%te/%td)"
+interval=1
+[wifi]
+instance=enp7s0
+instance=wlp8s0
+separator=false
+interval=10
+color=#009933
+
+#[iface]
+#label=
+##instance=wlan0
+#color=#77FF00
+#separator=false
+#interval=60
+
+[disk]
+label=
+# 
+#instance=/mnt/data
+interval=30
+
+#[disk-io]
+#label=
+#interval=persist
+
+[memory]
+label=
+separator=false
+interval=30
+
+[cpu_usage]
+label=
+# 
+min_width="MM%"
+separator=false
+interval=5
+
+[temperature]
+label=
+#   ∿
+separator=false
+interval=15
+
+[battery]
+#label=⚡  # 
+#label=
+markup=pango
+#instance=1
+interval=30
+
+[calendar]
+command=date '+%Y-%m-%d'; [[ -z "${BLOCK_BUTTON}" ]] || i3-msg exec gnome-calendar
+label=
+interval=1
+
+[time]
+command=date '+%H:%M:%S  '
+#label=  # ⌚⌛ ⏳ ⧗ ⧖
+interval=1
