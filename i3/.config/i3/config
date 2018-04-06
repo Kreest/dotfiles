@@ -115,6 +115,10 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# Move workspaces between outputs
+bindsym $mod+o move workspace to output right
+bindsym $mod+Shift+o move workspace to output left
+
 # Layout keys
 # split in horizontal orientation
 bindsym $mod+v split v
@@ -306,6 +310,21 @@ bar {
 
         #TODO: Disable touchpad scrolling here
 }
+
+# choose xrandr displaymode
+set $mode_display Display mode (d) dual, (m) monitor, (l) laptop
+mode "$mode_display" {
+    bindsym d exec --no-startup-id sh ~/.display dual, mode "default"
+    bindsym m exec --no-startup-id sh ~/.display monitor, mode "default"
+    bindsym l exec --no-startup-id sh ~/.display laptop, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+I mode "$mode_display"
+
+
 #Redshift control
 bindsym $mod+m                  exec $nsi redshift $(($(cat ~/.rshift) + 200))
 bindsym $mod+shift+m            exec $nsi redshift $(($(cat ~/.rshift) - 200))
@@ -352,7 +371,7 @@ move scratchpad, scratchpad show
 smart_borders on
 
 ### USER EXEC ###
-exec_always $nsi feh --bg-scale $wallpaper
+exec_always $nsi ~/.fehbq
 exec_always $nsi xmodmap -e "clear lock" #disable caps lock switch
 exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 
@@ -360,4 +379,4 @@ exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 #Set up PrtSc
 #Remote audio controls
 #Solve world hunger
-#Try gaps
+#Reorganize things in a logical manner
