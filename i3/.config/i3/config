@@ -371,7 +371,7 @@ move scratchpad, scratchpad show
 smart_borders on
 
 ### USER EXEC ###
-exec_always $nsi ~/.fehbq
+exec_always $nsi ~/.fehbg
 exec_always $nsi xmodmap -e "clear lock" #disable caps lock switch
 exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 
