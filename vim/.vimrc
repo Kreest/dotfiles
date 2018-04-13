@@ -50,6 +50,12 @@ inoremap <F5> <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
 
+" Move current line / visual line selection up or down.
+nnoremap <silent> <C-j> :m+<CR>==
+nnoremap <silent> <C-k> :m-2<CR>==
+vnoremap <silent> <C-j> :m'>+<CR>gv=gv
+vnoremap <silent> <C-k> :m-2<CR>gv=gv
+
 cmap w!! w !sudo tee > /dev/null %
 
 " Search and Substitute
@@ -76,6 +82,9 @@ augroup python3
     au! BufEnter *.py setlocal omnifunc=python3complete#Complete
 augroup END
 
+" Create directories as needed when writing files.
+autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
+
 " ----------------------------------------------------------------------------
 " Plugins, Manager - https://github.com/junegunn/vim-plug
 " ----------------------------------------------------------------------------
@@ -94,6 +103,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'         " Snippet manager
     Plug 'honza/vim-snippets'       " Common snippets
     Plug 'godlygeek/tabular'        " Lines up text
+    " Navigation and marks
+    Plug 'kshenoy/vim-signature'    " Marking lines
+    Plug 'airblade/vim-gitgutter'   " Displays git changes
     " Languages
     Plug 'rust-lang/rust.vim'       " Config for rust
     Plug 'sheerun/vim-polyglot'     " Many-many language specific settings
@@ -128,6 +140,9 @@ vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
+""" Signature
+nmap <leader>s :SignatureToggle<CR>
+
 "" Ultisnips
 " let g:UltiSnipsExpandTrigger="<C-J>"
 " let g:UltiSnipsJumpForwardTrigger="<C-J>"
@@ -137,3 +152,16 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 " TODO: Integrate sleuth better
 " TODO: Look into NetRW usge
 " TODO: Reeval omnifunc lines
+" TODO: Look into other completers
+" TODO: Plugins to check out:
+"   FastFold        " Folding C
+"   nerdcommenter   " As alternative to commentary C
+"   vim-sneak       " Two-key search B
+"   startuptime     " For debug B
+"   gitgutter       " git diff integration A+
+"   peekaboo        " Register peeker A
+"   signature       " Mark navigation A++++
+"   rooter          " changes working directory to project
+"
+" TODO: Check out that weird black outline
+" TODO: Make signature play nice with gitgutter
