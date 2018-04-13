@@ -71,7 +71,7 @@ let g:netrw_banner    =0 " Turn off banner
 """ Explore in vertical split
 nnoremap <Leader>e :Explore! <enter>
 
-"" Python Version
+"" Python Version ---- Needed?
 augroup python3
     au! BufEnter *.py setlocal omnifunc=python3complete#Complete
 augroup END
@@ -83,28 +83,25 @@ call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'morhetz/gruvbox'
     " Pope
-    Plug 'tpope/vim-sensible'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-sleuth'
+    Plug 'tpope/vim-sensible'       " Sensible default settings
+    Plug 'tpope/vim-commentary'     " Commenting blocks
+    Plug 'tpope/vim-surround'       " Dealing with surrounding thing (),[]...
+    Plug 'tpope/vim-repeat'         " Extended .
+    Plug 'tpope/vim-sleuth'         " Sensible indenting
     " Editing
-    " Plug 'lifepillar/vim-mucomplete'
-    Plug 'ervandew/supertab'
-    Plug 'Valloric/YouCompleteMe'
-    Plug 'sirver/ultisnips'
-    Plug 'honza/vim-snippets'
-    Plug 'godlygeek/tabular'
+    Plug 'ervandew/supertab'        " Enhanced TAB key
+    Plug 'Valloric/YouCompleteMe'   " Code completion
+    Plug 'sirver/ultisnips'         " Snippet manager
+    Plug 'honza/vim-snippets'       " Common snippets
+    Plug 'godlygeek/tabular'        " Lines up text
     " Languages
-    Plug 'rust-lang/rust.vim'
-    Plug 'sheerun/vim-polyglot'
-    " Training
-    Plug 'takac/vim-hardtime'
+    Plug 'rust-lang/rust.vim'       " Config for rust
+    Plug 'sheerun/vim-polyglot'     " Many-many language specific settings
     " Markdown and writing
-    Plug 'junegunn/goyo.vim'
-    Plug 'junegunn/limelight.vim'
-    Plug 'vim-pandoc/vim-pandoc-syntax'
-    Plug 'vim-pandoc/vim-pandoc'
+    Plug 'junegunn/goyo.vim'        " Distraction free writing
+    Plug 'junegunn/limelight.vim'   " Highlighter for goyo
+    Plug 'vim-pandoc/vim-pandoc-syntax' " Markdown
+    Plug 'vim-pandoc/vim-pandoc'    " Markdown
 call plug#end()
 
 "" Theme
@@ -135,3 +132,8 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 " let g:UltiSnipsExpandTrigger="<C-J>"
 " let g:UltiSnipsJumpForwardTrigger="<C-J>"
 " let g:UltiSnipsJumpBackwardTrigger="<C-K>"
+"
+"
+" TODO: Integrate sleuth better
+" TODO: Look into NetRW usge
+" TODO: Reeval omnifunc lines
