@@ -207,6 +207,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 ### USER BINDINGS ###
 bindsym $mod+grave              workspace back_and_forth
+bindsym $mod+Shift+grave        move container to workspace back_and_forth; workspace back_and_forth
 
 # Workspace cycling
 bindsym $mod+Ctrl+h             workspace prev
@@ -376,7 +377,7 @@ exec_always $nsi xmodmap -e "clear lock" #disable caps lock switch
 exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 
 #TODO
-#Set up PrtSc
 #Remote audio controls
 #Solve world hunger
 #Reorganize things in a logical manner
+#Organize and use color names
