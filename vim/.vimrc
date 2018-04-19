@@ -50,12 +50,6 @@ inoremap <F5> <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
 
-" Move current line / visual line selection up or down.
-nnoremap <silent> <C-j> :m+<CR>==
-nnoremap <silent> <C-k> :m-2<CR>==
-vnoremap <silent> <C-j> :m'>+<CR>gv=gv
-vnoremap <silent> <C-k> :m-2<CR>gv=gv
-
 cmap w!! w !sudo tee > /dev/null %
 
 " Search and Substitute
@@ -103,6 +97,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'         " Snippet manager
     Plug 'honza/vim-snippets'       " Common snippets
     Plug 'godlygeek/tabular'        " Lines up text
+    Plug 'matze/vim-move'           " Better :move + bindings
     " Navigation and marks
     Plug 'kshenoy/vim-signature'    " Marking lines
     Plug 'airblade/vim-gitgutter'   " Displays git changes
@@ -142,6 +137,9 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 
 """ Signature
 nmap <leader>s :SignatureToggle<CR>
+
+"" Move
+let g:move_key_modifier = 'C'
 
 "" Ultisnips
 " let g:UltiSnipsExpandTrigger="<C-J>"
