@@ -62,7 +62,7 @@ cmap w!! w !sudo tee > /dev/null %
 set hls
 set ignorecase
 set smartcase
-nnoremap <leader><space> :nohls<enter>
+nnoremap <silent> <leader><space> :nohls<enter>
 
 "" Omnicompletion
 filetype plugin on
@@ -154,6 +154,9 @@ nmap <leader>s :SignatureToggle<CR>
 " TODO: Reeval omnifunc lines
 " TODO: Look into other completers
 " TODO: Plugins to check out:
+"   vim-abolish     " For case coercion and autocorrection
+"   vim-move        " For improved moving
+"   vim-matchit     " Improved % matching
 "   FastFold        " Folding C
 "   nerdcommenter   " As alternative to commentary C
 "   vim-sneak       " Two-key search B
@@ -162,6 +165,13 @@ nmap <leader>s :SignatureToggle<CR>
 "   peekaboo        " Register peeker A
 "   signature       " Mark navigation A++++
 "   rooter          " changes working directory to project
+"   ctags
 "
 " TODO: Check out that weird black outline
 " TODO: Make signature play nice with gitgutter
+" TODO: Consider splitting the config file
+"
+" TODO: Repos to check out and steal from:
+"   xero/dotfiles
+"   gcmt/dotfiles
+"   
