@@ -38,7 +38,7 @@ set undodir   =~/.vim/.undo//
 
 " Keybindings
 nnoremap <Space> @q
-nnoremap <Leader>x "+
+nnoremap <Leader>x "+       " TODO: review
 nnoremap ; :
 vnoremap ; :
 let mapleader=','
@@ -50,6 +50,7 @@ inoremap <F5> <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
 
+" Force write as superuser
 cmap w!! w !sudo tee > /dev/null %
 
 " Search and Substitute
@@ -62,13 +63,14 @@ nnoremap <silent> <leader><space> :nohls<enter>
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
-""" NetRW
-let g:netrw_liststyle =1 " Detail View
-let g:netrw_sizestyle ="H" " Human-readable file sizes
-let g:netrw_list_hide ='\(^\|\s\s\)\zs\.\S\+' " hide dotfiles
-let g:netrw_hide      =1 " hide dotfiles by default
-let g:netrw_banner    =0 " Turn off banner
-""" Explore in vertical split
+"" NetRW
+let g:netrw_liststyle =1                       " Detail View
+let g:netrw_sizestyle ="H"                     " Human-readable file sizes
+let g:netrw_list_hide ='\(^\|\s\s\)\zs\.\S\+'  " hide dotfiles
+let g:netrw_hide      =1                       " hide dotfiles by default
+let g:netrw_banner    =0                       " Turn off banner
+
+"" Explore in vertical split
 nnoremap <Leader>e :Explore! <enter>
 
 "" Python Version ---- Needed?
@@ -111,6 +113,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-pandoc/vim-pandoc'    " Markdown
 call plug#end()
 
+" ----------------------------------------------------------------------------
+" Plugin settings
+" ----------------------------------------------------------------------------
+
 "" Theme
 let g:gruvbox_italic=1 "allow italics
 colorscheme gruvbox    "set vim colorscheme
@@ -135,7 +141,7 @@ vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
-""" Signature
+"" Signature
 nmap <leader>s :SignatureToggle<CR>
 
 "" Move
@@ -147,23 +153,18 @@ let g:move_key_modifier = 'C'
 " let g:UltiSnipsJumpBackwardTrigger="<C-K>"
 "
 "
-" TODO: Integrate sleuth better
 " TODO: Look into NetRW usge
 " TODO: Reeval omnifunc lines
-" TODO: Look into other completers
 " TODO: Plugins to check out:
 "   vim-abolish     " For case coercion and autocorrection
-"   vim-move        " For improved moving
 "   vim-matchit     " Improved % matching
-"   FastFold        " Folding C
-"   nerdcommenter   " As alternative to commentary C
-"   vim-sneak       " Two-key search B
-"   startuptime     " For debug B
-"   gitgutter       " git diff integration A+
-"   peekaboo        " Register peeker A
-"   signature       " Mark navigation A++++
+"   FastFold        " Folding
+"   vim-sneak       " Two-key search
+"   startuptime     " For debug
+"   peekaboo        " Register peeker
 "   rooter          " changes working directory to project
 "   ctags
+"   vim-easy-align  " Instead of tabularize
 "
 " TODO: Check out that weird black outline
 " TODO: Make signature play nice with gitgutter
