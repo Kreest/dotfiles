@@ -98,7 +98,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'Valloric/YouCompleteMe'   " Code completion
     Plug 'sirver/ultisnips'         " Snippet manager
     Plug 'honza/vim-snippets'       " Common snippets
-    Plug 'godlygeek/tabular'        " Lines up text
+    Plug 'junegunn/vim-easy-align'  " Linus up text better
     Plug 'matze/vim-move'           " Better :move + bindings
     " Navigation and marks
     Plug 'kshenoy/vim-signature'    " Marking lines
@@ -136,10 +136,17 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 
 "" Tabularize
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
+" nmap <Leader>a= :Tabularize /=<CR>
+" vmap <Leader>a= :Tabularize /=<CR>
+" nmap <Leader>a: :Tabularize /:\zs<CR>
+" vmap <Leader>a: :Tabularize /:\zs<CR>
+
+"" EasyAlign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <Leader>a <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <Leader>a <Plug>(EasyAlign)
 
 "" Signature
 nmap <leader>s :SignatureToggle<CR>
@@ -164,7 +171,6 @@ let g:move_key_modifier = 'C'
 "   peekaboo        " Register peeker
 "   rooter          " changes working directory to project
 "   ctags
-"   vim-easy-align  " Instead of tabularize
 "
 " TODO: Check out that weird black outline
 " TODO: Make signature play nice with gitgutter
