@@ -3,10 +3,10 @@
 " --------------------------------------------------------------------------
 
 " Formatting
-set textwidth   =80
-set tabstop     =4
-set softtabstop =4
-set shiftwidth  =4
+set textwidth     =80
+set tabstop       =4
+set softtabstop   =4
+set shiftwidth    =4
 set expandtab
 set shiftround
 set nowrap
@@ -36,17 +36,15 @@ set backupdir =~/.vim/.backup//
 set directory =~/.vim/.swp//
 set undodir   =~/.vim/.undo//
 
-" Keybindings
-nnoremap <Space> @q
-nnoremap <Leader>x "+       " TODO: review
-nnoremap ; :
-vnoremap ; :
-let mapleader=','
-nnoremap Y y$
-map <Leader>v  :so ~/.vimrc<CR>
-map <F1> <Esc>
-map! <F1> <Esc>
-inoremap <F5> <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR> 
+"Basic keybindings
+nnoremap <Space>   @q
+nnoremap <Leader>x "+
+nnoremap ;         :
+vnoremap ;         :
+let      mapleader=','
+nnoremap Y         y$
+map      <Leader>v :so ~/.vimrc<CR>
+inoremap <F5>      <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
 
@@ -88,29 +86,29 @@ call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'morhetz/gruvbox'
     " Pope
-    Plug 'tpope/vim-sensible'       " Sensible default settings
-    Plug 'tpope/vim-commentary'     " Commenting blocks
-    Plug 'tpope/vim-surround'       " Dealing with surrounding thing (),[]...
-    Plug 'tpope/vim-repeat'         " Extended .
-    Plug 'tpope/vim-sleuth'         " Sensible indenting
+    Plug 'tpope/vim-sensible'           " Sensible default settings
+    Plug 'tpope/vim-commentary'         " Commenting blocks
+    Plug 'tpope/vim-surround'           " Dealing with surrounding thing (),[]...
+    Plug 'tpope/vim-repeat'             " Extended .
+    Plug 'tpope/vim-sleuth'             " Sensible indenting
     " Editing
-    Plug 'ervandew/supertab'        " Enhanced TAB key
-    Plug 'Valloric/YouCompleteMe'   " Code completion
-    Plug 'sirver/ultisnips'         " Snippet manager
-    Plug 'honza/vim-snippets'       " Common snippets
-    Plug 'junegunn/vim-easy-align'  " Linus up text better
-    Plug 'matze/vim-move'           " Better :move + bindings
+    Plug 'ervandew/supertab'            " Enhanced TAB key
+    Plug 'Valloric/YouCompleteMe'       " Code completion
+    Plug 'sirver/ultisnips'             " Snippet manager
+    Plug 'honza/vim-snippets'           " Common snippets
+    Plug 'junegunn/vim-easy-align'      " Linus up text better
+    Plug 'matze/vim-move'               " Better :move + bindings
     " Navigation and marks
-    Plug 'kshenoy/vim-signature'    " Marking lines
-    Plug 'airblade/vim-gitgutter'   " Displays git changes
+    Plug 'kshenoy/vim-signature'        " Marking lines
+    Plug 'airblade/vim-gitgutter'       " Displays git changes
     " Languages
-    Plug 'rust-lang/rust.vim'       " Config for rust
-    Plug 'sheerun/vim-polyglot'     " Many-many language specific settings
+    Plug 'rust-lang/rust.vim'           " Config for rust
+    Plug 'sheerun/vim-polyglot'         " Many-many language specific settings
     " Markdown and writing
-    Plug 'junegunn/goyo.vim'        " Distraction free writing
-    Plug 'junegunn/limelight.vim'   " Highlighter for goyo
+    Plug 'junegunn/goyo.vim'            " Distraction free writing
+    Plug 'junegunn/limelight.vim'       " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax' " Markdown
-    Plug 'vim-pandoc/vim-pandoc'    " Markdown
+    Plug 'vim-pandoc/vim-pandoc'        " Markdown
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -126,20 +124,13 @@ set background=dark    "use dark variant
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c " Turn off completion messages
 
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabDefaultCompletionType    = '<C-n>'
 
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-
-"" Tabularize
-" nmap <Leader>a= :Tabularize /=<CR>
-" vmap <Leader>a= :Tabularize /=<CR>
-" nmap <Leader>a: :Tabularize /:\zs<CR>
-" vmap <Leader>a: :Tabularize /:\zs<CR>
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -154,12 +145,6 @@ nmap <leader>s :SignatureToggle<CR>
 "" Move
 let g:move_key_modifier = 'C'
 
-"" Ultisnips
-" let g:UltiSnipsExpandTrigger="<C-J>"
-" let g:UltiSnipsJumpForwardTrigger="<C-J>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-K>"
-"
-"
 " TODO: Look into NetRW usge
 " TODO: Reeval omnifunc lines
 " TODO: Plugins to check out:
@@ -179,4 +164,3 @@ let g:move_key_modifier = 'C'
 " TODO: Repos to check out and steal from:
 "   xero/dotfiles
 "   gcmt/dotfiles
-"   
