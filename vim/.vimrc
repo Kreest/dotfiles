@@ -85,6 +85,7 @@ autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p'
 call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'morhetz/gruvbox'
+    Plug 'dracula/vim', { 'as': 'dracula' }
     " Pope
     Plug 'tpope/vim-sensible'           " Sensible default settings
     Plug 'tpope/vim-commentary'         " Commenting blocks
@@ -117,7 +118,7 @@ call plug#end()
 
 "" Theme
 let g:gruvbox_italic=1 "allow italics
-colorscheme gruvbox    "set vim colorscheme
+colorscheme dracula    "set vim colorscheme
 set background=dark    "use dark variant
 
 "" Autocompletion
