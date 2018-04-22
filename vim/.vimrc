@@ -158,8 +158,6 @@ let g:move_key_modifier = 'C'
 "   rooter          " changes working directory to project
 "   ctags
 "
-" TODO: Check out that weird black outline
-" TODO: Make signature play nice with gitgutter
 " TODO: Consider splitting the config file
 "
 " TODO: Repos to check out and steal from:

@@ -326,7 +326,7 @@ mode "$mode_display" {
 bindsym $mod+I mode "$mode_display"
 
 
-#Redshift control
+#Redshift control TODO: Fix this
 bindsym $mod+m                  exec $nsi redshift $(($(cat ~/.rshift) + 200))
 bindsym $mod+shift+m            exec $nsi redshift $(($(cat ~/.rshift) - 200))
 bindsym $mod+ctrl+m             exec $nsi redshift 4000
