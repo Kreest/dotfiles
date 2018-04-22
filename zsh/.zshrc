@@ -23,7 +23,9 @@ zplug "zsh-users/zsh-autosuggestions"                       #
 
 # THEMES
 # zplug "themes/bira", from:oh-my-zsh
-zplug "oskarkrawczyk/honukai-iterm-zsh", as:theme
+# zplug "oskarkrawczyk/honukai-iterm-zsh", as:theme
+zplug "themes/fox", from:oh-my-zsh
+
 
 # LOAD
 # Install plugins if there are plugins that have not been installed
