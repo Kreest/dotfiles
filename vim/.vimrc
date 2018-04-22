@@ -99,6 +99,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'honza/vim-snippets'           " Common snippets
     Plug 'junegunn/vim-easy-align'      " Linus up text better
     Plug 'matze/vim-move'               " Better :move + bindings
+    Plug 'tpope/vim-abolish'            " Autocorrect+subversion+coercion
     " Navigation and marks
     Plug 'kshenoy/vim-signature'        " Marking lines
     Plug 'airblade/vim-gitgutter'       " Displays git changes
@@ -149,8 +150,7 @@ let g:move_key_modifier = 'C'
 " TODO: Look into NetRW usge
 " TODO: Reeval omnifunc lines
 " TODO: Plugins to check out:
-"   vim-abolish     " For case coercion and autocorrection
-"   vim-matchit     " Improved % matching
+"   vim-matchit     " Improved % matching ? There should be a macro for this
 "   FastFold        " Folding
 "   vim-sneak       " Two-key search
 "   startuptime     " For debug
