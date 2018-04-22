@@ -16,13 +16,14 @@ zplug "lib/history", from:oh-my-zsh                         #
 zplug "lib/key-bindings", from:oh-my-zsh                    # Useful keybindings
 zplug "mafredri/zsh-async", defer:0                         #
 zplug "mollifier/anyframe"                                  # Bindings for fuzzy commands
-zplug 'rupa/z', use:'*.sh'                                  # Navigate to most used directories
+zplug "rupa/z", use:"*.sh"                                  # Navigate to most used directories
 zplug "zsh-users/zsh-autosuggestions"                       #
 
 
 
 # THEMES
-zplug "themes/bira", from:oh-my-zsh
+# zplug "themes/bira", from:oh-my-zsh
+zplug "oskarkrawczyk/honukai-iterm-zsh", as:theme
 
 # LOAD
 # Install plugins if there are plugins that have not been installed
