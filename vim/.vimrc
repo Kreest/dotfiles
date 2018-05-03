@@ -3,6 +3,7 @@
 " --------------------------------------------------------------------------
 
 " Formatting
+set encoding      =utf-8
 set textwidth     =80
 set tabstop       =4
 set softtabstop   =4
