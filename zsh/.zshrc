@@ -8,7 +8,7 @@
 
 # ZPLUG {{{1
 
-source ~/.zplug/init.zsh
+source /usr/share/zsh/scripts/zplug/init.zsh
 
 # PLUGINS {{{2
 zplug "changyuheng/fz", defer:1                             # Fuzzy tab completion for z
@@ -72,3 +72,13 @@ setopt extended_glob
 
 # Style
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}  # Use LS COLORS to autocomplete
+
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}

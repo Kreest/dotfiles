@@ -82,7 +82,7 @@ gaps inner 10
 gaps outer 0
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec termite
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
