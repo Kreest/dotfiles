@@ -36,37 +36,37 @@ interval=1
 
 
 [disk]
-label=
+label=||
 interval=30
 
 [memory]
-label=
+label=||
 separator=false
 interval=30
 
 [cpu_usage]
-label=
+label=||
 # 
 min_width="MM%"
 separator=false
 interval=5
 
 [temperature]
-label=
+label=||
 #   ∿
 separator=false
 interval=15
 
 [battery]
 #label=⚡  # 
-#label=
+label=||
 markup=pango
 #instance=1
 interval=30
 
 [calendar]
-command=date '+%Y-%m-%d'; [[ -z "${BLOCK_BUTTON}" ]] || i3-msg exec gnome-calendar
-label=
+command=date '+%Y-%m-%d'
+label=||
 interval=1
 
 [time]
