@@ -344,7 +344,8 @@ bindsym $mod+$mod_+k exec rhythmbox-client --play
 bindsym XF86MonBrightnessUp exec $nsi /usr/bin/xbacklight -inc 2 
 bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
 
-bindsym $mod+Shift+f exec $nsi ./scripts/focus.py
+# Network setup (starts in rofi)
+bindsym $mod+n exec networkmanager_dmenu
 
 focus_follows_mouse no
 
@@ -360,7 +361,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 assign [class="discord"]                          → $ws3
 assign [class="Firefox"]                          → $ws1
 assign [class="qBittorrent"]                      → $ws3
-assign [class="vlc"]                              → $ws4
 assign [class="rhythmbox"]                        → $ws10
 
 #Default window settings
@@ -375,6 +375,7 @@ smart_borders on
 exec_always $nsi ~/.fehbg
 exec_always $nsi xmodmap -e "clear lock" #disable caps lock switch
 exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+exec $nsi nm-applet
 
 #TODO
 #Remote audio controls
