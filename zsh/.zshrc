@@ -21,7 +21,6 @@ zplug "zsh-users/zsh-autosuggestions"                       #
 zplug "lib/vi-mode", from:oh-my-zsh			    # Vi-like keybindings
 
 
-
 # THEMES
 # zplug "themes/bira", from:oh-my-zsh
 # zplug "oskarkrawczyk/honukai-iterm-zsh", as:theme
