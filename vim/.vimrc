@@ -44,7 +44,7 @@ nnoremap ;         :
 vnoremap ;         :
 let      mapleader=','
 nnoremap Y         y$
-map      <Leader>v :so ~/.vimrc<CR>
+map      <Leader>r :so ~/.vimrc<CR>
 inoremap <F5>      <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
