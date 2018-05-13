@@ -64,9 +64,13 @@ markup=pango
 #instance=1
 interval=30
 
+[uniweek]
+command=date --date='5 weeks ago' '+uniweek %W,'
+label=||
+interval=100
+
 [calendar]
 command=date '+%Y-%m-%d'
-label=||
 interval=1
 
 [time]
