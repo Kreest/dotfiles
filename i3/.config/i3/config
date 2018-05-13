@@ -226,7 +226,7 @@ bindsym $mod+Shift+b            border normal
 bindsym $mod+x                  [urgent=latest] focus
 
 # Lock screen
-bindsym $mod+Shift+x            exec /opt/i3lock-color/lock.sh
+bindsym $mod+Shift+x            exec i3lock-fancy
 
 # Scratchpad setup
 bindsym $mod+Shift+minus        move scratchpad
@@ -238,7 +238,6 @@ bindsym $mod+c                  exec jupyter qtconsole
 # Shortcuts: open/switch to
 bindsym $mod+$mod_+f            exec wmctrl -xa firefox
 bindsym $mod+$mod_+d            exec wmctrl -xa Discord
-bindsym $mod+$mod_+r            exec wmctrl -xa rhythmbox
 
 # Screenshots based on the "Print" key. Requires the "scrot" tool.
 # With $mod:  Interactively select window or rectangle.
@@ -333,14 +332,7 @@ bindsym $mod+ctrl+m             exec $nsi redshift 4000
 bindsym $mod+ctrl+shift+m       exec $nsi redshift 6500
 
 ### USER CUSTOMIZATIONS ###
-#Music control
-bindsym $mod+$mod_+l exec rhythmbox-client --next
-bindsym $mod+$mod_+h exec rhythmbox-client --previous
-bindsym $mod+$mod_+j exec rhythmbox-client --pause
-bindsym $mod+$mod_+k exec rhythmbox-client --play
-# TODO: setup remote controls /hack headset controls (or get a new one)
-# bindsym XF86AudioLowerVolume exec rhythmbox-client --next
-# bindsym XF86AudioRaiseVolume exec rhythmbox-client --previous
+# Brightness control (w/ acpilight)
 bindsym XF86MonBrightnessUp exec $nsi /usr/bin/xbacklight -inc 2 
 bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
 
@@ -361,7 +353,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 assign [class="discord"]                          → $ws3
 assign [class="Firefox"]                          → $ws1
 assign [class="qBittorrent"]                      → $ws3
-assign [class="rhythmbox"]                        → $ws10
 
 #Default window settings
 for_window [class=".*"] border pixel 3
@@ -372,10 +363,11 @@ move scratchpad, scratchpad show
 smart_borders on
 
 ### USER EXEC ###
+exec $nsi nm-applet
+exec $nsi compton
 exec_always $nsi ~/.fehbg
 exec_always $nsi xmodmap -e "clear lock" #disable caps lock switch
 exec_always $nsi xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
-exec $nsi nm-applet
 
 #TODO
 #Remote audio controls
