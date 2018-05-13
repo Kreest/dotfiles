@@ -59,8 +59,8 @@ set smartcase
 nnoremap <silent> <leader><space> :nohls<enter>
 
 "" Omnicompletion
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+ set filetype=on
+ set omnifunc=syntaxcomplete#Complete
 
 "" NetRW
 let g:netrw_liststyle =1                       " Detail View
@@ -99,14 +99,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'             " Snippet manager
     Plug 'honza/vim-snippets'           " Common snippets
     Plug 'junegunn/vim-easy-align'      " Linus up text better
-    Plug 'matze/vim-move'               " Better :move + bindings
+    " Plug 'matze/vim-move'               " Better :move + bindings
     Plug 'tpope/vim-abolish'            " Autocorrect+subversion+coercion
+    Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
     " Navigation and marks
     Plug 'kshenoy/vim-signature'        " Marking lines
     Plug 'airblade/vim-gitgutter'       " Displays git changes
     " Languages
     Plug 'rust-lang/rust.vim'           " Config for rust
     Plug 'sheerun/vim-polyglot'         " Many-many language specific settings
+    Plug 'tmux-plugins/vim-tmux'        " tmux config editing
     " Markdown and writing
     Plug 'junegunn/goyo.vim'            " Distraction free writing
     Plug 'junegunn/limelight.vim'       " Highlighter for goyo
@@ -122,6 +124,10 @@ call plug#end()
 let g:gruvbox_italic=1 "allow italics
 colorscheme dracula    "set vim colorscheme
 set background=dark    "use dark variant
+hi Normal ctermfg=252 ctermbg=none
+
+"" Move with Alt+dir
+let g:move_key_modifier = 'A'
 
 "" Autocompletion
 set completeopt=menuone,noinsert,noselect
@@ -144,9 +150,6 @@ nmap <Leader>a <Plug>(EasyAlign)
 
 "" Signature
 nmap <leader>s :SignatureToggle<CR>
-
-"" Move
-let g:move_key_modifier = 'C'
 
 " TODO: Look into NetRW usge
 " TODO: Reeval omnifunc lines
