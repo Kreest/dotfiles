@@ -10,3 +10,6 @@ alias l.='ls -d .* --color=auto --group-directories-first'
 ## Bunch of colored outputs
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
+
+## For starting with Nvidia GPU
+alias withnv='DRI_PRIME=1'
