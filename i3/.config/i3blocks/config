@@ -34,39 +34,43 @@ interval=1
 #separator=false
 #interval=10
 
+[brightness]
+label=
+command=xbacklight -get
+interval=1
 
 [disk]
-label=||
+label=
 interval=30
 
 [memory]
-label=||
+label=
 separator=false
 interval=30
 
 [cpu_usage]
-label=||
+label=
 # 
 min_width="MM%"
 separator=false
 interval=5
 
 [temperature]
-label=||
+label=
 #   ∿
 separator=false
 interval=15
 
 [battery]
 #label=⚡  # 
-label=||
+label=
 markup=pango
 #instance=1
 interval=30
 
 [uniweek]
 command=date --date='5 weeks ago' '+uniweek %W,'
-label=||
+label=
 interval=100
 
 [calendar]
