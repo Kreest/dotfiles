@@ -38,7 +38,7 @@ set directory =~/.vim/.swp//
 set undodir   =~/.vim/.undo//
 
 "Basic keybindings
-nnoremap <Space>   @q
+nnoremap <Space>   <C-D>
 nnoremap <Leader>x "+
 nnoremap ;         :
 vnoremap ;         :
@@ -88,32 +88,32 @@ call plug#begin('~/.vim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'dracula/vim', { 'as': 'dracula' }
     " Pope
-    Plug 'tpope/vim-sensible'           " Sensible default settings
-    Plug 'tpope/vim-commentary'         " Commenting blocks
-    Plug 'tpope/vim-surround'           " Dealing with surrounding thing (),[]...
-    Plug 'tpope/vim-repeat'             " Extended .
-    Plug 'tpope/vim-sleuth'             " Sensible indenting
+    Plug 'tpope/vim-sensible'             " Sensible default settings
+    Plug 'tpope/vim-commentary'           " Commenting blocks
+    Plug 'tpope/vim-surround'             " Dealing with surrounding thing (),[]...
+    Plug 'tpope/vim-repeat'               " Extended .
+    Plug 'tpope/vim-sleuth'               " Sensible indenting
     " Editing
-    Plug 'ervandew/supertab'            " Enhanced TAB key
-    Plug 'Valloric/YouCompleteMe'       " Code completion
-    Plug 'sirver/ultisnips'             " Snippet manager
-    Plug 'honza/vim-snippets'           " Common snippets
-    Plug 'junegunn/vim-easy-align'      " Linus up text better
+    Plug 'ervandew/supertab'              " Enhanced TAB key
+    Plug 'Valloric/YouCompleteMe'         " Code completion
+    Plug 'sirver/ultisnips'               " Snippet manager
+    Plug 'honza/vim-snippets'             " Common snippets
+    Plug 'junegunn/vim-easy-align'        " Linus up text better
     " Plug 'matze/vim-move'               " Better :move + bindings
-    Plug 'tpope/vim-abolish'            " Autocorrect+subversion+coercion
+    Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
     Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
     " Navigation and marks
-    Plug 'kshenoy/vim-signature'        " Marking lines
-    Plug 'airblade/vim-gitgutter'       " Displays git changes
+    Plug 'kshenoy/vim-signature'          " Marking lines
+    Plug 'airblade/vim-gitgutter'         " Displays git changes
     " Languages
-    Plug 'rust-lang/rust.vim'           " Config for rust
-    Plug 'sheerun/vim-polyglot'         " Many-many language specific settings
-    Plug 'tmux-plugins/vim-tmux'        " tmux config editing
+    Plug 'rust-lang/rust.vim'             " Config for rust
+    Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
+    Plug 'tmux-plugins/vim-tmux'          " tmux config editing
     " Markdown and writing
-    Plug 'junegunn/goyo.vim'            " Distraction free writing
-    Plug 'junegunn/limelight.vim'       " Highlighter for goyo
-    Plug 'vim-pandoc/vim-pandoc-syntax' " Markdown
-    Plug 'vim-pandoc/vim-pandoc'        " Markdown
+    Plug 'junegunn/goyo.vim'              " Distraction free writing
+    Plug 'junegunn/limelight.vim'         " Highlighter for goyo
+    Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
+    Plug 'vim-pandoc/vim-pandoc'          " Markdown
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ call plug#end()
 
 "" Theme
 let g:gruvbox_italic=1 "allow italics
-colorscheme dracula    "set vim colorscheme
+colorscheme gruvbox    "set vim colorscheme
 set background=dark    "use dark variant
 hi Normal ctermfg=252 ctermbg=none
 
@@ -152,6 +152,7 @@ nmap <Leader>a <Plug>(EasyAlign)
 nmap <leader>s :SignatureToggle<CR>
 
 " TODO: Look into NetRW usge
+" TODO: Fix vim-move
 " TODO: Reeval omnifunc lines
 " TODO: Plugins to check out:
 "   vim-matchit     " Improved % matching ? There should be a macro for this
