@@ -8,7 +8,7 @@ Please create backups before trying things out!
 | Name           | Stow dir | Dependencies                                         | Details                                          |
 | :------------- | :------- | :--------------------------------------------------- | :----------------------------------------------- |
 | zsh            | `$HOME`  | zplug | Shell                                            |
-| xorg           | `$HOME`  |                                                      | xinit, colors                         |
+| xorg           | `$HOME`  |                                                      | xinit, colors, xcape, unclutter, numlockx                         |
 | vim            | `$HOME`  | vim-plug, YouCompleteMe | text editing                                       |
 | i3             | `$HOME`  | feh, scrot, rofi, wmctrl, i3lock-color, i3lock-fancy, compton | Window manager                             |
 | calculator     | `$HOME`  | sympy, jupyter, ipython, (matplotlib) | Calculator setup        |
