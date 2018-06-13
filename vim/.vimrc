@@ -80,6 +80,12 @@ augroup END
 " Create directories as needed when writing files.
 autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
 
+" jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
 " ----------------------------------------------------------------------------
 " Plugins, Manager - https://github.com/junegunn/vim-plug
 " ----------------------------------------------------------------------------
