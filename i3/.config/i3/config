@@ -1,4 +1,4 @@
-# i3 config file (v4)
+## i3 config file (v4)
 ### USER VARIABLES ###
 
 
@@ -52,6 +52,7 @@ set $PG_DOWN 117
 
 # Flags
 set $nsi --no-startup-id
+set $p -p 6601
 
 # Rofi style options
 set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
@@ -62,13 +63,13 @@ set $lock_wallpaper /usr/share/backgrounds/001current.png
 
 # Colors
 # TODO: add colors
-set $black #303030
-set $blue #3475ed
-set $red #ed3437
-set $orange #ed4a34
-set $yellow #edde34
-set $purple #ed34c8
-set $white #ffffff
+set $black       #303030
+set $blue        #3475ed
+set $red         #ed3437
+set $orange      #ed4a34
+set $yellow      #edde34
+set $purple      #ed34c8
+set $white       #ffffff
 set $transparent #0000000
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -78,7 +79,7 @@ font pango:Noto Mono Regular, Awesome 8.5
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-gaps inner 10
+gaps inner 7
 gaps outer 0
 
 # start a terminal
@@ -94,47 +95,47 @@ bindsym $mod+shift+d            exec "wmctrl -l     | rofi $rofi_style -p 'windo
 bindsym $mod+Shift+q            kill
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h           focus left
+bindsym $mod+j           focus down
+bindsym $mod+k           focus up
+bindsym $mod+l           focus right
 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left        focus left
+bindsym $mod+Down        focus down
+bindsym $mod+Up          focus up
+bindsym $mod+Right       focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h     move left
+bindsym $mod+Shift+j     move down
+bindsym $mod+Shift+k     move up
+bindsym $mod+Shift+l     move right
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
 # Move workspaces between outputs
-bindsym $mod+o move workspace to output right
+bindsym $mod+o       move workspace to output right
 bindsym $mod+Shift+o move workspace to output left
 
 # Layout keys
 # split in horizontal orientation
-bindsym $mod+v split v
+bindsym $mod+v       split v
 bindsym $mod+Shift+v split h
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+f       fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s                  layout stacking
-bindsym $mod+w                  layout tabbed
-bindsym $mod+e                  layout toggle split
+bindsym $mod+s       layout stacking
+bindsym $mod+w       layout tabbed
+bindsym $mod+e       layout toggle split
 
 # Floating controls
 bindsym $mod+Shift+p floating toggle
-bindsym $mod+p                  focus mode_toggle
+bindsym $mod+p       focus mode_toggle
 
 # focus the parent/child container
 bindsym $mod+a                  focus parent
@@ -252,6 +253,11 @@ bindsym                Control+Shift+Print exec --no-startup-id sleep 5 && scrot
 bindsym --release $mod+Control+Print       exec --no-startup-id sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window in 5s"
 bindsym --release $mod+Control+Shift+Print exec --no-startup-id sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window in 5s"
 
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec amixer -c 0 set Master 1+ && killall -SIGUSR1 i3status
+bindsym XF86AudioLowerVolume exec amixer -c 0 set Master 1- && killall -SIGUSR1 i3status
+bindsym XF86AudioMute        exec amixer set Master toggle && killall -SIGUSR1 i3status
+
 # resize window (you can also use the mouse)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -266,9 +272,9 @@ mode "resize" {
         bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Left  resize shrink width 10 px or 10 ppt
+        bindsym Down  resize grow height 10 px or 10 ppt
+        bindsym Up    resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
         bindsym Shift+h             resize shrink width    1 px or   1 ppt
@@ -291,25 +297,25 @@ bindsym $mod+r mode "resize"
 bindsym button4 nop
 bindsym button5 nop
 # Start i3bar to display a workspace bar (plus the system information i3status)
-bar {
-        position top
-        strip_workspace_numbers yes
+# bar {
+#         position top
+#         strip_workspace_numbers yes
 
-        status_command i3blocks
+#         status_command i3blocks
         
-        colors {
-        statusline #76c2d6
-        background $transparent
+#         colors {
+#         statusline #76c2d6
+#         background $transparent
 
-        # Type                     border     background    text
-        focused_workspace         #444444      #444444    #bf3f34
-        active_workspace          #191919      #191919    #696f89
-        inactive_workspace        #191919      #191919    #696f89
-        urgent_workspace          #551919      #551919    #c7a551
-        }
+        # # Type                     border     background    text
+        # focused_workspace         #444444      #444444    #bf3f34
+        # active_workspace          #191919      #191919    #696f89
+        # inactive_workspace        #191919      #191919    #696f89
+        # urgent_workspace          #551919      #551919    #c7a551
+        # }
 
-        #TODO: Disable touchpad scrolling here
-}
+        ##TODO: Disable touchpad scrolling here
+#}
 
 # choose xrandr displaymode
 set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
@@ -360,9 +366,10 @@ move scratchpad, scratchpad show
 smart_borders on
 
 ### USER EXEC ###
-exec $nsi nm-applet
-exec $nsi compton
+exec        $nsi nm-applet
+exec        $nsi compton
 exec_always $nsi ~/.fehbg
+exec_always $nsi $HOME/.config/polybar/launch.sh
 
 #TODO
 #Remote audio controls
