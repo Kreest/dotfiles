@@ -108,6 +108,7 @@ call plug#begin('~/.vim/plugged')
     " Plug 'matze/vim-move'               " Better :move + bindings
     Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
     Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
+    Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
     Plug 'airblade/vim-gitgutter'         " Displays git changes
