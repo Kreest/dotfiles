@@ -16,6 +16,6 @@ Please create backups before trying things out!
 
 # Thanks
 
-[SicariusNoctis](http://github.com/SicariusNoctis/dotfiles), whose reddit posts made me aware of this whole i3 thing, a lot of things here are based on his dotfiles
-[mohlerm](http://github.com/mohlerm/dotfiles) whose display and scrot setup I adopted
+[SicariusNoctis](http://github.com/SicariusNoctis/dotfiles), whose reddit posts made me aware of this whole i3 thing, a lot of things here are based on his dotfiles  
+[mohlerm](http://github.com/mohlerm/dotfiles) whose display and scrot setup I adopted  
 Any other place that I might have copied scripts and code snippets from, and all the vim plugin creators - you make life hella easy.
