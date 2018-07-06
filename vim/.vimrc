@@ -116,11 +116,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'rust-lang/rust.vim'             " Config for rust
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
     Plug 'tmux-plugins/vim-tmux'          " tmux config editing
+    Plug 'zah/nim.vim'                    " Nim editing
     " Markdown and writing
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
+    Plug 'insanum/votl'        " Outliner for writings
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -144,6 +146,7 @@ let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType    = '<C-n>'
 
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
@@ -157,6 +160,10 @@ nmap <Leader>a <Plug>(EasyAlign)
 
 "" Signature
 nmap <leader>s :SignatureToggle<CR>
+
+"" Limelight settings
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
 
 " TODO: Look into NetRW usge
 " TODO: Fix vim-move
