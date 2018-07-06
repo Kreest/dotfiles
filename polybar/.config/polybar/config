@@ -73,7 +73,6 @@ format-foreground = #66cc00
 [module/ping]
 type = custom/script
 ;exec = ~/.config/polybar/scripts/ping 1.1.1.1
-;exec = ~/.config/polybar/scripts/ping 8.8.8.8
 exec = ~/.config/polybar/scripts/ping 8.8.8.8
 interval = 15
 
