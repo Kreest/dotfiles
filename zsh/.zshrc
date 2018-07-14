@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [[ -o interactive ]] || return
 
+# Vi bindings
+bindkey -v
+export KEYTIMEOUT=1 
 
 # ZPLUG {{{1
 
@@ -82,3 +85,13 @@ man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
+
+export EDITOR=vim
+
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
