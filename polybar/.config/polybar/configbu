@@ -1,0 +1,134 @@
+; polybar config file
+; vim:ft=dosini
+
+[bar/top]
+monitor = eDP-1
+width = 100%
+height = 24
+border-size = 7
+border-bottom-size = 0
+border-color = #00000000
+enable-ipc=true
+fixed-center=true
+
+background = #00ffffff
+foreground = #ccffffff
+line-color = ${bar/top.foreground}
+line-size = 2
+module-margin = 2
+padding-right = 2
+
+font-0 = NotoSans-Regular:size=10.5;3
+font-1 = FontAwesome5Free:style=Solid:size=10;2
+font-2 = FontAwesome5Brands:style=Solid:size=10;2
+font-3 = MaterialIcons:size=10;3
+font-4 = Roboto:size=10;0
+
+tray-background = #000000
+tray-position = right
+tray-transparent = true
+tray-detached = false
+
+modules-left = i3 mpd
+modules-center = title
+modules-right = bandwidth ping battery cpu memory temperature filesystem date
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+
+label-focused-background = #88880000
+label-focused-padding-right = 1
+label-unfocused-padding-right = 1
+
+strip-wsnumbers = true
+enable-scroll = false
+wrapping-scroll = false
+
+[module/mpd]
+type = internal/mpd
+
+host = 127.0.0.1
+port = 6601
+
+format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <label-time>  <label-song>
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+icon-seekb = 
+icon-seekf = 
+
+[module/title]
+type = internal/xwindow
+label-maxlen=55
+
+[module/bandwidth]
+type = custom/script
+exec = ~/.config/i3blocks/scripts/bandwidth
+interval = 1
+format-foreground = #66cc00
+
+[module/ping]
+type = custom/script
+;exec = ~/.config/polybar/scripts/ping 1.1.1.1
+exec = ~/.config/polybar/scripts/ping 8.8.8.8
+interval = 15
+
+[module/filesystem]
+type = internal/fs
+interval = 30
+label-mounted =  %free%
+mount-0 = /
+
+[module/battery]
+type = internal/battery
+interval = 30
+time-format = %H:%M
+format-charging = <animation-charging>
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %time%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+label-full = 
+click-left = echo hellor
+
+[module/memory]
+type = internal/memory
+interval = 15
+format-prefix = " "
+label = %gb_used%
+fixed-values = true
+
+[module/cpu]
+type = internal/cpu
+interval = 5
+format-prefix = " "
+
+[module/temperature]
+type = internal/temperature
+interval = 5
+format-prefix = " "
+label-warn-foreground = #ff7777
+warn-temperature = 60
+
+[module/volume]
+type = internal/volume
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+interval=1
+
+[module/date]
+type = internal/date
+date =   %Y-%m-%d  %H:%M:%S
+date-alt = %A, %d %B %Y  %H:%M:%S

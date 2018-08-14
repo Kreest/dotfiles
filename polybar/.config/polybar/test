@@ -1,8 +1,5 @@
-; polybar config file
-; vim:ft=dosini
-
 [colors]
-background = $00000000
+background = ${xrdb:background:#222}
 background-alt = ${xrdb:color8}
 foreground = ${xrdb:foreground:#222}
 foreground-alt = ${xrdb:color14}
@@ -11,20 +8,19 @@ secondary = ${xrdb:color6}
 alert = #bd2c40
 
 [bar/top]
-monitor = eDP-1
-dpi = 96
+;monitor = ${env:MONITOR:HDMI-1}
+dpi = 133
 include-file = ~/.config/polybar/top-bar
 modules-left = hostname ip xwindow
 modules-center = date
-modules-right = uptime memory battery
+modules-right = uptime memory battery powermenu
 
 [bar/top-second]
-dpi = 96
+dpi = 133
 include-file = ~/.config/polybar/top-second-bar
-modules-left = i3
+modules-left = rldDns rldTor volume
 modules-center = mpd
 modules-right = netstat wlan eth
-wm-restack = i3
 
 [module/uptime]
 type = custom/script
@@ -33,10 +29,11 @@ interval = 6
 format-prefix = " "
 format-prefix-foreground = ${colors.primary}
 format-foreground = ${colors.foreground}
+format-padding = 1
 
 [module/netstat]
 type = internal/network
-interface = wlp2s0
+interface = enp1s0f2
 interval = 3.0
 label-connected = %{F#ff0000} %{F-}%upspeed% %{F#00ff00} %{F-}%downspeed%
 
@@ -65,7 +62,7 @@ click-left = "sudo systemctl restart dnscrypt-proxy"
 [module/hostname]
 type = custom/script
 interval = 256
-format = "<label>"
+format = "<label> "
 format-prefix = "  "
 format-prefix-foreground = ${colors.secondary}
 format-padding = 0
@@ -75,26 +72,27 @@ exec = echo "$(uname -n)"
 type = custom/script
 interval = 2
 format = "<label>"
+format-prefix = "ip: "
+format-prefix-foreground = ${colors.primary}
+format-padding = 1
 exec = echo "$(wget -q -O - https://l2.io/ip | sed -e 's/[^[:digit:]\|.]//g')"
-exec-if = ping -c 1 arch.org
+exec-if = ping -c 1 gentoo.org
 
 [module/xwindow]
 type = internal/xwindow
-label = "%title:0:50:...%"
+label = " %title:0:30:...%"
 label-foreground = ${colors.foreground}
 
 [module/mpd]
 type = internal/mpd
 host = 127.0.0.1
 port = 6601
-format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <label-time>  <label-song>
-icon-play = 
-icon-pause = 
-icon-stop = 
-icon-prev = 
-icon-next = 
-icon-seekb = 
-icon-seekf = 
+format-online =  <icon-prev> <toggle> <icon-next>
+
+icon-prev = 
+icon-play = 
+icon-pause = 
+icon-next =  
 
 toggle-on-foreground = ${colors.primary}
 toggle-off-foreground = ${colors.secondary}
@@ -119,6 +117,7 @@ interval = 2
 format-prefix = "mem: "
 format-prefix-foreground = ${colors.secondary}
 label = %percentage_used%%
+format-padding = 1
 
 [module/wlan]
 type = internal/network
@@ -126,7 +125,8 @@ interface = wlp2s0
 interval = 3.0
 format-connected = <label-connected>
 format-connected-padding = 0
-label-connected = %essid% - %{F#aca074}%signal%% %local_ip%
+label-connected = %essid% - %{F#aca074}%signal%% %{F-}"
+format-connected-prefix = "wlan0: "
 format-connected-prefix-foreground = ${colors.secondary}
 format-disconnected = "wlan: off"
 format-disconnected-foreground = ${colors.primary}
@@ -152,14 +152,15 @@ format-disconnected = "eth off"
 [module/date]
 type = internal/date
 interval = 5
-date = " %Y-%m-%d"
+date = " %a %d %b "
+date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M
 label = %date% %time%
 format-prefix = "____["
-format-prefix-foreground = #F19D27
+format-prefix-foreground = ${colors.primary}
 format-suffix = " ]____"
-format-suffix-foreground = #F19D27
+format-suffix-foreground = ${colors.primary}
 
 [module/volume]
 type = custom/script
@@ -169,7 +170,7 @@ format = "<label> "
 format-prefix = "vol: "
 format-padding = 0
 format-prefix-foreground = ${colors.secondary}
-exec = echo "$(mpc -p 6601 volume | awk '{print $2}')"
+exec = echo "$(mpc volume | awk '{print $2}')"
 
 [module/battery]
 type = internal/battery
@@ -224,18 +225,6 @@ menu-2-1-exec = menu-open-0
 
 menu-3-0 = lock
 menu-3-0-exec = i3lock -i ~/images/bgi3lock.png -e
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-
-label-focused-background = #88880000
-label-focused-padding-right = 1
-label-unfocused-padding-right = 1
-
-strip-wsnumbers = true
-enable-scroll = false
-wrapping-scroll = false
 
 [settings]
 screenchange-reload = true
