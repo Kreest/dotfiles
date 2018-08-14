@@ -13,3 +13,9 @@ alias grep='grep --color=auto'
 
 ## For starting with Nvidia GPU
 alias withnv='DRI_PRIME=1'
+
+## Sane calendar
+alias cal='cal -m'
+
+## Ledger default file
+alias ledger='ledger -f ~/money/ledger'
