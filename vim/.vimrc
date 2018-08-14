@@ -86,6 +86,14 @@ if has("autocmd")
     \| exe "normal! g'\"" | endif
 endif
 
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
 " ----------------------------------------------------------------------------
 " Plugins, Manager - https://github.com/junegunn/vim-plug
 " ----------------------------------------------------------------------------
@@ -122,7 +130,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
-    Plug 'insanum/votl'        " Outliner for writings
+    Plug 'insanum/votl'			  " Outliner for writings
+    Plug 'ledger/vim-ledger'		  " For budgeting
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -182,3 +191,4 @@ let g:limelight_conceal_ctermfg = 240
 " TODO: Repos to check out and steal from:
 "   xero/dotfiles
 "   gcmt/dotfiles
+"   szorfein/dotfiles
