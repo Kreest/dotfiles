@@ -15,7 +15,7 @@ monitor = eDP-1
 dpi = 96
 include-file = ~/.config/polybar/top-bar
 modules-left = hostname ip xwindow
-modules-center = date
+modules-center = date week
 modules-right = uptime memory battery
 
 [bar/top-second]
@@ -152,12 +152,16 @@ format-disconnected = "eth off"
 [module/date]
 type = internal/date
 interval = 5
-date = " %Y-%m-%d"
+date = " %Y-%m-%d %A"
 time = %H:%M
 time-alt = %H:%M
-label = %date% %time%
+label = %date% %time% 
 format-prefix = "____["
 format-prefix-foreground = #F19D27
+
+[module/week]
+type = custom/script
+exec = date --date="36 weeks ago" +"Week %-W"
 format-suffix = " ]____"
 format-suffix-foreground = #F19D27
 
