@@ -244,14 +244,14 @@ bindsym $mod+$mod_+d            exec wmctrl -xa Discord
 # With $mod:  Interactively select window or rectangle.
 # With Shift: JPEG instead of PNG.
 # With Ctrl:  Sleep 5 seconds before doing the screenshot.
-bindsym                Print               exec --no-startup-id            scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot taken"
-bindsym                Shift+Print         exec --no-startup-id            scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot taken"
-bindsym --release $mod+Print               exec --no-startup-id            scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window taken"
-bindsym --release $mod+Shift+Print         exec --no-startup-id            scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window taken"
-bindsym                Control+Print       exec --no-startup-id sleep 5 && scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot in 5s"
-bindsym                Control+Shift+Print exec --no-startup-id sleep 5 && scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot in 5s"
-bindsym --release $mod+Control+Print       exec --no-startup-id sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window in 5s"
-bindsym --release $mod+Control+Shift+Print exec --no-startup-id sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window in 5s"
+bindsym                Print               exec $nsi            scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot taken"
+bindsym                Shift+Print         exec $nsi            scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot taken"
+bindsym --release $mod+Print               exec $nsi            scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window taken"
+bindsym --release $mod+Shift+Print         exec $nsi            scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window taken"
+bindsym                Control+Print       exec $nsi sleep 5 && scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot in 5s"
+bindsym                Control+Shift+Print exec $nsi sleep 5 && scrot    "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot in 5s"
+bindsym --release $mod+Control+Print       exec $nsi sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.png" && notify-send "png screenshot of window in 5s"
+bindsym --release $mod+Control+Shift+Print exec $nsi sleep 5 && scrot -s "$HOME/Pictures/Screenshot %Y-%m-%d %H-%M-%S %z.jpg" && notify-send "jpg screenshot of window in 5s"
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec amixer -c 0 set Master 1+ && killall -SIGUSR1 i3status
@@ -320,10 +320,10 @@ bindsym button5 nop
 # choose xrandr displaymode
 set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
 mode "$mode_display" {
-    bindsym d exec --no-startup-id sh ~/.display dual, mode "default"
-    bindsym m exec --no-startup-id sh ~/.display monitor, mode "default"
-    bindsym l exec --no-startup-id sh ~/.display laptop, mode "default"
-    bindsym s exec --no-startup-id sh ~/.display mirror, mode "default"
+    bindsym d exec $nsi sh ~/.display dual, mode "default"
+    bindsym m exec $nsi sh ~/.display monitor, mode "default"
+    bindsym l exec $nsi sh ~/.display laptop, mode "default"
+    bindsym s exec $nsi sh ~/.display mirror, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -346,6 +346,10 @@ bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
 # Network setup (starts in rofi)
 bindsym $mod+n exec networkmanager_dmenu
 
+# Gaming and normal keybindings
+bindsym $mod+g exec $nsi "setxkbmap -layout gb,hu,ru  -variant ,,phonetic -option grp:alt_shift_toggle,ctrl:nocaps,compose:menu & numlockx & xcape"
+bindsym $mod+shift+g exec $nsi setxkbmap -layout gb -option & pkill numlockx & pkill xcape
+
 focus_follows_mouse no
 
 # Colors
@@ -362,7 +366,7 @@ for_window [class=".*"] border pixel 3
 for_window [title="^Jupyter QtConsole$"] \
     floating enable, border none, \
     resize set 600 232, move position 0 20, \
-move scratchpad, scratchpad show
+    move scratchpad, scratchpad show
 smart_borders on
 
 ### USER EXEC ###
