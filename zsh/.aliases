@@ -4,8 +4,8 @@ alias ls='ls --color=auto --group-directories-first'
 ## Use a long listing format ##
 alias ll='ls -l --group-directories-first'
 
-## Show hidden files ##
-alias l.='ll -d .* --color=auto --group-directories-first'
+## Show hidden files too ##
+alias l.='ll -A --color=auto --group-directories-first'
 
 ## Bunch of colored outputs
 alias diff='diff --color=auto'
@@ -18,4 +18,7 @@ alias withnv='DRI_PRIME=1'
 alias cal='cal -m'
 
 ## Ledger default file
-alias ledger='ledger -f ~/money/ledger'
+alias ledger='ledger -f ~/money/ledger --start-of-week=1'
+
+## Arch user repo helper
+alias bb='bb-wrapper'
