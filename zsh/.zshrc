@@ -19,7 +19,6 @@ zplug "lib/history", from:oh-my-zsh                         #
 zplug "lib/key-bindings", from:oh-my-zsh                    # Useful keybindings
 zplug "mafredri/zsh-async", defer:0                         #
 zplug "mollifier/anyframe"                                  # Bindings for fuzzy commands
-zplug "rupa/z", use:"*.sh"                                  # Navigate to most used directories
 zplug "zsh-users/zsh-autosuggestions"                       #
 zplug "lib/vi-mode", from:oh-my-zsh			    # Vi-like keybindings
 
