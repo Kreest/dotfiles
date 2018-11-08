@@ -75,7 +75,7 @@ exec = echo "$(uname -n)"
 type = custom/script
 interval = 2
 format = "<label>"
-exec = echo "$(wget -q -O - https://l2.io/ip | sed -e 's/[^[:digit:]\|.]//g')"
+exec = echo "$(wget -q -O - https://ipinfo.io/ip)"
 exec-if = ping -c 1 arch.org
 
 [module/xwindow]
