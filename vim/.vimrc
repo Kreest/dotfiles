@@ -113,6 +113,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
+    Plug 'wmvanvliet/jupyter-vim'	  " Jupyter integration
     " Plug 'matze/vim-move'               " Better :move + bindings
     Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
     Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
@@ -132,6 +133,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
     Plug 'insanum/votl'			  " Outliner for writings
     Plug 'ledger/vim-ledger'		  " For budgeting
+    Plug 'vimwiki/vimwiki'		  " Personal Wiki management
 call plug#end()
 
 " ----------------------------------------------------------------------------
