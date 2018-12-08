@@ -84,6 +84,7 @@ gaps outer 0
 
 # start a terminal
 bindsym $mod+Return exec termite
+bindsym $mod+backslash exec termite
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
@@ -296,26 +297,6 @@ bindsym $mod+r mode "resize"
 
 bindsym button4 nop
 bindsym button5 nop
-# Start i3bar to display a workspace bar (plus the system information i3status)
-# bar {
-#         position top
-#         strip_workspace_numbers yes
-
-#         status_command i3blocks
-        
-#         colors {
-#         statusline #76c2d6
-#         background $transparent
-
-        # # Type                     border     background    text
-        # focused_workspace         #444444      #444444    #bf3f34
-        # active_workspace          #191919      #191919    #696f89
-        # inactive_workspace        #191919      #191919    #696f89
-        # urgent_workspace          #551919      #551919    #c7a551
-        # }
-
-        ##TODO: Disable touchpad scrolling here
-#}
 
 # choose xrandr displaymode
 set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
@@ -345,6 +326,9 @@ bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
 
 # Network setup (starts in rofi)
 bindsym $mod+n exec networkmanager_dmenu
+
+# Pass setup test
+bindsym $mod+z exec passmenu
 
 # Gaming and normal keybindings
 bindsym $mod+g exec $nsi "setxkbmap -layout gb,hu,ru  -variant ,,phonetic -option grp:alt_shift_toggle,ctrl:nocaps,compose:menu & numlockx & xcape"
@@ -380,3 +364,4 @@ exec_always $nsi $HOME/.config/polybar/launch.sh
 #Solve world hunger
 #Reorganize things in a logical manner
 #Organize and use color names
+#Seek other configs
