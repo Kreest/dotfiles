@@ -44,7 +44,7 @@ nnoremap ;         :
 vnoremap ;         :
 let      mapleader=','
 nnoremap Y         y$
-map      <Leader>r :so ~/.vimrc<CR>
+map      <Leader>v :so ~/.vimrc<CR>
 inoremap <F5>      <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
@@ -58,9 +58,13 @@ set ignorecase
 set smartcase
 nnoremap <silent> <leader><space> :nohls<enter>
 
+"" Last modified operator
+onoremap <expr> il ':<C-u>norm! `['.strpart(getregtype(), 0, 1).'`]<cr>'
+
 "" Omnicompletion
- set filetype=on
- set omnifunc=syntaxcomplete#Complete
+set filetype=on
+set omnifunc=syntaxcomplete#Complete
+set rtp+=~/.vim/plugged/YouCompleteMe
 
 "" NetRW
 let g:netrw_liststyle =1                       " Detail View
@@ -100,13 +104,14 @@ endif
 call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'morhetz/gruvbox'
-    Plug 'dracula/vim', { 'as': 'dracula' }
+    " Plug 'dracula/vim', { 'as': 'dracula' }
     " Pope
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
     Plug 'tpope/vim-surround'             " Dealing with surrounding thing (),[]...
     Plug 'tpope/vim-repeat'               " Extended .
     Plug 'tpope/vim-sleuth'               " Sensible indenting
+    Plug 'tpope/vim-fugitive'             " For blaming stuff
     " Editing
     Plug 'ervandew/supertab'              " Enhanced TAB key
     Plug 'Valloric/YouCompleteMe'         " Code completion
@@ -126,6 +131,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
     Plug 'tmux-plugins/vim-tmux'          " tmux config editing
     Plug 'zah/nim.vim'                    " Nim editing
+    Plug 'python-mode/python-mode', { 'branch': 'develop' }
+    Plug 'idanarye/vim-vebugger'          " Debugger
     " Markdown and writing
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
@@ -150,14 +157,14 @@ hi Normal ctermfg=252 ctermbg=none
 let g:move_key_modifier = 'A'
 
 "" Autocompletion
-set completeopt=menuone,noinsert,noselect
+set completeopt=menu,menuone,noinsert,preview
 set shortmess+=c " Turn off completion messages
 
 let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType    = '<C-n>'
 
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
+let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
@@ -175,6 +182,12 @@ nmap <leader>s :SignatureToggle<CR>
 "" Limelight settings
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
+
+"" Pymode
+let g:pymode_python = 'python3'
+let g:pymode_run_bind = '<leader>pr'
+let g:pymode_indent = 1
+nnoremap <leader>pd :terminal ipdb %<CR>
 
 " TODO: Look into NetRW usge
 " TODO: Fix vim-move
