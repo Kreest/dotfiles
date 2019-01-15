@@ -122,9 +122,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
-    " Plug 'wmvanvliet/jupyter-vim'	  " Jupyter integration
     Plug 'matze/vim-move'               " Better :move + bindings
-    " Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
@@ -135,13 +133,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'tmux-plugins/vim-tmux'          " tmux config editing
     Plug 'zah/nim.vim'                    " Nim editing
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    " Plug 'idanarye/vim-vebugger'          " Debugger
     " Markdown and writing
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
-    " Plug 'insanum/votl'			  " Outliner for writings
     Plug 'ledger/vim-ledger'		  " For budgeting
     Plug 'vimwiki/vimwiki'		  " Personal Wiki management
 call plug#end()
