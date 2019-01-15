@@ -49,6 +49,9 @@ inoremap <F5>      <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ,
 nnoremap <Leader>; ;
 
+nnoremap k gk
+nnoremap j gj
+
 " Force write as superuser
 cmap w!! w !sudo tee > /dev/null %
 
@@ -112,16 +115,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-repeat'               " Extended .
     Plug 'tpope/vim-sleuth'               " Sensible indenting
     Plug 'tpope/vim-fugitive'             " For blaming stuff
+    Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
     " Editing
     Plug 'ervandew/supertab'              " Enhanced TAB key
     Plug 'Valloric/YouCompleteMe'         " Code completion
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
-    Plug 'wmvanvliet/jupyter-vim'	  " Jupyter integration
-    " Plug 'matze/vim-move'               " Better :move + bindings
-    Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
-    Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
+    " Plug 'wmvanvliet/jupyter-vim'	  " Jupyter integration
+    Plug 'matze/vim-move'               " Better :move + bindings
+    " Plug 'christoomey/vim-tmux-navigator' " tmux compatibility
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
@@ -132,13 +135,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'tmux-plugins/vim-tmux'          " tmux config editing
     Plug 'zah/nim.vim'                    " Nim editing
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    Plug 'idanarye/vim-vebugger'          " Debugger
+    " Plug 'idanarye/vim-vebugger'          " Debugger
     " Markdown and writing
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
-    Plug 'insanum/votl'			  " Outliner for writings
+    " Plug 'insanum/votl'			  " Outliner for writings
     Plug 'ledger/vim-ledger'		  " For budgeting
     Plug 'vimwiki/vimwiki'		  " Personal Wiki management
 call plug#end()
@@ -187,23 +190,11 @@ let g:limelight_conceal_ctermfg = 240
 let g:pymode_python = 'python3'
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_indent = 1
-nnoremap <leader>pd :terminal ipdb %<CR>
-
-" TODO: Look into NetRW usge
-" TODO: Fix vim-move
-" TODO: Reeval omnifunc lines
+" Debug
+nnoremap <leader>pd :terminal++close ipdb %<CR>
+" Debug until current line
+nnoremap <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
+let g:move_key_modifier = 'C'
 " TODO: Plugins to check out:
-"   vim-matchit     " Improved % matching ? There should be a macro for this
-"   FastFold        " Folding
-"   vim-sneak       " Two-key search
-"   startuptime     " For debug
-"   peekaboo        " Register peeker
-"   rooter          " changes working directory to project
-"   ctags
-"
-" TODO: Consider splitting the config file
 "
 " TODO: Repos to check out and steal from:
-"   xero/dotfiles
-"   gcmt/dotfiles
-"   szorfein/dotfiles
