@@ -231,7 +231,7 @@ bindsym $mod+x                  [urgent=latest] focus
 bindsym $mod+Shift+x            exec i3lock-fancy
 
 # Scratchpad setup
-bindsym $mod+Shift+minus        move scratchpad
+bindsym $mod+Shift+minus        move scratchpad; scratchpad show
 bindsym $mod+minus              scratchpad show
 
 # Calculator with sympy setup

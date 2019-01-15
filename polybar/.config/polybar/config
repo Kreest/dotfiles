@@ -16,7 +16,7 @@ dpi = 96
 include-file = ~/.config/polybar/top-bar
 modules-left = hostname ip xwindow
 modules-center = date week
-modules-right = uptime memory battery
+modules-right = keyboard uptime memory battery
 
 [bar/top-second]
 dpi = 96
@@ -40,27 +40,9 @@ interface = wlp2s0
 interval = 3.0
 label-connected = %{F#ff0000} %{F-}%upspeed% %{F#00ff00} %{F-}%downspeed%
 
-[module/rldTor]
-type = custom/text
-content = "reload tor "
-content-suffix = ^
-content-suffix-foreground = #ffffff
-content-foreground = ${colors.primary}
-content-padding = 0
-; need into /etc/sudoers line bellow to work
-; username ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart tor
-click-left = "sudo systemctl restart tor"
-
-[module/rldDns]
-type = custom/text
-content = "reload dnscrypt "
-content-suffix = ^
-content-suffix-foreground = #ffffff
-content-foreground = ${colors.secondary}
-content-padding = 0
-; need into /etc/sudoers line bellow to work
-; username ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart dnscrypt-proxy
-click-left = "sudo systemctl restart dnscrypt-proxy"
+[module/keyboard]
+type = internal/xkeyboard
+format = <label-layout>
 
 [module/hostname]
 type = custom/script
@@ -122,7 +104,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0
+interface = wlp0s20f0u1
 interval = 3.0
 format-connected = <label-connected>
 format-connected-padding = 0
