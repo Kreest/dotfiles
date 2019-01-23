@@ -1,6 +1,3 @@
-# Installation: Please install zplug then simply copy this to ~/.zshrc
-# Author: Mateen Ulhaq <mulhaq2005@gmail.com>
-
 # INITIAL
 # If not running interactively, don't do anything
 [[ -o interactive ]] || return
@@ -94,3 +91,5 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+# TODO: Look into some options and upgrades

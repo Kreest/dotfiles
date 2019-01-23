@@ -127,6 +127,7 @@ call plug#begin('~/.vim/plugged')
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
     Plug 'airblade/vim-gitgutter'         " Displays git changes
+    Plug 'francoiscabrol/ranger.vim'      " Ranger instead of netrw
     " Languages
     Plug 'rust-lang/rust.vim'             " Config for rust
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
@@ -191,6 +192,9 @@ nnoremap <leader>pd :terminal++close ipdb %<CR>
 " Debug until current line
 nnoremap <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
 let g:move_key_modifier = 'C'
+
+"" Ranger
+let g:ranger_replace_netrw = 1
 " TODO: Plugins to check out:
 "
 " TODO: Repos to check out and steal from:

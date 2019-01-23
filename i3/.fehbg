@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --bg-fill '/home/kreest/Downloads/2048px-Nighthawks_by_Edward_Hopper_1942.jpg' 
+feh --bg-scale '/usr/share/backgrounds/interstellar.jpg' 
