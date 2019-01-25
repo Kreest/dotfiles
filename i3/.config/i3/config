@@ -312,12 +312,29 @@ mode "$mode_display" {
 }
 bindsym $mod+I mode "$mode_display"
 
+# Music mode!
+set $mpc_opt -p 6601
+set $mode_music Music
+mode "$mode_music" {
+    # Commands that stay here until you press escape
+    bindsym u exec $nsi mpc $mpc_opt volume +1
+    bindsym d exec $nsi mpc $mpc_opt volume -1
 
-#Redshift control TODO: Fix this
-bindsym $mod+m                  exec $nsi redshift $(($(cat ~/.rshift) + 200))
-bindsym $mod+shift+m            exec $nsi redshift $(($(cat ~/.rshift) - 200))
-bindsym $mod+ctrl+m             exec $nsi redshift 4000
-bindsym $mod+ctrl+shift+m       exec $nsi redshift 6500
+    bindsym plus exec $nsi mpc $mpc_opt volume +1
+    bindsym minus exec $nsi mpc $mpc_opt volume -1
+
+    bindsym l exec $nsi mpc $mpc_opt next
+    bindsym h exec $nsi mpc $mpc_opt cdprev
+
+    # Commands that quit the mode
+    bindsym z exec $nsi mpc $mpc_opt random, mode "default"
+    bindsym r exec $nsi mpc $mpc_opt repeat, mode "default"
+    bindsym p exec $nsi mpc $mpc_opt toggle, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+M mode "$mode_music"
 
 ### USER CUSTOMIZATIONS ###
 # Brightness control (w/ acpilight)
