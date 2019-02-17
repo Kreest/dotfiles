@@ -92,4 +92,5 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
+LS_COLORS=$LS_COLORS:'di=1;33:' ; export LS_COLORS
 # TODO: Look into some options and upgrades
