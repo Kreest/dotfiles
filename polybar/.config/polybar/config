@@ -143,7 +143,7 @@ format-prefix-foreground = #F19D27
 
 [module/week]
 type = custom/script
-exec = date --date="36 weeks ago" +"Week %-W"
+exec = date --date="5 weeks ago" +"Week %-W"
 format-suffix = " ]____"
 format-suffix-foreground = #F19D27
 
