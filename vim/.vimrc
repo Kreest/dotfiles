@@ -170,6 +170,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
     Plug 'ledger/vim-ledger'		  " For budgeting
     Plug 'vimwiki/vimwiki'		  " Personal Wiki management
+    Plug 'lervag/vimtex'		  " Latex trial
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -224,6 +225,10 @@ let g:move_key_modifier = 'C'
 
 "" Ranger
 let g:ranger_replace_netrw = 1
+
+"" Latex
+let g:polyglot_disabled = ['latex']
+
 " TODO: Plugins to check out:
 "
 " TODO: Repos to check out and steal from:
