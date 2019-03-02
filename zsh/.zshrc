@@ -11,7 +11,6 @@ export KEYTIMEOUT=1
 source /usr/share/zsh/scripts/zplug/init.zsh
 
 # PLUGINS {{{2
-zplug "changyuheng/fz", defer:1                             # Fuzzy tab completion for z
 zplug "lib/history", from:oh-my-zsh                         #
 zplug "lib/key-bindings", from:oh-my-zsh                    # Useful keybindings
 zplug "mafredri/zsh-async", defer:0                         #

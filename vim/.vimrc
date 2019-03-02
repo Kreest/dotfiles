@@ -228,6 +228,12 @@ let g:ranger_replace_netrw = 1
 
 "" Latex
 let g:polyglot_disabled = ['latex']
+let g:vimtex_view_method = 'zathura'
+let g:tex_flavor = 'latex'      " for sane file recognition
+let g:vimtex_compiler_latexmk_engines = {
+    \ 'pdflatex'         : '-pdf',
+    \}
+
 
 " TODO: Plugins to check out:
 "
