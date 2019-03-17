@@ -30,30 +30,30 @@ set splitright
 set showcmd
 set scrolloff =6
 
-" Misc settings
+" Backup settings
 set undofile
 set backup
 set backupdir =~/.vim/.backup//
 set directory =~/.vim/.swp//
 set undodir   =~/.vim/.undo//
 
-"Basic keybindings
+" Basic keybindings
+let      mapleader=','
 nnoremap <Space>   <C-D>
 nnoremap <Leader>x "+
 nnoremap ;         :
 vnoremap ;         :
-let      mapleader=','
 nnoremap Y         y$
-map      <Leader>v :so ~/.vimrc<CR>
+map      <Leader>v :so ~/.vimrc<CR>:edit!<CR>
 inoremap <F5>      <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
-nnoremap <Leader>, ,
-nnoremap <Leader>; ;
+nnoremap <Leader>, ;
+nnoremap <Leader>; ,
 
 nnoremap k gk
 nnoremap j gj
 
 " Force write as superuser
-cmap w!! w !sudo tee > /dev/null %
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Search and Substitute
 set hls
@@ -64,25 +64,18 @@ nnoremap <silent> <leader><space> :nohls<enter>
 "" Last modified operator
 onoremap <expr> il ':<C-u>norm! `['.strpart(getregtype(), 0, 1).'`]<cr>'
 
-"" Omnicompletion
-set filetype=on
-set omnifunc=syntaxcomplete#Complete
-set rtp+=~/.vim/plugged/YouCompleteMe
-
-"" NetRW
-let g:netrw_liststyle =1                       " Detail View
-let g:netrw_sizestyle ="H"                     " Human-readable file sizes
-let g:netrw_list_hide ='\(^\|\s\s\)\zs\.\S\+'  " hide dotfiles
-let g:netrw_hide      =1                       " hide dotfiles by default
-let g:netrw_banner    =0                       " Turn off banner
+" "" Omnicompletion
+" set filetype=on
+" set omnifunc=syntaxcomplete#Complete
+" set rtp+=~/.vim/plugged/YouCompleteMe
 
 "" Explore in vertical split
 nnoremap <Leader>e :Explore! <enter>
 
-"" Python Version ---- Needed?
-augroup python3
-    au! BufEnter *.py setlocal omnifunc=python3complete#Complete
-augroup END
+" "" Python Version ---- Needed?
+" augroup python3
+"     au! BufEnter *.py setlocal omnifunc=python3complete#Complete
+" augroup END
 
 " Don't save backups of *.gpg files
 set backupskip+=*.gpg
@@ -136,7 +129,6 @@ endif
 call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'morhetz/gruvbox'
-    " Plug 'dracula/vim', { 'as': 'dracula' }
     " Pope
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
@@ -151,7 +143,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
-    Plug 'matze/vim-move'               " Better :move + bindings
+    " Plug 'matze/vim-move'                 " Better :move + bindings
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
@@ -160,9 +152,9 @@ call plug#begin('~/.vim/plugged')
     " Languages
     Plug 'rust-lang/rust.vim'             " Config for rust
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
-    Plug 'tmux-plugins/vim-tmux'          " tmux config editing
     Plug 'zah/nim.vim'                    " Nim editing
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
+					  " For python things
     " Markdown and writing
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
@@ -170,7 +162,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
     Plug 'ledger/vim-ledger'		  " For budgeting
     Plug 'vimwiki/vimwiki'		  " Personal Wiki management
-    Plug 'lervag/vimtex'		  " Latex trial
+    Plug 'lervag/vimtex'		  " Latex editing
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -182,9 +174,6 @@ let g:gruvbox_italic=1 "allow italics
 colorscheme gruvbox    "set vim colorscheme
 set background=dark    "use dark variant
 hi Normal ctermfg=252 ctermbg=none
-
-"" Move with Alt+dir
-let g:move_key_modifier = 'A'
 
 "" Autocompletion
 set completeopt=menu,menuone,noinsert,preview
@@ -209,19 +198,34 @@ nmap <Leader>a <Plug>(EasyAlign)
 "" Signature
 nmap <leader>s :SignatureToggle<CR>
 
+"" Goyo
+fun! s:goyo_enter()
+  Limelight
+endf
+
+fun! s:goyo_leave()
+  Limelight!
+  hi Normal ctermfg=252 ctermbg=none
+endf
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 "" Limelight settings
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 
 "" Pymode
 let g:pymode_python = 'python3'
-let g:pymode_run_bind = '<leader>pr'
+let g:pymode_run_bind = '<leader>örasdkfjqlkjralsdkfja' "delete this
 let g:pymode_indent = 1
+" Run
+nnoremap <silent> <leader>pr :terminal++close python -i %<CR>
 " Debug
-nnoremap <leader>pd :terminal++close ipdb %<CR>
+nnoremap <silent> <leader>pd :terminal++close ipdb %<CR>
 " Debug until current line
-nnoremap <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
-let g:move_key_modifier = 'C'
+nnoremap <silent> <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
+
 
 "" Ranger
 let g:ranger_replace_netrw = 1
