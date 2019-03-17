@@ -19,10 +19,11 @@ modules-center = date week
 modules-right = keyboard uptime memory battery
 
 [bar/top-second]
+monitor = eDP-1
 dpi = 96
 include-file = ~/.config/polybar/top-second-bar
-modules-left = i3
-modules-center = mpd
+modules-left = i3 mpd
+modules-center = 
 modules-right = netstat wlan eth
 wm-restack = i3
 
@@ -82,7 +83,7 @@ toggle-on-foreground = ${colors.primary}
 toggle-off-foreground = ${colors.secondary}
 label-offline = no sound
 
-label-song-maxlen = 25
+label-song-maxlen = 40
 label-song-ellipsis = true
 
 [module/mail]
