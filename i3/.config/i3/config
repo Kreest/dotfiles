@@ -326,6 +326,9 @@ mode "$mode_music" {
     bindsym l exec $nsi mpc $mpc_opt next
     bindsym h exec $nsi mpc $mpc_opt cdprev
 
+    bindsym Shift+l exec $nsi mpc $mpc_opt seek +5
+    bindsym Shift+h exec $nsi mpc $mpc_opt seek -5
+
     # Commands that quit the mode
     bindsym z exec $nsi mpc $mpc_opt random, mode "default"
     bindsym r exec $nsi mpc $mpc_opt repeat, mode "default"
