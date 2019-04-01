@@ -225,6 +225,8 @@ nnoremap <silent> <leader>pr :terminal++close python -i %<CR>
 nnoremap <silent> <leader>pd :terminal++close ipdb %<CR>
 " Debug until current line
 nnoremap <silent> <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
+" Autolint
+nnoremap <silent> <leader>pa :PymodeLintAuto<CR>
 
 
 "" Ranger
