@@ -16,7 +16,7 @@ dpi = 96
 include-file = ~/.config/polybar/top-bar
 modules-left = hostname ip xwindow
 modules-center = date week
-modules-right = keyboard uptime memory battery
+modules-right = pomo keyboard uptime memory battery
 
 [bar/top-second]
 monitor = eDP-1
@@ -211,6 +211,13 @@ menu-2-1-exec = menu-open-0
 
 menu-3-0 = lock
 menu-3-0-exec = i3lock -i ~/images/bgi3lock.png -e
+
+
+
+[module/pomo]
+type = custom/script
+interval = 1
+exec = pomo status
 
 [module/i3]
 type = internal/i3
