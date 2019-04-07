@@ -21,4 +21,4 @@ alias ledger='ledger -f ~/money/ledger --start-of-week=1'
 alias bb='bb-wrapper'
 
 ## mpc settings
-alias mpc='mpc -6601'
+alias mpc='mpc -p 6601'
