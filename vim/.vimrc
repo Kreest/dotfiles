@@ -72,6 +72,8 @@ onoremap <expr> il ':<C-u>norm! `['.strpart(getregtype(), 0, 1).'`]<cr>'
 "" Explore in vertical split
 nnoremap <Leader>e :Explore! <enter>
 
+"" Viminfo
+set viminfo='100,n$HOME/.vim/files/info/viminfo
 " "" Python Version ---- Needed?
 " augroup python3
 "     au! BufEnter *.py setlocal omnifunc=python3complete#Complete
@@ -79,14 +81,14 @@ nnoremap <Leader>e :Explore! <enter>
 
 " Don't save backups of *.gpg files
 set backupskip+=*.gpg
-" To avoid that parts of the file is saved to .viminfo when yanking or
-" deleting, empty the 'viminfo' option.
-set viminfo=
 
 augroup encrypted
   au!
   " Disable swap files, and set binary file format before reading the file
+  " To avoid that parts of the file is saved to .viminfo when yanking or
+  " deleting, empty the 'viminfo' option.
   autocmd BufReadPre,FileReadPre *.gpg
+    \ setlocal viminfo=
     \ setlocal noswapfile bin
   " Decrypt the contents after reading the file, reset binary file format
   " and run any BufReadPost autocmds matching the file name without the .gpg
@@ -129,6 +131,7 @@ endif
 call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'morhetz/gruvbox'
+    Plug 'mhinz/vim-startify'		  " Startpage
     " Pope
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
@@ -149,6 +152,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'kshenoy/vim-signature'          " Marking lines
     Plug 'airblade/vim-gitgutter'         " Displays git changes
     Plug 'francoiscabrol/ranger.vim'      " Ranger instead of netrw
+    Plug 'TheLastProject/vim-betterK'	  " Better K help
     " Languages
     Plug 'rust-lang/rust.vim'             " Config for rust
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
