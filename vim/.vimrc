@@ -88,8 +88,8 @@ augroup encrypted
   " To avoid that parts of the file is saved to .viminfo when yanking or
   " deleting, empty the 'viminfo' option.
   autocmd BufReadPre,FileReadPre *.gpg
+    \ setlocal noswapfile bin |
     \ setlocal viminfo=
-    \ setlocal noswapfile bin
   " Decrypt the contents after reading the file, reset binary file format
   " and run any BufReadPost autocmds matching the file name without the .gpg
   " extension
@@ -179,7 +179,7 @@ colorscheme gruvbox    "set vim colorscheme
 set background=dark    "use dark variant
 hi Normal ctermfg=252 ctermbg=none
 
-"" Autocompletion
+"" Autocompletion and snippets
 set completeopt=menu,menuone,noinsert,preview
 set shortmess+=c " Turn off completion messages
 
