@@ -19,7 +19,7 @@ set formatoptions+=l
 " Appearance
 set cursorline
 syntax on
-set lazyredraw " tradeoff for cursorline and syntax
+set lazyredraw
 set number
 set norelativenumber
 set ruler
@@ -59,26 +59,17 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 set hls
 set ignorecase
 set smartcase
-nnoremap <silent> <leader><space> :nohls<enter>
 
 "" Last modified operator
 onoremap <expr> il ':<C-u>norm! `['.strpart(getregtype(), 0, 1).'`]<cr>'
-
-" "" Omnicompletion
-" set filetype=on
-" set omnifunc=syntaxcomplete#Complete
-" set rtp+=~/.vim/plugged/YouCompleteMe
 
 "" Explore in vertical split
 nnoremap <Leader>e :Explore! <enter>
 
 "" Viminfo
 set viminfo='100,n$HOME/.vim/files/info/viminfo
-" "" Python Version ---- Needed?
-" augroup python3
-"     au! BufEnter *.py setlocal omnifunc=python3complete#Complete
-" augroup END
 
+"" GPG File editing setup
 " Don't save backups of *.gpg files
 set backupskip+=*.gpg
 
@@ -140,6 +131,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-sleuth'               " Sensible indenting
     Plug 'tpope/vim-fugitive'             " For blaming stuff
     Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
+    Plug 'adelarsq/vim-matchit'		  " Better % matching
     " Editing
     Plug 'ervandew/supertab'              " Enhanced TAB key
     Plug 'Valloric/YouCompleteMe'         " Code completion
@@ -179,7 +171,7 @@ colorscheme gruvbox    "set vim colorscheme
 set background=dark    "use dark variant
 hi Normal ctermfg=252 ctermbg=none
 
-"" Autocompletion and snippets
+"" Autocompletion
 set completeopt=menu,menuone,noinsert,preview
 set shortmess+=c " Turn off completion messages
 
@@ -237,6 +229,7 @@ nnoremap <silent> <leader>pa :PymodeLintAuto<CR>
 let g:ranger_replace_netrw = 1
 
 "" Latex
+autocmd FileType tex map <leader>w :w !detex \| wc -w<CR>
 let g:polyglot_disabled = ['latex']
 let g:vimtex_view_method = 'zathura'
 let g:tex_flavor = 'latex'      " for sane file recognition
