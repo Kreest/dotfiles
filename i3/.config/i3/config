@@ -6,6 +6,7 @@
 set $mod  Mod4
 set $mod_ Mod1
 set $fun 151
+set $menu 135
 
 # Named workspaces
 #               
@@ -90,8 +91,6 @@ bindsym $mod+backslash exec termite
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
 bindsym $mod+q                  exec "rofi $rofi_style -p 'run'        -combi-modi drun,run -show combi -modi combi"
 bindsym $mod+ctrl+q             exec "rofi $rofi_style -p 'run (sudo)' -combi-modi drun,run -show combi -modi combi -run-command 'gksudo {cmd}'"
-bindsym $mod+d                  exec "$list_files   | rofi $rofi_style -p 'files'   -dmenu -i -levenshtein-sort | xargs -I {} gio open {}"
-bindsym $mod+ctrl+d             exec "$list_folders | rofi $rofi_style -p 'folders' -dmenu -i -levenshtein-sort | (read x; [[ -z \\"$x\\" ]] || (gio open \\"$x\\"; $update_folders \\"$x\\"; $update_index \\"$x\\"))"
 bindsym $mod+shift+d            exec "wmctrl -l     | rofi $rofi_style -p 'window'  -dmenu -i -levenshtein-sort | cut -d ' ' -f1 | xargs -I {} i3-msg '[id=\\"{}\\"] focus'"
 bindsym $mod+Shift+q            kill
 
@@ -235,7 +234,7 @@ bindsym $mod+Shift+minus        move scratchpad; scratchpad show
 bindsym $mod+minus              scratchpad show
 
 # Calculator with sympy setup
-bindsym $mod+c                  exec jupyter qtconsole 
+# bindsym $mod+c                  exec jupyter qtconsole 
 
 # Shortcuts: open/switch to
 bindsym $mod+$mod_+f            exec wmctrl -xa firefox
@@ -348,13 +347,18 @@ bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
 bindsym $mod+n exec networkmanager_dmenu
 
 # Pass setup test
-bindsym $mod+z exec passmenu
+bindsym $mod+z exec passmenu $rofi_style
 
 # Gaming and normal keybindings
 bindsym $mod+g exec $nsi "setxkbmap -layout gb,hu,ru  -variant ,,phonetic -option grp:alt_shift_toggle,ctrl:nocaps,compose:menu & numlockx & xcape"
 bindsym $mod+shift+g exec $nsi setxkbmap -layout gb -option & pkill numlockx & pkill xcape
 
 focus_follows_mouse no
+
+# Clipboard manager
+bindsym $mod+c exec $nsi clipmenu $rofi_style
+
+bindsym $mod+menu exec termite
 
 # Colors
 # class                 border  backgr. text    indicator child_border
@@ -376,6 +380,7 @@ smart_borders on
 ### USER EXEC ###
 exec        $nsi nm-applet
 exec        $nsi compton
+exec        $nsi CM_SELECTIONS="clipboard" clipmenud
 exec_always $nsi ~/.fehbg
 exec_always $nsi $HOME/.config/polybar/launch.sh
 
