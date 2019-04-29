@@ -18,6 +18,7 @@ set formatoptions+=l
 
 " Appearance
 set cursorline
+filetype plugin on
 syntax on
 set lazyredraw
 set number
