@@ -1,5 +1,5 @@
 ## Colorize the ls output ##
-alias ls='ls --color=auto --group-directories-first'
+alias ls='ls --color=auto --group-directories-first -v -h'
 
 ## Use a long listing format ##
 alias ll='ls -l'
