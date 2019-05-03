@@ -122,7 +122,7 @@ endif
 " ----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
     " Theme
-    Plug 'morhetz/gruvbox'
+    Plug 'whatyouhide/vim-gotham'
     Plug 'mhinz/vim-startify'		  " Startpage
     " Pope
     Plug 'tpope/vim-sensible'             " Sensible default settings
@@ -167,8 +167,7 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 "" Theme
-let g:gruvbox_italic=1 "allow italics
-colorscheme gruvbox    "set vim colorscheme
+colorscheme gotham    "set vim colorscheme
 set background=dark    "use dark variant
 hi Normal ctermfg=252 ctermbg=none
 
