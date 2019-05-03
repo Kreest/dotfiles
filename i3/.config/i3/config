@@ -89,9 +89,9 @@ bindsym $mod+backslash exec termite
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
-bindsym $mod+q                  exec "rofi $rofi_style -p 'run'        -combi-modi drun,run -show combi -modi combi"
-bindsym $mod+ctrl+q             exec "rofi $rofi_style -p 'run (sudo)' -combi-modi drun,run -show combi -modi combi -run-command 'gksudo {cmd}'"
-bindsym $mod+shift+d            exec "wmctrl -l     | rofi $rofi_style -p 'window'  -dmenu -i -levenshtein-sort | cut -d ' ' -f1 | xargs -I {} i3-msg '[id=\\"{}\\"] focus'"
+bindsym $mod+q                  exec "rofi $rofi_style -p 'run'        -combi-modi drun,run -show run -modi combi"
+bindsym $mod+ctrl+q             exec "rofi $rofi_style -p 'run (sudo)' -combi-modi drun,run -show run -modi combi -run-command 'gksudo {cmd}'"
+bindsym $mod+d                  exec "rofi $rofi_style -show window"
 bindsym $mod+Shift+q            kill
 
 # change focus
