@@ -85,7 +85,7 @@ gaps outer 0
 
 # start a terminal
 bindsym $mod+Return    exec termite
-bindsym $mod+backslash exec termite
+bindsym $mod+backslash          exec "cat ~/wordlists/russian.txt | dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} dunstify Translation '{}'"
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
@@ -130,12 +130,13 @@ bindsym $mod+f       fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s       layout stacking
-bindsym $mod+w       layout tabbed
+bindsym $mod+t       layout tabbed
 bindsym $mod+e       layout toggle split
 
 # Floating controls
 bindsym $mod+Shift+p floating toggle
 bindsym $mod+p       focus mode_toggle
+bindsym $mod+w      sticky toggle
 
 # focus the parent/child container
 bindsym $mod+a                  focus parent
@@ -347,7 +348,7 @@ bindsym XF86MonBrightnessDown exec $nsi /usr/bin/xbacklight -dec 1
 bindsym $mod+n exec networkmanager_dmenu
 
 # Pass setup test
-bindsym $mod+z exec passmenu $rofi_style
+bindsym $mod+z exec passmenu $rofi_style -p "pass"
 
 # Gaming and normal keybindings
 bindsym $mod+g exec $nsi "setxkbmap -layout gb,hu,ru  -variant ,,phonetic -option grp:alt_shift_toggle,ctrl:nocaps,compose:menu & numlockx & xcape"
@@ -356,7 +357,7 @@ bindsym $mod+shift+g exec $nsi setxkbmap -layout gb -option & pkill numlockx & p
 focus_follows_mouse no
 
 # Clipboard manager
-bindsym $mod+c exec $nsi clipmenu $rofi_style
+bindsym $mod+c exec $nsi clipmenu $rofi_style -p "clip"
 
 bindsym $mod+menu exec termite
 
@@ -371,10 +372,9 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 #Default window settings
 for_window [class=".*"] border pixel 3
-for_window [title="^Jupyter QtConsole$"] \
-    floating enable, border none, \
-    resize set 600 232, move position 0 20, \
-    move scratchpad, scratchpad show
+for_window [title="^.*mpv$"] \
+    floating enable, border none, sticky enable \
+    resize set 640 360, move position 0 40, \
 smart_borders on
 
 ### USER EXEC ###
