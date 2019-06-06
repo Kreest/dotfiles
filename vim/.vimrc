@@ -123,7 +123,6 @@ endif
 call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'whatyouhide/vim-gotham'
-    Plug 'mhinz/vim-startify'		  " Startpage
     " Pope
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
@@ -236,6 +235,27 @@ let g:tex_flavor = 'latex'      " for sane file recognition
 let g:vimtex_compiler_latexmk_engines = {
     \ 'pdflatex'         : '-pdf',
     \}
+
+"" VimWiki
+function! VimwikiLinkHandler(link)
+  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+  "   2) [[vfile:./|Wiki Home]]
+  let link = a:link
+  if link =~# '^vfile:'
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'tabnew ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+endfunction
 
 
 " TODO: Plugins to check out:
