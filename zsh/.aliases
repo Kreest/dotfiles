@@ -22,3 +22,6 @@ alias bb='bb-wrapper'
 
 ## mpc settings
 alias mpc='mpc -p 6601'
+
+## youtube-viewer
+alias yt='youtube-viewer'
