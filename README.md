@@ -1,5 +1,6 @@
 # Dotifles
-My dotfiles, using archlinux with i3wm
+My dotfiles, using [Parabola Linux](http://https://www.parabola.nu/)  with [sway](http://https://github.com/swaywm/sway).
+If you care about the long-term future of your setup, you should probably consider moving to a wayland-capable environment, it is the [future](https://www.phoronix.com/scan.php?page=news_item&px=X.Org-Maintenance-Mode-Quickly)
 
 Organized using [stow](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
 
