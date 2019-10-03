@@ -15,19 +15,15 @@ for_window [title="^.*mpv$"] \
     floating enable, border none, sticky enable, \
     resize set 640 360, move position 1280 -5, \
 smart_borders on
-smart_gaps on
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Noto Mono Regular, Awesome 8.5
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
+# Gaps settings
 gaps inner 7
 gaps outer 0
-
-focus_follows_mouse no
+smart_gaps on
 
 ### USER VARIABLES ###
 # Main modifier key
@@ -90,6 +86,9 @@ set $tc --to-code
 # start a terminal
 bindsym $tc $mod+Return    exec termite
 bindsym $tc $mod+menu      exec termite
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
