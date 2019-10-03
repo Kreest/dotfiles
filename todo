@@ -1,11 +1,3 @@
-Note move from i3 to sway
-Branch off with old i3 config for old laptop
 Add mail config somehow
-
-Task mode
-    combining taskwarrior and timewarrior in a single easy to access way
-    add some nag
-    needed:
-        easy reports of current tasks
-        easy start/stop to tracking
-        easy summary
+Multimonitor controls for sway
+Look into using/needing timewarrior
