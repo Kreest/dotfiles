@@ -11,7 +11,7 @@ secondary = ${xrdb:color6}
 alert = #bd2c40
 
 [bar/top]
-monitor = eDP-1
+monitor = XWAYLAND0
 dpi = 96
 include-file = ~/.config/polybar/top-bar
 modules-left = hostname ip xwindow
@@ -19,7 +19,7 @@ modules-center = date week
 modules-right = pomo keyboard uptime memory battery
 
 [bar/top-second]
-monitor = eDP-1
+monitor = XWAYLAND0
 dpi = 96
 include-file = ~/.config/polybar/top-second-bar
 modules-left = i3 mpd

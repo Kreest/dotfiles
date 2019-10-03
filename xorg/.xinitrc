@@ -54,4 +54,5 @@ udiskie &
 numlockx &
 unclutter &
 xcape &
+keynav &
 exec i3
