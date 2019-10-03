@@ -7,12 +7,18 @@ Please create backups before trying things out!
 
 | Name           | Stow dir | Dependencies                                         | Details                                          |
 | :------------- | :------- | :--------------------------------------------------- | :----------------------------------------------- |
-| zsh            | `$HOME`  | zplug | Shell                                            |
-| xorg           | `$HOME`  |                                                      | xinit, colors, xcape, unclutter, numlockx                         |
-| vim            | `$HOME`  | vim-plug, YouCompleteMe | text editing                                       |
+| zsh            | `$HOME`  | zplug                                                | Shell                                            |
+| vim            | `$HOME`  | vim-plug, YouCompleteMe                              | text editing                                     |
+| termite        | `$HOME`  |                                                      | Terminal                                         |
+| sway           | `$HOME`  | rofi, grim, mako, amixer, mpc, task, passmenu, clipmenu, networkmanager_dmenu, udiskie, redshift
+
+i3, polybar and xorg are leftovers from an old config, left here because sometimes I need xorg for vidyas.
+
+| Name           | Stow dir | Dependencies                                         | Details                                          |
+| :------------- | :------- | :--------------------------------------------------- | :----------------------------------------------- |
 | i3             | `$HOME`  | feh, scrot, rofi, wmctrl, i3lock-color, i3lock-fancy, compton | Window manager                             |
-| calculator     | `$HOME`  | sympy, jupyter, ipython, (matplotlib) | Calculator setup        |
-| termite        | `$HOME`  |                                                      | Terminal                         |
+| xorg           | `$HOME`  | xinit, colors, xcape, unclutter, numlockx                         | |
+| polybar        | `$HOME`  | | |
 
 # Thanks
 
