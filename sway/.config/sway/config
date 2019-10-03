@@ -1,4 +1,4 @@
-# Sway specifics
+# Sway config
 input * xkb_layout "gb,hu,ru"
 input * xkb_variant ",,phonetic"
 input * xkb_options "grp:alt_shift_toggle"
@@ -10,10 +10,26 @@ bar {
     swaybar_command waybar
 }
 
-## i3 config file
+#Default window settings
+for_window [title="^.*mpv$"] \
+    floating enable, border none, sticky enable, \
+    resize set 640 360, move position 1280 -5, \
+smart_borders on
+smart_gaps on
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Noto Mono Regular, Awesome 8.5
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+gaps inner 7
+gaps outer 0
+
+focus_follows_mouse no
+
 ### USER VARIABLES ###
-
-
 # Main modifier key
 set $mod  Mod4
 set $mod_ Mod1
@@ -70,30 +86,10 @@ set $p -p 6601
 set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
 set $tc --to-code
 
-# Colors
-# TODO: add colors
-set $black       #303030
-set $blue        #3475ed
-set $red         #ed3437
-set $orange      #ed4a34
-set $yellow      #edde34
-set $purple      #ed34c8
-set $white       #ffffff
-set $transparent #0000000
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:Noto Mono Regular, Awesome 8.5
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-gaps inner 7
-gaps outer 0
-
+### KEYBINDINGS ###
 # start a terminal
 bindsym $tc $mod+Return    exec termite
-bindsym $tc $mod+backslash          exec "cat ~/wordlists/russian.txt | dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} notify-send Translation '{}'"
+bindsym $tc $mod+menu      exec termite
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
@@ -370,7 +366,7 @@ mode "Tasks" {
     bindsym $tc Escape mode "default"
 }
 bindsym $tc $mod+t mode "Tasks"
-### USER CUSTOMIZATIONS ###
+
 # Brightness control (w/ acpilight)
 bindsym $tc XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 2 
 bindsym $tc XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 1
@@ -381,28 +377,11 @@ bindsym $tc $mod+n exec networkmanager_dmenu
 # Pass binding
 bindsym $tc $mod+z exec passmenu $rofi_style -p "pass"
 
-focus_follows_mouse no
-
 # Clipboard manager
 bindsym $tc $mod+c exec clipmenu $rofi_style -p "clip"
 
-bindsym $tc $mod+menu exec termite
-
-# Colors
-# class                 border  backgr. text    indicator child_border
-client.focused          #441122 #441122 #ffffff #442211   #666666
-client.focused_inactive #5f676a #5f676a #ffffff #333333   #333333
-client.unfocused        #222222 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
-
-#Default window settings
-for_window [title="^.*mpv$"] \
-    floating enable, border none, sticky enable, \
-    resize set 640 360, move position 1280 -5, \
-smart_borders on
-smart_gaps on
+# Russian translation menu
+bindsym $tc $mod+backslash          exec "cat ~/wordlists/russian.txt | dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} notify-send Translation '{}'"
 
 ### USER EXEC ###
 exec           mako
