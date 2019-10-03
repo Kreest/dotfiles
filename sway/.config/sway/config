@@ -1,0 +1,418 @@
+# Sway specifics
+input * xkb_layout "gb,hu,ru"
+input * xkb_variant ",,phonetic"
+input * xkb_options "grp:alt_shift_toggle"
+
+output eDP-1 bg "~/Pictures/knightriderbg.png" fill
+default_border pixel 
+
+bar {
+    swaybar_command waybar
+}
+
+## i3 config file
+### USER VARIABLES ###
+
+
+# Main modifier key
+set $mod  Mod4
+set $mod_ Mod1
+set $fun 151
+set $menu 135
+
+# Named workspaces
+#               
+set $ws1   "1:"
+set $ws2   "2:"
+set $ws3   "3:3"
+set $ws4   "4:4"
+set $ws5   "5:5"
+set $ws6   "6:6"
+set $ws7   "7:7"
+set $ws8   "8:8"
+set $ws9   "9:"
+set $ws10  "10:10"
+
+# Keypad keycodes
+set $KP_1 87
+set $KP_2 88
+set $KP_3 89
+set $KP_4 83
+set $KP_5 84
+set $KP_6 85
+set $KP_7 79
+set $KP_8 80
+set $KP_9 81
+set $KP_0 90
+
+# Function key keycodes
+set $F1  62
+set $F2  63
+set $F3  64
+set $F4  65
+set $F5  66
+set $F6  67
+set $F7  68
+set $F8  69
+set $F9  70
+set $F10 71
+set $F11 72
+set $F12 73
+
+# Page up/down keycodes
+set $PG_UP   112
+set $PG_DOWN 117
+
+# Flags
+set $p -p 6601
+
+# Rofi style options
+set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
+set $tc --to-code
+
+# Colors
+# TODO: add colors
+set $black       #303030
+set $blue        #3475ed
+set $red         #ed3437
+set $orange      #ed4a34
+set $yellow      #edde34
+set $purple      #ed34c8
+set $white       #ffffff
+set $transparent #0000000
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Noto Mono Regular, Awesome 8.5
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+gaps inner 7
+gaps outer 0
+
+# start a terminal
+bindsym $tc $mod+Return    exec termite
+bindsym $tc $mod+backslash          exec "cat ~/wordlists/russian.txt | dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} notify-send Translation '{}'"
+
+# Common app starting
+# rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
+bindsym $tc $mod+q                  exec "rofi $rofi_style -p 'run'        -combi-modi drun,run -show run -modi combi"
+bindsym $tc $mod+ctrl+q             exec "rofi $rofi_style -p 'run (sudo)' -combi-modi drun,run -show run -modi combi -run-command 'gksudo {cmd}'"
+bindsym $tc $mod+d                  exec "rofi $rofi_style -show window"
+bindsym $tc $mod+Shift+q            kill
+
+# change focus
+bindsym $tc $mod+h           focus left
+bindsym $tc $mod+j           focus down
+bindsym $tc $mod+k           focus up
+bindsym $tc $mod+l           focus right
+
+bindsym $tc $mod+Left        focus left
+bindsym $tc $mod+Down        focus down
+bindsym $tc $mod+Up          focus up
+bindsym $tc $mod+Right       focus right
+
+# move focused window
+bindsym $tc $mod+Shift+h     move left
+bindsym $tc $mod+Shift+j     move down
+bindsym $tc $mod+Shift+k     move up
+bindsym $tc $mod+Shift+l     move right
+
+bindsym $tc $mod+Shift+Left  move left
+bindsym $tc $mod+Shift+Down  move down
+bindsym $tc $mod+Shift+Up    move up
+bindsym $tc $mod+Shift+Right move right
+
+# Move workspaces between outputs
+bindsym $tc $mod+o       move workspace to output right
+bindsym $tc $mod+Shift+o move workspace to output left
+
+# Layout keys
+# split in horizontal orientation
+bindsym $tc $mod+v       split v
+bindsym $tc $mod+Shift+v split h
+
+# enter fullscreen mode for the focused container
+bindsym $tc $mod+f       fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $tc $mod+s       layout stacking
+bindsym $tc $mod+e       layout toggle split
+
+# Floating controls
+bindsym $tc $mod+Shift+p floating toggle
+bindsym $tc $mod+p       focus mode_toggle
+bindsym $tc $mod+w      sticky toggle
+
+# focus the parent/child container
+bindsym $tc $mod+a                  focus parent
+bindsym $tc $mod+Shift+a            focus child
+
+# Workspace switching
+bindsym $tc $mod+1                  workspace $ws1
+bindsym $tc $mod+2                  workspace $ws2
+bindsym $tc $mod+3                  workspace $ws3
+bindsym $tc $mod+4                  workspace $ws4
+bindsym $tc $mod+5                  workspace $ws5
+bindsym $tc $mod+6                  workspace $ws6
+bindsym $tc $mod+7                  workspace $ws7
+bindsym $tc $mod+8                  workspace $ws8
+bindsym $tc $mod+9                  workspace $ws9
+bindsym $tc $mod+0                  workspace $ws10
+
+# Workspace switching (keypad) (USER)
+bindsym $tc $mod+Mod2+KP_1          workspace $ws1
+bindsym $tc $mod+Mod2+KP_2          workspace $ws2
+bindsym $tc $mod+Mod2+KP_3          workspace $ws3
+bindsym $tc $mod+Mod2+KP_4          workspace $ws4
+bindsym $tc $mod+Mod2+KP_5          workspace $ws5
+bindsym $tc $mod+Mod2+KP_6          workspace $ws6
+bindsym $tc $mod+Mod2+KP_7          workspace $ws7
+bindsym $tc $mod+Mod2+KP_8          workspace $ws8
+bindsym $tc $mod+Mod2+KP_9          workspace $ws9
+bindsym $tc $mod+Mod2+KP_0          workspace $ws10
+
+# Workspace switching (F-keys) (USER)
+bindsym $tc $mod+F1                 workspace $ws5
+bindsym $tc $mod+F2                 workspace $ws6
+bindsym $tc $mod+F3                 workspace $ws7
+bindsym $tc $mod+F4                 workspace $ws8
+
+# Move to workspace
+bindsym $tc $mod+Shift+1            move container to workspace $ws1;  workspace $ws1
+bindsym $tc $mod+Shift+2            move container to workspace $ws2;  workspace $ws2
+bindsym $tc $mod+Shift+3            move container to workspace $ws3;  workspace $ws3
+bindsym $tc $mod+Shift+4            move container to workspace $ws4;  workspace $ws4
+bindsym $tc $mod+Shift+5            move container to workspace $ws5;  workspace $ws5
+bindsym $tc $mod+Shift+6            move container to workspace $ws6;  workspace $ws6
+bindsym $tc $mod+Shift+7            move container to workspace $ws7;  workspace $ws7
+bindsym $tc $mod+Shift+8            move container to workspace $ws8;  workspace $ws8
+bindsym $tc $mod+Shift+9            move container to workspace $ws9;  workspace $ws9
+bindsym $tc $mod+Shift+0            move container to workspace $ws10; workspace $ws10
+
+# Move to workspace (keypad) (USER)
+bindsym $tc $mod+Shift+Mod2+KP_End    move container to workspace $ws1
+bindsym $tc $mod+Shift+Mod2+KP_Down   move container to workspace $ws2
+bindsym $tc $mod+Shift+Mod2+KP_Next   move container to workspace $ws3
+bindsym $tc $mod+Shift+Mod2+KP_Left   move container to workspace $ws4
+bindsym $tc $mod+Shift+Mod2+KP_Begin  move container to workspace $ws5
+bindsym $tc $mod+Shift+Mod2+KP_Right  move container to workspace $ws6
+bindsym $tc $mod+Shift+Mod2+KP_Home   move container to workspace $ws7
+bindsym $tc $mod+Shift+Mod2+KP_Up     move container to workspace $ws8
+bindsym $tc $mod+Shift+Mod2+KP_Prior  move container to workspace $ws9
+bindsym $tc $mod+Shift+Mod2+KP_Insert move container to workspace $ws10
+
+# Workspace switching (F-keys) (USER)
+bindsym $tc $mod+Shift+F1           move container to workspace $ws5;  workspace $ws5
+bindsym $tc $mod+Shift+F2           move container to workspace $ws6;  workspace $ws6
+bindsym $tc $mod+Shift+F3           move container to workspace $ws7;  workspace $ws7
+bindsym $tc $mod+Shift+F4           move container to workspace $ws8;  workspace $ws8
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $tc $mod+Shift+r reload
+# exit i3 (logs you out of your X session)
+bindsym $tc $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+### USER BINDINGS ###
+bindsym $tc $mod+grave              workspace back_and_forth
+bindsym $tc $mod+Shift+grave        move container to workspace back_and_forth; workspace back_and_forth
+
+# Workspace cycling
+bindsym $tc $mod+Ctrl+h             workspace prev
+bindsym $tc $mod+Ctrl+l             workspace next
+
+# Workspace cycling and moving
+bindsym $tc $mod+Shift+Tab          move container to workspace next; workspace next
+bindsym $tc $mod+Ctrl+Shift+h       move container to workspace prev; workspace prev
+bindsym $tc $mod+Ctrl+Shift+l       move container to workspace next; workspace next
+
+# Cycle border
+bindsym $tc $mod+b                  border toggle
+bindsym $tc $mod+Shift+b            border normal
+
+# Jump to urgent window
+bindsym $tc $mod+x                  [urgent=latest] focus
+
+# Lock screen
+bindsym $tc $mod+Shift+x            exec swaylock -i ~/Pictures/fractal001.jpg
+
+# Scratchpad setup
+bindsym $tc $mod+Shift+minus        move scratchpad; scratchpad show
+bindsym $tc $mod+minus              scratchpad show
+
+# Calculator with sympy setup
+# bindsym $tc $mod+c                  exec jupyter qtconsole 
+
+# Screenshots based on the "Print" key. Requires the "scrot" tool.
+# With $mod:  Interactively select window or rectangle.
+# With Shift: JPEG instead of PNG.
+# With Ctrl:  Sleep 5 seconds before doing the screenshot.
+set $scpath $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+set $fmon -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
+set $fwin swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp
+
+bindsym $tc                Print               exec            grim       $scpath && notify-send "screenshot taken"
+bindsym $tc          Shift+Print               exec            grim $fmon $scpath && notify-send "screenshot taken"
+bindsym $tc           $mod+Print               exec            $fwin | grim -g - $scpath && notify-send "screenshot of window taken"
+bindsym $tc                Control+Print       exec sleep 5 && grim       $scpath && notify-send "screenshot in 5s"
+
+# Pulse Audio controls
+bindsym $tc XF86AudioRaiseVolume exec amixer -c 0 set Master 1+ && killall -SIGUSR1 i3status
+bindsym $tc XF86AudioLowerVolume exec amixer -c 0 set Master 1- && killall -SIGUSR1 i3status
+bindsym $tc XF86AudioMute        exec amixer set Master toggle && killall -SIGUSR1 i3status
+
+# resize window (you can also use the mouse)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $tc h resize shrink width 10 px or 10 ppt
+        bindsym $tc j resize grow height 10 px or 10 ppt
+        bindsym $tc k resize shrink height 10 px or 10 ppt
+        bindsym $tc l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym $tc Left  resize shrink width 10 px or 10 ppt
+        bindsym $tc Down  resize grow height 10 px or 10 ppt
+        bindsym $tc Up    resize shrink height 10 px or 10 ppt
+        bindsym $tc Right resize grow width 10 px or 10 ppt
+
+        bindsym $tc Shift+h             resize shrink width    1 px or   1 ppt
+        bindsym $tc Shift+j             resize grow   height   1 px or   1 ppt
+        bindsym $tc Shift+k             resize shrink height   1 px or   1 ppt
+        bindsym $tc Shift+l             resize grow   width    1 px or   1 ppt
+
+        bindsym $tc Shift+Left          resize shrink width    1 px or   1 ppt
+        bindsym $tc Shift+Down          resize grow   height   1 px or   1 ppt
+        bindsym $tc Shift+Up            resize shrink height   1 px or   1 ppt
+        bindsym $tc Shift+Right         resize grow   width    1 px or   1 ppt
+
+        # back to normal: Enter or Escape
+        bindsym $tc Return mode "default"
+        bindsym $tc Escape mode "default"
+}
+
+bindsym $tc $mod+r mode "resize"
+
+bindsym $tc button4 nop
+bindsym $tc button5 nop
+
+# Notifications
+bindsym Control+Space exec makoctl dismiss
+bindsym Control+Shift+Space exec makoctl dismiss --all
+
+# choose xrandr displaymode
+set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
+mode "$mode_display" {
+    bindsym $tc d exec sh ~/.display dual, mode "default"
+    bindsym $tc m exec sh ~/.display monitor, mode "default"
+    bindsym $tc l exec sh ~/.display laptop, mode "default"
+    bindsym $tc s exec sh ~/.display mirror, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym $tc Return mode "default"
+    bindsym $tc Escape mode "default"
+}
+bindsym $tc $mod+i mode "$mode_display"
+
+# Music mode!
+set $mpc_opt -p 6601
+set $mode_music Music
+mode "$mode_music" {
+    # Commands that stay here until you press escape
+    bindsym $tc u exec mpc $mpc_opt volume +1
+    bindsym $tc d exec mpc $mpc_opt volume -1
+
+    bindsym $tc plus exec mpc $mpc_opt volume +1
+    bindsym $tc minus exec mpc $mpc_opt volume -1
+
+    bindsym $tc l exec mpc $mpc_opt next
+    bindsym $tc h exec mpc $mpc_opt cdprev
+
+    bindsym $tc Shift+l exec mpc $mpc_opt seek +5
+    bindsym $tc Shift+h exec mpc $mpc_opt seek -5
+
+    # Commands that quit the mode
+    bindsym $tc z exec mpc $mpc_opt random, mode "default"
+    bindsym $tc r exec mpc $mpc_opt repeat, mode "default"
+    bindsym $tc p exec mpc $mpc_opt toggle, mode "default"
+
+    # Menus
+    bindsym $tc i exec "mpc -p 6601 listall| sed 's/^.*Musictst.\(.*\)/\1/' | dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc -p 6601 insert '{}'"
+
+    # back to normal: Enter or Escape
+    bindsym $tc Return mode "default"
+    bindsym $tc Escape mode "default"
+}
+bindsym $tc $mod+M mode "$mode_music"
+
+mode "Tasks" {
+    # Non-exiting
+
+
+    # Exiting
+    bindsym $tc t exec task long | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+', mode "default"
+    bindsym $tc d exec task done `task | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+'`, mode "default"
+    bindsym $tc b exec task start `task | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+'`, mode "default"
+    bindsym $tc e exec task stop `task | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+'`, mode "default"
+
+    bindsym $tc a exec task add `dmenu`, mode "default"
+
+  
+    bindsym $tc c exec task context `task context list | tail -n +4 | head -n -1 | dmenu | grep -o '^\w\+'`, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym $tc Return mode "default"
+    bindsym $tc Escape mode "default"
+}
+bindsym $tc $mod+t mode "Tasks"
+### USER CUSTOMIZATIONS ###
+# Brightness control (w/ acpilight)
+bindsym $tc XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 2 
+bindsym $tc XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 1
+
+# Network setup (starts in rofi)
+bindsym $tc $mod+n exec networkmanager_dmenu
+
+# Pass binding
+bindsym $tc $mod+z exec passmenu $rofi_style -p "pass"
+
+focus_follows_mouse no
+
+# Clipboard manager
+bindsym $tc $mod+c exec clipmenu $rofi_style -p "clip"
+
+bindsym $tc $mod+menu exec termite
+
+# Colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #441122 #441122 #ffffff #442211   #666666
+client.focused_inactive #5f676a #5f676a #ffffff #333333   #333333
+client.unfocused        #222222 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+
+#Default window settings
+for_window [title="^.*mpv$"] \
+    floating enable, border none, sticky enable, \
+    resize set 640 360, move position 1280 -5, \
+smart_borders on
+smart_gaps on
+
+### USER EXEC ###
+exec           mako
+exec           udiskie
+exec           redshift
+exec        CM_SELECTIONS="clipboard" clipmenud
+
+#TODO
+#Remote audio controls
+#Solve world hunger
+#Reorganize things in a logical manner
+#Organize and use color names
+#Seek other configs
