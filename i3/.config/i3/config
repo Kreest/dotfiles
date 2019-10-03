@@ -333,6 +333,10 @@ mode "$mode_music" {
     bindsym z exec $nsi mpc $mpc_opt random, mode "default"
     bindsym r exec $nsi mpc $mpc_opt repeat, mode "default"
     bindsym p exec $nsi mpc $mpc_opt toggle, mode "default"
+
+    # Menus
+    bindsym i exec "mpc -p 6601 listall| sed 's/^.*Musictst.\(.*\)/\1/' | dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc -p 6601 insert '{}'"
+
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -374,7 +378,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 for_window [class=".*"] border pixel 3
 for_window [title="^.*mpv$"] \
     floating enable, border none, sticky enable \
-    resize set 640 360, move position 0 40, \
+    resize set 640 360, move position 1280 40, \
 smart_borders on
 
 ### USER EXEC ###

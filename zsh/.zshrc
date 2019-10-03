@@ -93,3 +93,11 @@ zle -N zle-keymap-select
 
 LS_COLORS=$LS_COLORS:'di=1;33:' ; export LS_COLORS
 # TODO: Look into some options and upgrades
+
+PATH="/home/kreest/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/kreest/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/kreest/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/kreest/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/kreest/perl5"; export PERL_MM_OPT;
+
+source /etc/profile.d/vte.sh
