@@ -6,7 +6,7 @@ cursor          = #98d1ce
 background      = rgba(10,15,14,.8)
 
 color0  = #0a0f14
-color8  = #10151b
+color8  = #15151b
 
 color1  = #c33027
 color9  = #d26939
@@ -16,13 +16,13 @@ color10 = #585f5d
 
 color3  = #edb54b
 
-color4  = #195465
+color4  = #895465
 color12 = #093748
 
 color5  = #4e5165
 color13 = #888ba5
 
-color6  = #33859d
+color6  = #f3859d
 
 color7  = #98d1ce
 color15 = #d3ebe9

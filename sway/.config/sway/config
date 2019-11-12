@@ -3,7 +3,7 @@ input * xkb_layout "gb,hu,ru"
 input * xkb_variant ",,phonetic"
 input * xkb_options "grp:alt_shift_toggle"
 
-output eDP-1 bg "~/Pictures/knightriderbg.png" fill
+output * bg "~/Pictures/knightriderbg.png" fill
 default_border pixel 
 
 bar {
@@ -15,6 +15,8 @@ for_window [title="^.*mpv$"] \
     floating enable, border none, sticky enable, \
     resize set 640 360, move position 1280 -5, \
 smart_borders on
+
+focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -120,8 +122,8 @@ bindsym $tc $mod+Shift+Up    move up
 bindsym $tc $mod+Shift+Right move right
 
 # Move workspaces between outputs
-bindsym $tc $mod+o       move workspace to output right
-bindsym $tc $mod+Shift+o move workspace to output left
+bindsym $tc $mod+o       focus output right
+bindsym $tc $mod+Shift+o move workspace to output right
 
 # Layout keys
 # split in horizontal orientation

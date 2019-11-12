@@ -138,6 +138,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
+    Plug 'sjl/gundo.vim'		  " Undo tree
     " Plug 'matze/vim-move'                 " Better :move + bindings
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     " Navigation and marks
@@ -182,6 +183,7 @@ let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsListSnippets	   = "<c-r>"
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -199,6 +201,7 @@ fun! s:goyo_enter()
 endf
 
 fun! s:goyo_leave()
+  " Turns off limelight, restarts normal highlight coloring
   Limelight!
   hi Normal ctermfg=252 ctermbg=none
 endf
@@ -223,18 +226,15 @@ nnoremap <silent> <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line(
 " Autolint
 nnoremap <silent> <leader>pa :PymodeLintAuto<CR>
 
-
 "" Ranger
 let g:ranger_replace_netrw = 1
 
 "" Latex
+"wordcount
 autocmd FileType tex map <leader>w :w !detex \| wc -w<CR>
 let g:polyglot_disabled = ['latex']
 let g:vimtex_view_method = 'zathura'
 let g:tex_flavor = 'latex'      " for sane file recognition
-let g:vimtex_compiler_latexmk_engines = {
-    \ 'pdflatex'         : '-pdf',
-    \}
 
 "" VimWiki
 function! VimwikiLinkHandler(link)
@@ -257,6 +257,13 @@ function! VimwikiLinkHandler(link)
   endif
 endfunction
 
+"" Gundo
+nnoremap <F5> :GundoToggle<CR>
+
+"" Octave options
+augroup filetypedetect
+  au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+augroup END
 
 " TODO: Plugins to check out:
 "
