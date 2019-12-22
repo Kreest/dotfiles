@@ -11,8 +11,8 @@ Please create backups before trying things out!
 | zsh            | `$HOME`  | zplug                                                | shell                                            |
 | vim            | `$HOME`  | vim-plug, YouCompleteMe, cppman                      | text editing                                     |
 | termite        | `$HOME`  |                                                      | terminal                                         |
-| sway           | `$HOME`  | rofi, grim, mako, amixer, mpc, task, passmenu, clipmenu, networkmanager_dmenu, udiskie, redshift-wlr
-| newsboat       | `$HOME`  | qutebrowser, trans, xclip, umpv+mpv, gvim            |
+| sway           | `$HOME`  | rofi, grim, mako, amixer, mpc, task, passmenu, clipmenu, networkmanager_dmenu, udiskie, redshift-wlr | wayland compositor
+| newsboat       | `$HOME`  | qutebrowser, trans, xclip, umpv+mpv, gvim            | RSS reader
 | ncmpcpp        | `$HOME`  | mpd                                                  | mpd client
 | ranger         | `$HOME`  |                                                      | file browser
 | zathura        | `$HOME`  |                                                      | pdf viewer
