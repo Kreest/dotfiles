@@ -1,9 +1,4 @@
-c.InteractiveShellApp.exec_lines = ['import sympy',
-                                    'from __future__ import division',
-                                    'from sympy import *',
-                                    'x, y, z, t = symbols(\'x y z t\')',
-                                    'k, m, n = symbols(\'k m n\', integer=True)',
-                                    'f, g, h = symbols(\'f g h\', cls=Function)',
-                                    'init_printing()',
-                                    'from sympy.integrals.manualintegrate import manualintegrate']
+c.InteractiveShellApp.exec_lines = ['x, y, z, t = var(\'x y z t\')',
+                                    'k, m, n = var(\'k m n\', domain=\'integer\')',
+                                    'f, g, h = function(\'f g h\')']
 
