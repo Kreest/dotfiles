@@ -1,7 +1,7 @@
 # Sway config
 input * xkb_layout "gb,hu,ru"
 input * xkb_variant ",,phonetic"
-input * xkb_options "grp:alt_shift_toggle"
+input * xkb_options "grp:alt_shift_toggle,compose:menu"
 
 output * bg "~/Pictures/knightriderbg.png" fill
 default_border pixel 
@@ -83,6 +83,9 @@ set $p -p 6601
 # Rofi style options
 set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
 set $tc --to-code
+
+# Swaylock options
+set $lock -i ~/Pictures/fractal001.jpg
 
 ### KEYBINDINGS ###
 # start a terminal
@@ -232,7 +235,14 @@ bindsym $tc $mod+Shift+b            border normal
 bindsym $tc $mod+x                  [urgent=latest] focus
 
 # Lock screen
-bindsym $tc $mod+Shift+x            exec swaylock -i ~/Pictures/fractal001.jpg
+bindsym $tc $mod+Shift+x            exec swaylock $lock
+
+# Idle options
+exec swayidle -w \
+         timeout 300 'swaylock $lock' \
+         timeout 600 'systemctl suspend' \
+         before-sleep 'swaylock $lock'
+
 
 # Scratchpad setup
 bindsym $tc $mod+Shift+minus        move scratchpad; scratchpad show
@@ -339,7 +349,7 @@ mode "$mode_music" {
     bindsym $tc p exec mpc $mpc_opt toggle, mode "default"
 
     # Menus
-    bindsym $tc i exec "mpc -p 6601 listall| sed 's/^.*Musictst.\(.*\)/\1/' | dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc -p 6601 insert '{}'"
+    bindsym $tc i mode "default", exec "mpc -p 6601 listall| sed 's/^.*Musictst.\(.*\)/\1/' | dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc -p 6601 insert '{}'"
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
@@ -369,8 +379,8 @@ mode "Tasks" {
 bindsym $tc $mod+t mode "Tasks"
 
 # Brightness control (w/ acpilight)
-bindsym $tc XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 2 
-bindsym $tc XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 1
+bindsym $tc $mod+f12 exec /usr/bin/xbacklight -inc 2 
+bindsym $tc $mod+f11 exec /usr/bin/xbacklight -dec 1
 
 # Network setup (starts in rofi)
 bindsym $tc $mod+n exec networkmanager_dmenu
