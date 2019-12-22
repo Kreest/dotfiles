@@ -54,7 +54,9 @@ nnoremap k gk
 nnoremap j gj
 
 " Force write as superuser
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+" cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+" former one if this doesn't work out
+cnoremap w!! execute 'silent! write !sudo cat > %' <bar> edit!
 
 " Search and Substitute
 set hls
@@ -68,7 +70,9 @@ onoremap <expr> il ':<C-u>norm! `['.strpart(getregtype(), 0, 1).'`]<cr>'
 nnoremap <Leader>e :Explore! <enter>
 
 "" Viminfo
-set viminfo='100,n$HOME/.vim/files/info/viminfo
+if !has("nvim")
+  set viminfo='100,n$HOME/.vim/files/info/viminfo
+endif
 
 "" GPG File editing setup
 " Don't save backups of *.gpg files
@@ -123,11 +127,12 @@ endif
 call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'whatyouhide/vim-gotham'
-    " Pope
+    Plug 'robertmeta/nofrils'
+    " Pope or as good or your money back
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
     Plug 'tpope/vim-surround'             " Dealing with surrounding thing (),[]...
-    Plug 'tpope/vim-repeat'               " Extended .
+    Plug 'tpope/vim-repeat'               " Extended . for plugins
     Plug 'tpope/vim-sleuth'               " Sensible indenting
     Plug 'tpope/vim-fugitive'             " For blaming stuff
     Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
@@ -138,21 +143,20 @@ call plug#begin('~/.vim/plugged')
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
-    Plug 'sjl/gundo.vim'		  " Undo tree
+    Plug 'mbbill/undotree'		  " Undoes trees
     " Plug 'matze/vim-move'                 " Better :move + bindings
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
     Plug 'airblade/vim-gitgutter'         " Displays git changes
     Plug 'francoiscabrol/ranger.vim'      " Ranger instead of netrw
-    Plug 'TheLastProject/vim-betterK'	  " Better K help
     " Languages
     Plug 'rust-lang/rust.vim'             " Config for rust
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
     Plug 'zah/nim.vim'                    " Nim editing
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-					  " For python things
-    " Markdown and writing
+    Plug 'gauteh/vim-cppman'		  " Cppman integration
+    " Writing, non-code
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
@@ -167,18 +171,21 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 "" Theme
-colorscheme gotham    "set vim colorscheme
-set background=dark    "use dark variant
-hi Normal ctermfg=252 ctermbg=none
+let g:nofrils_heavylinenumbers=1
+let g:nofrils_heavycomments=1
+let g:nofrils_strbackgrounds=1
+colorscheme nofrils-dark    "set vim colorscheme
+hi Normal ctermbg=none
 
 "" Autocompletion
-set completeopt=menu,menuone,noinsert,preview
+set completeopt=menu,menuone,noinsert
 set shortmess+=c " Turn off completion messages
 
 let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType    = '<C-n>'
 
+"" Snippets
 let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
@@ -186,10 +193,10 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsListSnippets	   = "<c-r>"
 
 "" EasyAlign
-" Start interactive EasyAlign in visual mode (e.g. vipga)
+" Start interactive EasyAlign in visual mode (e.g. vip,a)
 xmap <Leader>a <Plug>(EasyAlign)
 
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+" Start interactive EasyAlign for a motion/text object (e.g. ,aip)
 nmap <Leader>a <Plug>(EasyAlign)
 
 "" Signature
@@ -203,7 +210,7 @@ endf
 fun! s:goyo_leave()
   " Turns off limelight, restarts normal highlight coloring
   Limelight!
-  hi Normal ctermfg=252 ctermbg=none
+  hi Normal ctermbg=none
 endf
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -215,7 +222,7 @@ let g:limelight_conceal_ctermfg = 240
 
 "" Pymode
 let g:pymode_python = 'python3'
-let g:pymode_run_bind = '<leader>örasdkfjqlkjralsdkfja' "delete this
+let g:pymode_run = 0 
 let g:pymode_indent = 1
 " Run
 nnoremap <silent> <leader>pr :terminal++close python -i %<CR>
@@ -257,14 +264,13 @@ function! VimwikiLinkHandler(link)
   endif
 endfunction
 
-"" Gundo
-nnoremap <F5> :GundoToggle<CR>
+"" Undotree
+nnoremap <F5> :UndotreeToggle<cr>
 
 "" Octave options
 augroup filetypedetect
   au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 augroup END
-
 " TODO: Plugins to check out:
 "
 " TODO: Repos to check out and steal from:
