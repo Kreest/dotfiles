@@ -2,17 +2,20 @@
 My dotfiles, using [Parabola Linux](http://https://www.parabola.nu/)  with [sway](http://https://github.com/swaywm/sway).
 If you care about the long-term usability of your setup, you should probably consider moving to a wayland-capable environment, it is the [future](https://www.phoronix.com/scan.php?page=news_item&px=X.Org-Maintenance-Mode-Quickly)
 
-Organized using [stow](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
+Organized using [stow](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html). Run `stow $folder` from inside `~/dotfiles`. This creates symlinks to the configs, and now they can be updated via `git pull`.
 
 Please create backups before trying things out!
 
 | Name           | Stow dir | Dependencies                                         | Details                                          |
 | :------------- | :------- | :--------------------------------------------------- | :----------------------------------------------- |
-| zsh            | `$HOME`  | zplug                                                | Shell                                            |
+| zsh            | `$HOME`  | zplug                                                | shell                                            |
 | vim            | `$HOME`  | vim-plug, YouCompleteMe, cppman                      | text editing                                     |
-| termite        | `$HOME`  |                                                      | Terminal                                         |
+| termite        | `$HOME`  |                                                      | terminal                                         |
 | sway           | `$HOME`  | rofi, grim, mako, amixer, mpc, task, passmenu, clipmenu, networkmanager_dmenu, udiskie, redshift-wlr
 | newsboat       | `$HOME`  | qutebrowser, trans, xclip, umpv+mpv, gvim            |
+| ncmpcpp        | `$HOME`  | mpd                                                  | mpd client
+| ranger         | `$HOME`  |                                                      | file browser
+| zathura        | `$HOME`  |                                                      | pdf viewer
 
 i3, polybar and xorg are leftovers from an old config, left here because sometimes I need xorg for vidyas.
 
