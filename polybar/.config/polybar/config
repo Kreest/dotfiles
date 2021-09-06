@@ -2,7 +2,7 @@
 ; vim:ft=dosini
 
 [colors]
-background = $00000000
+background = $90A0A0
 background-alt = ${xrdb:color8}
 foreground = ${xrdb:foreground:#222}
 foreground-alt = ${xrdb:color14}
@@ -11,15 +11,13 @@ secondary = ${xrdb:color6}
 alert = #bd2c40
 
 [bar/top]
-monitor = XWAYLAND0
 dpi = 96
 include-file = ~/.config/polybar/top-bar
 modules-left = hostname ip xwindow
 modules-center = date week
-modules-right = pomo keyboard uptime memory battery
+modules-right = keyboard uptime memory battery
 
 [bar/top-second]
-monitor = XWAYLAND0
 dpi = 96
 include-file = ~/.config/polybar/top-second-bar
 modules-left = i3 mpd
@@ -69,7 +67,7 @@ label-foreground = ${colors.foreground}
 [module/mpd]
 type = internal/mpd
 host = 127.0.0.1
-port = 6601
+port = 6600
 format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <label-time>  <label-song>
 icon-play = 
 icon-pause = 

@@ -41,7 +41,6 @@ set undodir   =~/.vim/.undo//
 " Basic keybindings
 let      mapleader=','
 nnoremap <Space>   <C-D>
-nnoremap <Leader>x "+
 nnoremap ;         :
 vnoremap ;         :
 nnoremap Y         y$
@@ -52,11 +51,9 @@ nnoremap <Leader>; ,
 
 nnoremap k gk
 nnoremap j gj
+nnoremap H ^
 
-" Force write as superuser
-" cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-" former one if this doesn't work out
-cnoremap w!! execute 'silent! write !sudo cat > %' <bar> edit!
+" Force write as superuser cnoremap w!! execute 'silent! write !sudo tee % > /dev/null' <bar> edit!
 
 " Search and Substitute
 set hls
@@ -66,12 +63,10 @@ set smartcase
 "" Last modified operator
 onoremap <expr> il ':<C-u>norm! `['.strpart(getregtype(), 0, 1).'`]<cr>'
 
-"" Explore in vertical split
-nnoremap <Leader>e :Explore! <enter>
-
 "" Viminfo
-if !has("nvim")
-  set viminfo='100,n$HOME/.vim/files/info/viminfo
+set viminfo='100,n$HOME/.vim/files/info/viminfo
+if has("nvim")
+    set viminfo='100,n$HOME/.vim/files/info/nviminfo
 endif
 
 "" GPG File editing setup
@@ -107,19 +102,23 @@ augroup END
 " Create directories as needed when writing files.
 autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
 
-" jump to the last position when reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g'\"" | endif
-endif
-
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
+
+" Autoinstall vim-plug and create dirs
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  silent !mkdir -p ~/.vim/.swp ~/.vim/.backup ~/.vim/.undo ~/.vim/files/info
+endif
+
+"" Conjure
+let g:conjure#log#hud#enabled=v:false
 
 " ----------------------------------------------------------------------------
 " Plugins, Manager - https://github.com/junegunn/vim-plug
@@ -128,7 +127,8 @@ call plug#begin('~/.vim/plugged')
     " Theme
     Plug 'whatyouhide/vim-gotham'
     Plug 'robertmeta/nofrils'
-    " Pope or as good or your money back
+    Plug 'kien/rainbow_parentheses.vim'   " So pretty
+    " TPope or as good or your money back
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
     Plug 'tpope/vim-surround'             " Dealing with surrounding thing (),[]...
@@ -136,34 +136,44 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-sleuth'               " Sensible indenting
     Plug 'tpope/vim-fugitive'             " For blaming stuff
     Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
-    Plug 'adelarsq/vim-matchit'		  " Better % matching
+    Plug 'tpope/vim-eunuch'               " Sudo write
+    Plug 'adelarsq/vim-matchit'		      " Better % matching
+    Plug 'tpope/vim-obsession'            " Session handling for tmux
     " Editing
     Plug 'ervandew/supertab'              " Enhanced TAB key
     Plug 'Valloric/YouCompleteMe'         " Code completion
     Plug 'sirver/ultisnips'               " Snippet manager
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
-    Plug 'mbbill/undotree'		  " Undoes trees
-    " Plug 'matze/vim-move'                 " Better :move + bindings
+    Plug 'mbbill/undotree'		          " Undoes trees
+    Plug 'farmergreg/vim-lastplace'       " Last place
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
+    Plug 'airblade/vim-gitgutter'
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
-    Plug 'airblade/vim-gitgutter'         " Displays git changes
     Plug 'francoiscabrol/ranger.vim'      " Ranger instead of netrw
+    Plug 'junegunn/fzf.vim'               " Fuzzy finder
     " Languages
     Plug 'rust-lang/rust.vim'             " Config for rust
     Plug 'sheerun/vim-polyglot'           " Many-many language specific settings
     Plug 'zah/nim.vim'                    " Nim editing
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    Plug 'gauteh/vim-cppman'		  " Cppman integration
+    Plug 'gauteh/vim-cppman'		      " Cppman integration
+    Plug 'PolyCement/vim-tweego'		      
+if has("nvim")
+    Plug 'Olical/conjure'		          " LISP conversational development
+endif
+    Plug 'wlangstroth/vim-racket'
     " Writing, non-code
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
     Plug 'vim-pandoc/vim-pandoc'          " Markdown
-    Plug 'ledger/vim-ledger'		  " For budgeting
-    Plug 'vimwiki/vimwiki'		  " Personal Wiki management
-    Plug 'lervag/vimtex'		  " Latex editing
+    Plug 'ledger/vim-ledger'		      " For budgeting
+    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }		          " Personal Wiki management
+    Plug 'tools-life/taskwiki'		      " Taskwarrior in vimwiki
+    Plug 'lervag/vimtex'		          " Latex editing
+    Plug 'rhysd/vim-grammarous'	          " Grammarly but cooler
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -176,6 +186,8 @@ let g:nofrils_heavycomments=1
 let g:nofrils_strbackgrounds=1
 colorscheme nofrils-dark    "set vim colorscheme
 hi Normal ctermbg=none
+let &t_TI = ""
+let &t_TE = ""
 
 "" Autocompletion
 set completeopt=menu,menuone,noinsert
@@ -191,6 +203,7 @@ let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsListSnippets	   = "<c-r>"
+let g:UltiSnipsEditSplit           = "context"
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip,a)
@@ -225,11 +238,11 @@ let g:pymode_python = 'python3'
 let g:pymode_run = 0 
 let g:pymode_indent = 1
 " Run
-nnoremap <silent> <leader>pr :terminal++close python -i %<CR>
+nnoremap <silent> <leader>pr :terminal python -i %<CR>
 " Debug
-nnoremap <silent> <leader>pd :terminal++close ipdb %<CR>
+nnoremap <silent> <leader>pd :terminal ipdb %<CR>
 " Debug until current line
-nnoremap <silent> <leader>pl :terminal++close python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
+nnoremap <silent> <leader>pl :terminal python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
 " Autolint
 nnoremap <silent> <leader>pa :PymodeLintAuto<CR>
 
@@ -239,30 +252,21 @@ let g:ranger_replace_netrw = 1
 "" Latex
 "wordcount
 autocmd FileType tex map <leader>w :w !detex \| wc -w<CR>
-let g:polyglot_disabled = ['latex']
 let g:vimtex_view_method = 'zathura'
 let g:tex_flavor = 'latex'      " for sane file recognition
 
 "" VimWiki
-function! VimwikiLinkHandler(link)
-  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
-  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
-  "   2) [[vfile:./|Wiki Home]]
-  let link = a:link
-  if link =~# '^vfile:'
-    let link = link[1:]
-  else
-    return 0
-  endif
-  let link_infos = vimwiki#base#resolve_link(link)
-  if link_infos.filename == ''
-    echomsg 'Vimwiki Error: Unable to resolve link!'
-    return 0
-  else
-    exe 'tabnew ' . fnameescape(link_infos.filename)
-    return 1
-  endif
-endfunction
+
+" Wikis setup
+let wiki_1 = {}
+let wiki_1.path = '~/vimwiki/'
+let wiki_1.path_html = '~/vimwiki_html/'
+
+let wiki_2 = {}
+let wiki_2.path = '~/games/dnd/poliwiki/'
+let wiki_2.path_html = '~/games/dnd/poliwiki_html/'
+
+let g:vimwiki_list = [wiki_1, wiki_2]
 
 "" Undotree
 nnoremap <F5> :UndotreeToggle<cr>
@@ -271,6 +275,34 @@ nnoremap <F5> :UndotreeToggle<cr>
 augroup filetypedetect
   au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 augroup END
+
+"" Rainbow delims
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"" FZF
+nnoremap <C-p> :Files<Cr>
+
 " TODO: Plugins to check out:
 "
 " TODO: Repos to check out and steal from:

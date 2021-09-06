@@ -10,8 +10,8 @@ set $menu 135
 
 # Named workspaces
 #               
-set $ws1   "1:"
-set $ws2   "2:"
+set $ws1   "1:1"
+set $ws2   "2:2"
 set $ws3   "3:3"
 set $ws4   "4:4"
 set $ws5   "5:5"
@@ -384,6 +384,7 @@ smart_borders on
 ### USER EXEC ###
 exec        $nsi nm-applet
 exec        $nsi compton
+exec        $nsi xcape
 exec        $nsi CM_SELECTIONS="clipboard" clipmenud
 exec_always $nsi ~/.fehbg
 exec_always $nsi $HOME/.config/polybar/launch.sh

@@ -6,18 +6,13 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["clock", "custom/week"],
-    "modules-right": ["mpd", "custom/pacman", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "idle_inhibitor", "tray"],
+    "modules-right": ["mpd", "custom/kblayout", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "idle_inhibitor", "tray"],
     //Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}: {icon}",
         "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
             "urgent": "",
             "focused": "",
             "default": ""
@@ -28,11 +23,10 @@
     },
     "sway/window": {
         "max-length": 80,
-        "tooltip": false
     },
     "mpd": {
-        "port": 6601,
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+        "port": 6600,
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{title} - {artist}  ",
         "format-disconnected": "Disconnected ",
         "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
         "max-length": 40,
@@ -70,18 +64,16 @@
         "spacing": 1
     },
     "clock": {
-        "tooltip-format": "{:%Y-%m-%d | %H:%M}",
-        "format-alt": "{:%Y-%m-%d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%Y-%m-%d | %H:%M}"
     },
     "custom/week": {
         "format": "Week {}",
-        "exec": "date --date='35 weeks ago' +'%-W'",
+        "exec": "date --date='56 weeks ago' +'%-W'",
         "interval": 3600
     },
     "cpu": {
         "format": "{usage}% ",
-        "tooltip": false
     },
     "memory": {
         "format": "{}% "
@@ -117,7 +109,7 @@
         "bat": "BAT2"
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "interface": "wlan*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
@@ -144,17 +136,10 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/pacman": {
-        "format": "{}  ",
-        "interval": 3600,                     // every hour
-        "exec": "checkupdates | wc -l",       // # of updates
-        "exec-if": "exit 0",                  // always run; consider advanced run conditions
-        "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
-        "signal": 8
-    },
-    "custom/lang": {
-        "exec": "swaymsg -t get_inputs | grep layout_name | grep -v En | awk 'END{if(NR == 0){print \"EN\"}else{print toupper(substr($2,2,2))}}'",
+        "custom/kblayout": {
+        "format": "{} ",
         "interval": 1,
-        "format": "{} "
+        "exec": "swaymsg -t get_inputs | jq '.[-1].xkb_active_layout_name' | cut -c 2-3 ",
+        "signal": 8
     }
 }

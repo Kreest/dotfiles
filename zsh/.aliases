@@ -17,11 +17,8 @@ alias cal='cal -m'
 ## Ledger default file
 alias ledger='ledger -f ~/money/ledger --start-of-week=1'
 
-## Arch user repo helper
-alias bb='bb-wrapper'
-
-## mpc settings
-alias mpc='mpc -p 6601'
-
 ## youtube-viewer
 alias yt='youtube-viewer'
+
+## Use nvim instead of vim
+alias vim='nvim'

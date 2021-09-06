@@ -1,19 +1,17 @@
 # Sway config
 input * xkb_layout "gb,hu,ru"
 input * xkb_variant ",,phonetic"
-input * xkb_options "grp:alt_shift_toggle,compose:menu"
+input * xkb_options "grp:alt_shift_toggle,compose:altgr,caps:escape"
 
-output * bg "~/Pictures/knightriderbg.png" fill
 default_border pixel 
+
 
 bar {
     swaybar_command waybar
 }
 
+exec oguri; oguri && sleep 2 && ls ~/wallpapers | shuf -n 1 |  xargs -I{} ogurictl output eDP-1 --image ~/wallpapers/{}
 #Default window settings
-for_window [title="^.*mpv$"] \
-    floating enable, border none, sticky enable, \
-    resize set 640 360, move position 1280 -5, \
 smart_borders on
 
 focus_follows_mouse no
@@ -39,12 +37,12 @@ set $menu 135
 set $ws1   "1:"
 set $ws2   "2:"
 set $ws3   "3:3"
-set $ws4   "4:4"
+set $ws4   "4:"
 set $ws5   "5:5"
 set $ws6   "6:6"
 set $ws7   "7:7"
 set $ws8   "8:8"
-set $ws9   "9:"
+set $ws9   "9:"
 set $ws10  "10:10"
 
 # Keypad keycodes
@@ -78,19 +76,22 @@ set $PG_UP   112
 set $PG_DOWN 117
 
 # Flags
-set $p -p 6601
+set $p -p 6600
 
 # Rofi style options
 set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
 set $tc --to-code
 
 # Swaylock options
-set $lock -i ~/Pictures/fractal001.jpg
+set $lock -i ~/wallpapers/kirsten-underwater.jpg
 
 ### KEYBINDINGS ###
 # start a terminal
-bindsym $tc $mod+Return    exec termite
-bindsym $tc $mod+menu      exec termite
+bindsym $tc $mod+Return    exec alacritty
+bindsym $tc $mod+menu      exec alacritty
+
+# Waybar toggle
+bindsym $tc $mod+Space exec "killall -SIGUSR1 waybar"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -143,7 +144,7 @@ bindsym $tc $mod+e       layout toggle split
 # Floating controls
 bindsym $tc $mod+Shift+p floating toggle
 bindsym $tc $mod+p       focus mode_toggle
-bindsym $tc $mod+w      sticky toggle
+bindsym $tc $mod+g       sticky toggle
 
 # focus the parent/child container
 bindsym $tc $mod+a                  focus parent
@@ -209,10 +210,10 @@ bindsym $tc $mod+Shift+F2           move container to workspace $ws6;  workspace
 bindsym $tc $mod+Shift+F3           move container to workspace $ws7;  workspace $ws7
 bindsym $tc $mod+Shift+F4           move container to workspace $ws8;  workspace $ws8
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# restart sway inplace 
 bindsym $tc $mod+Shift+r reload
-# exit i3 (logs you out of your X session)
-bindsym $tc $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# exit sway (logs you out of your X session)
+bindsym $tc $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 ### USER BINDINGS ###
 bindsym $tc $mod+grave              workspace back_and_forth
@@ -251,7 +252,7 @@ bindsym $tc $mod+minus              scratchpad show
 # Calculator with sympy setup
 # bindsym $tc $mod+c                  exec jupyter qtconsole 
 
-# Screenshots based on the "Print" key. Requires the "scrot" tool.
+# Screenshots based on the "Print" key. Requires the "grim" tool.
 # With $mod:  Interactively select window or rectangle.
 # With Shift: JPEG instead of PNG.
 # With Ctrl:  Sleep 5 seconds before doing the screenshot.
@@ -263,11 +264,12 @@ bindsym $tc                Print               exec            grim       $scpat
 bindsym $tc          Shift+Print               exec            grim $fmon $scpath && notify-send "screenshot taken"
 bindsym $tc           $mod+Print               exec            $fwin | grim -g - $scpath && notify-send "screenshot of window taken"
 bindsym $tc                Control+Print       exec sleep 5 && grim       $scpath && notify-send "screenshot in 5s"
+bindsym $tc                $mod+Control+Print  exec export SCPATH=$scpath &&      $fwin | grim -g - $SCPATH && notify-send $SCPATH && firefox $SCPATH
 
 # Pulse Audio controls
-bindsym $tc XF86AudioRaiseVolume exec amixer -c 0 set Master 1+ && killall -SIGUSR1 i3status
-bindsym $tc XF86AudioLowerVolume exec amixer -c 0 set Master 1- && killall -SIGUSR1 i3status
-bindsym $tc XF86AudioMute        exec amixer set Master toggle && killall -SIGUSR1 i3status
+bindsym $tc XF86AudioRaiseVolume exec amixer -c 0 set Master 1+
+bindsym $tc XF86AudioLowerVolume exec amixer -c 0 set Master 1-
+bindsym $tc XF86AudioMute        exec amixer set Master toggle
 
 # resize window (you can also use the mouse)
 mode "resize" {
@@ -298,6 +300,9 @@ mode "resize" {
         bindsym $tc Shift+Up            resize shrink height   1 px or   1 ppt
         bindsym $tc Shift+Right         resize grow   width    1 px or   1 ppt
 
+        # MPV mode
+        bindsym m fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1315 0
+
         # back to normal: Enter or Escape
         bindsym $tc Return mode "default"
         bindsym $tc Escape mode "default"
@@ -327,7 +332,7 @@ mode "$mode_display" {
 bindsym $tc $mod+i mode "$mode_display"
 
 # Music mode!
-set $mpc_opt -p 6601
+set $mpc_opt -p 6600
 set $mode_music Music
 mode "$mode_music" {
     # Commands that stay here until you press escape
@@ -349,13 +354,14 @@ mode "$mode_music" {
     bindsym $tc p exec mpc $mpc_opt toggle, mode "default"
 
     # Menus
-    bindsym $tc i mode "default", exec "mpc -p 6601 listall| sed 's/^.*Musictst.\(.*\)/\1/' | dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc -p 6601 insert '{}'"
+    bindsym $tc i mode "default", exec "mpc $mpc_opt listall| sed 's/^.*Musictst.\(.*\)/\1/' | rofi -dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc $mpc_opt insert '{}'"
+    bindsym $tc g mode "default", exec "mpc clear; mpc $mpc_opt list genre | rofi -dmenu -sort -matching fuzzy --sorting-method fzf -i -p 'insert' |  xargs -I{} mpc $mpc_opt find genre '{}' | mpc insert; mpc play"
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
     bindsym $tc Escape mode "default"
 }
-bindsym $tc $mod+M mode "$mode_music"
+bindsym $tc $mod+m mode "$mode_music"
 
 mode "Tasks" {
     # Non-exiting
@@ -378,9 +384,28 @@ mode "Tasks" {
 }
 bindsym $tc $mod+t mode "Tasks"
 
-# Brightness control (w/ acpilight)
-bindsym $tc $mod+f12 exec /usr/bin/xbacklight -inc 2 
-bindsym $tc $mod+f11 exec /usr/bin/xbacklight -dec 1
+mode "Wallpaper" {
+    # Non-exiting
+    bindsym $tc r exec "ls ~/wallpapers | shuf -n 1 |  xargs -I{} ogurictl output eDP-1 --image ~/wallpapers/{}"
+
+    # Exiting
+    bindsym $tc c mode "default", exec "ls ~/wallpapers | rofi -dmenu |  xargs -I{} ogurictl output eDP-1 --image ~/wallpapers/{}"
+
+    bindsym $tc b mode "default", exec "ogurictl output eDP-1 --filter best"
+    bindsym $tc n mode "default", exec "ogurictl output eDP-1 --filter nearest"
+
+    bindsym $tc s mode "default", exec "ogurictl output eDP-1 --scaling-mode stretch"
+    bindsym $tc f mode "default", exec "ogurictl output eDP-1 --scaling-mode fill"
+
+    # back to normal: Enter or Escape
+    bindsym $tc Return mode "default"
+    bindsym $tc Escape mode "default"
+}
+bindsym $tc $mod+w mode "Wallpaper"
+
+# Brightness control
+bindsym $tc $mod+f12 exec light -A 1
+bindsym $tc $mod+f11 exec light -U 1
 
 # Network setup (starts in rofi)
 bindsym $tc $mod+n exec networkmanager_dmenu
@@ -388,17 +413,19 @@ bindsym $tc $mod+n exec networkmanager_dmenu
 # Pass binding
 bindsym $tc $mod+z exec passmenu $rofi_style -p "pass"
 
-# Clipboard manager
-bindsym $tc $mod+c exec clipmenu $rofi_style -p "clip"
+# Calculator
+bindsym $tc $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 
 # Russian translation menu
-bindsym $tc $mod+backslash          exec "cat ~/wordlists/russian.txt | dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} notify-send Translation '{}'"
+bindsym $tc $mod+backslash          exec "cat ~/wordlists/russian.txt | rofi -dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} notify-send Translation '{}'"
 
 ### USER EXEC ###
-exec           mako
+exec           dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus 
 exec           udiskie
-exec           redshift
-exec        CM_SELECTIONS="clipboard" clipmenud
+exec           gammastep
+exec           syncthing --no-browser
+exec           mpd
+exec $nsi      pipewire
 
 #TODO
 #Remote audio controls

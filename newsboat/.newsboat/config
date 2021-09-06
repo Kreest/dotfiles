@@ -10,15 +10,14 @@ bind-key l open
 
 save-path ~/news/
 
-browser "qutebrowser %u"
-macro y set browser "nohup umpv --ytdl-format=136+250 %u 2>&1 &"; open-in-browser ; set browser "qutebrowser %u"
-macro c set browser "echo %u | xclip -selection clipboard"; open-in-browser ; set browser "qutebrowser %u"
-macro t pipe-to "trans -e google -b 2>> ~/wordlists/log | nohup gvim -c 'set go=' -R - &"
+browser "firefox %u"
+macro y set browser "nohup mpv --ytdl-format=136+250 %u 2>&1 &"; open-in-browser ; set browser "firefox %u"
+macro c set browser "echo %u | wl-copy"; open-in-browser ; set browser "firefox %u"
+macro t pipe-to "trans -e google -b 2>> ~/wordlists/log | gvim -c 'set go=' -R -"
+macro e pipe-to "egrep '(^Title:|^Link:)' - >> ~/vimwiki/Queue.wiki && echo '-------\n\n\n' >> ~/vimwiki/Queue.wiki"
 player "mpv"
 download-path "~/podcasts/%h/%n"
 
-proxy localhost:9350
-proxy-type socks5
-use-proxy yes
+use-proxy no
 auto-reload yes
 reload-time 60

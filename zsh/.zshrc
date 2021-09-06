@@ -6,9 +6,17 @@
 bindkey -v
 export KEYTIMEOUT=1 
 
+# Path
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+# tmux chooser
+if [[ ! -v TMUX && $TERM_PROGRAM != "vscode" ]]; then
+	tmux_chooser && exit
+fi
+
 # ZPLUG {{{1
 
-source /usr/share/zsh/scripts/zplug/init.zsh
+source ~/.zplug/init.zsh
 
 # PLUGINS {{{2
 zplug "lib/history", from:oh-my-zsh                         #
@@ -81,7 +89,7 @@ man() {
     command man "$@"
 }
 
-export EDITOR=vim
+export EDITOR=nvim
 
 function zle-line-init zle-keymap-select {
     RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
@@ -92,12 +100,10 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 LS_COLORS=$LS_COLORS:'di=1;33:' ; export LS_COLORS
-# TODO: Look into some options and upgrades
-
-PATH="/home/kreest/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/kreest/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/kreest/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/kreest/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/kreest/perl5"; export PERL_MM_OPT;
-
 source /etc/profile.d/vte.sh
+
+autoload -Uz compinit
+compinit
+
+
+eval $(thefuck --alias)
