@@ -34,16 +34,16 @@ set $menu 135
 
 # Named workspaces
 #               
-set $ws1   "1:"
-set $ws2   "2:"
-set $ws3   "3:3"
-set $ws4   "4:"
-set $ws5   "5:5"
-set $ws6   "6:6"
-set $ws7   "7:7"
-set $ws8   "8:8"
-set $ws9   "9:"
-set $ws10  "10:10"
+set $ws1   number 1
+set $ws2   number 2
+set $ws3   number 3
+set $ws4   number 4
+set $ws5   number 5
+set $ws6   number 6
+set $ws7   number 7
+set $ws8   number 8
+set $ws9   number 9
+set $ws10  number 10
 
 # Keypad keycodes
 set $KP_1 87
@@ -368,7 +368,7 @@ mode "Tasks" {
 
 
     # Exiting
-    bindsym $tc t exec task long | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+', mode "default"
+    bindsym $tc t exec task list | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+', mode "default"
     bindsym $tc d exec task done `task | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+'`, mode "default"
     bindsym $tc b exec task start `task | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+'`, mode "default"
     bindsym $tc e exec task stop `task | tail -n +4 | head -n -2 | dmenu -matching fuzzy -i | grep -o '^ *[0-9]\+'`, mode "default"
@@ -376,7 +376,7 @@ mode "Tasks" {
     bindsym $tc a exec task add `dmenu`, mode "default"
 
   
-    bindsym $tc c exec task context `task context list | tail -n +4 | head -n -1 | dmenu | grep -o '^\w\+'`, mode "default"
+    bindsym $tc c exec task context `task context list | tail -n +4 | head -n -1 | echo "$(cat -)\\nnone"| dmenu | grep -o '^\w\+'`, mode "default"
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
@@ -426,6 +426,8 @@ exec           gammastep
 exec           syncthing --no-browser
 exec           mpd
 exec $nsi      pipewire
+
+exec_always $nsi workstyle &> /tmp/workstyle.log
 
 #TODO
 #Remote audio controls

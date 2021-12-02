@@ -18,7 +18,7 @@ set formatoptions+=l
 
 " Appearance
 set cursorline
-filetype plugin on
+filetype plugin indent on
 syntax on
 set lazyredraw
 set number
@@ -128,6 +128,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'whatyouhide/vim-gotham'
     Plug 'robertmeta/nofrils'
     Plug 'kien/rainbow_parentheses.vim'   " So pretty
+    Plug 'morhetz/gruvbox'
     " TPope or as good or your money back
     Plug 'tpope/vim-sensible'             " Sensible default settings
     Plug 'tpope/vim-commentary'           " Commenting blocks
@@ -140,9 +141,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'adelarsq/vim-matchit'		      " Better % matching
     Plug 'tpope/vim-obsession'            " Session handling for tmux
     " Editing
+    Plug 'machakann/vim-swap'             " Swapping things
     Plug 'ervandew/supertab'              " Enhanced TAB key
-    Plug 'Valloric/YouCompleteMe'         " Code completion
     Plug 'sirver/ultisnips'               " Snippet manager
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
     Plug 'mbbill/undotree'		          " Undoes trees
@@ -167,13 +169,16 @@ endif
     " Writing, non-code
     Plug 'junegunn/goyo.vim'              " Distraction free writing
     Plug 'junegunn/limelight.vim'         " Highlighter for goyo
-    Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
-    Plug 'vim-pandoc/vim-pandoc'          " Markdown
+    " Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
+    " Plug 'vim-pandoc/vim-pandoc'          " Markdown
     Plug 'ledger/vim-ledger'		      " For budgeting
     Plug 'vimwiki/vimwiki', { 'branch': 'dev' }		          " Personal Wiki management
     Plug 'tools-life/taskwiki'		      " Taskwarrior in vimwiki
     Plug 'lervag/vimtex'		          " Latex editing
     Plug 'rhysd/vim-grammarous'	          " Grammarly but cooler
+    Plug 'pangloss/vim-javascript'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -184,7 +189,7 @@ call plug#end()
 let g:nofrils_heavylinenumbers=1
 let g:nofrils_heavycomments=1
 let g:nofrils_strbackgrounds=1
-colorscheme nofrils-dark    "set vim colorscheme
+colorscheme gruvbox   "set vim colorscheme
 hi Normal ctermbg=none
 let &t_TI = ""
 let &t_TE = ""
@@ -199,11 +204,22 @@ let g:SuperTabDefaultCompletionType    = '<C-n>'
 
 "" Snippets
 let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsListSnippets	   = "<c-r>"
 let g:UltiSnipsEditSplit           = "context"
+let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip,a)
@@ -237,6 +253,8 @@ let g:limelight_conceal_ctermfg = 240
 let g:pymode_python = 'python3'
 let g:pymode_run = 0 
 let g:pymode_indent = 1
+let g:pymode_lint_ignore = ["E127"]
+
 " Run
 nnoremap <silent> <leader>pr :terminal python -i %<CR>
 " Debug
@@ -257,16 +275,42 @@ let g:tex_flavor = 'latex'      " for sane file recognition
 
 "" VimWiki
 
+" For Obsidian.md integration, along with .md file extension
+function! VimwikiLinkHandler(link)
+    if a:link =~ '\.\(pdf\|jpg\|jpeg\|png\|gif\|mp3\)$'
+        call vimwiki#base#open_link(':e ', 'file:'.a:link)
+        return 1
+    endif
+    return 0
+endfunction
+
 " Wikis setup
 let wiki_1 = {}
 let wiki_1.path = '~/vimwiki/'
 let wiki_1.path_html = '~/vimwiki_html/'
+let wiki_1.ext = '.md'
 
 let wiki_2 = {}
 let wiki_2.path = '~/games/dnd/poliwiki/'
 let wiki_2.path_html = '~/games/dnd/poliwiki_html/'
+let wiki_2.ext = '.md'
 
-let g:vimwiki_list = [wiki_1, wiki_2]
+let wiki_3 = {}
+let wiki_3.path = '~/mathwiki/'
+let wiki_3.path_html = '~/mathwiki_html/'
+let wiki_3.ext = '.md'
+
+let wiki_4 = {}
+let wiki_4.path = '~/games/dnd/janiwiki/'
+let wiki_4.path_html = '~/games/dnd/janiwiki_html/'
+let wiki_4.ext = '.md'
+
+let wiki_5 = {}
+let wiki_5.path = '~/projects/cyberspyre'
+let wiki_5.path_html = '~/projects/cyberspyre_html'
+let wiki_5.ext = '.md'
+
+let g:vimwiki_list = [wiki_1, wiki_2, wiki_3, wiki_4, wiki_5]
 
 "" Undotree
 nnoremap <F5> :UndotreeToggle<cr>
@@ -302,6 +346,17 @@ au Syntax * RainbowParenthesesLoadBraces
 
 "" FZF
 nnoremap <C-p> :Files<Cr>
+nnoremap <silent> <Leader>sw :Ag <C-R><C-W><CR>
+
+
+"" COC
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 
 " TODO: Plugins to check out:
 "

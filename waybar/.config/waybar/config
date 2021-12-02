@@ -65,7 +65,7 @@
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%Y-%m-%d | %H:%M}"
+        "format": "{:%Y-%m-%d | %H:%M %Z}"
     },
     "custom/week": {
         "format": "Week {}",
