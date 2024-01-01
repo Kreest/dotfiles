@@ -177,6 +177,7 @@ label:focus {
 
 #mpd {
     padding-left: 5px;
+    color: #ffffff;
 }
 
 #mpd.disconnected {

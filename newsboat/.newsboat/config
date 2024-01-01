@@ -21,3 +21,6 @@ download-path "~/podcasts/%h/%n"
 use-proxy no
 auto-reload yes
 reload-time 60
+
+ssl-verifyhost no
+ssl-verifypeer no

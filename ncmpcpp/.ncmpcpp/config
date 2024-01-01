@@ -88,7 +88,6 @@ mpd_music_dir = ~/Music
 #
 ## Alternative subset of 256 colors for terminals that support it.
 ##
-#visualizer_color = 41, 83, 119, 155, 185, 215, 209, 203, 197, 161
 #
 ##### system encoding #####
 ##
@@ -325,7 +324,7 @@ mpd_music_dir = ~/Music
 #
 ## Available values: classic, alternative.
 ##
-#user_interface = classic
+user_interface = alternative
 #
 #data_fetching_delay = yes
 #
@@ -353,7 +352,7 @@ mpd_music_dir = ~/Music
 #
 #lines_scrolled = 2
 #
-#lyrics_fetchers = lyricwiki, azlyrics, genius, sing365, lyricsmania, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, internet
+#lyrics_fetchers = azlyrics, genius, sing365, lyricsmania, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, internet
 #
 #follow_now_playing_lyrics = no
 #
@@ -393,13 +392,13 @@ mpd_music_dir = ~/Music
 ##
 ## Note: You can define startup screen by choosing screen from the list above.
 ##
-#startup_screen = playlist
+startup_screen = visualizer
 #
 ##
 ## Note: You can define startup slave screen by choosing screen from the list
 ## above or an empty value for no slave screen.
 ##
-#startup_slave_screen = ""
+startup_slave_screen = "playlist"
 #
 #startup_slave_screen_focus = no
 #
@@ -407,7 +406,7 @@ mpd_music_dir = ~/Music
 ## Default width of locked screen (in %).  Acceptable values are from 20 to 80.
 ##
 #
-#locked_screen_width_part = 50
+locked_screen_width_part = 30
 #
 #ask_for_locked_screen_width_part = yes
 #
@@ -551,5 +550,5 @@ visualizer_in_stereo = "yes"
 visualizer_type = "spectrum"
 visualizer_look = "●▮"
 visualizer_spectrum_smooth_look = "yes"
-visualizer_spectrum_dft_size = 2
-
+visualizer_spectrum_dft_size = 1
+visualizer_color = 41, 83, 119, 155, 185, 215, 209, 203, 197, 161

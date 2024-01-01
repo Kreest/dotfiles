@@ -26,9 +26,9 @@
     },
     "mpd": {
         "port": 6600,
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{title} - {artist}  ",
+        "format": "{title} - {artist} {stateIcon} {consumeIcon}{randomIcon}{repeatIcon}",
         "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped",
         "max-length": 40,
         "unknown-tag": "N/A",
         "interval": 2,
@@ -43,7 +43,7 @@
             "on": " "
         },
         "single-icons": {
-            "on": "1 "
+            "on": ""
         },
         "state-icons": {
             "paused": "",
@@ -69,7 +69,7 @@
     },
     "custom/week": {
         "format": "Week {}",
-        "exec": "date --date='56 weeks ago' +'%-W'",
+        "exec": "date +'%-W'",
         "interval": 3600
     },
     "cpu": {
@@ -109,7 +109,6 @@
         "bat": "BAT2"
     },
     "network": {
-        "interface": "wlan*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",

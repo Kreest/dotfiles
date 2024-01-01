@@ -1,5 +1,5 @@
 ## Colorize the ls output ##
-alias ls='ls --color=auto --group-directories-first -v -h'
+alias ls='ls --color=auto -h'
 
 ## Use a long listing format ##
 alias ll='ls -l'
@@ -22,3 +22,6 @@ alias yt='youtube-viewer'
 
 ## Use nvim instead of vim
 alias vim='nvim'
+
+## Vim fzf
+alias vimf='nvim `fzf`'

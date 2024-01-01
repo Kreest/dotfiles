@@ -1,16 +1,14 @@
 # Sway config
-input * xkb_layout "gb,hu,ru"
-input * xkb_variant ",,phonetic"
-input * xkb_options "grp:alt_shift_toggle,compose:altgr,caps:escape"
+input * xkb_layout "gb,hu,cz"
+input * xkb_variant ",,qwerty"
+input * xkb_options "grp:alt_space_toggle,compose:altgr,caps:escape"
 
 default_border pixel 
-
 
 bar {
     swaybar_command waybar
 }
 
-exec oguri; oguri && sleep 2 && ls ~/wallpapers | shuf -n 1 |  xargs -I{} ogurictl output eDP-1 --image ~/wallpapers/{}
 #Default window settings
 smart_borders on
 
@@ -79,7 +77,7 @@ set $PG_DOWN 117
 set $p -p 6600
 
 # Rofi style options
-set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' -kb-row-select 'Tab' -kb-row-tab ''
+set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-padding 4 -bw 2 -font 'Roboto Mono 14' 
 set $tc --to-code
 
 # Swaylock options
@@ -98,9 +96,9 @@ floating_modifier $mod
 
 # Common app starting
 # rofi (app launcher, sudo app launcher, file search, folder search, window jumper)
-bindsym $tc $mod+q                  exec "rofi $rofi_style -p 'run'        -combi-modi drun,run -show run -modi combi"
-bindsym $tc $mod+ctrl+q             exec "rofi $rofi_style -p 'run (sudo)' -combi-modi drun,run -show run -modi combi -run-command 'gksudo {cmd}'"
-bindsym $tc $mod+d                  exec "rofi $rofi_style -show window"
+bindsym $tc $mod+q                  exec wofi --show drun
+bindsym $tc $mod+ctrl+q             exec wofi --show run
+bindsym $tc $mod+d                  exec "~/bin/wofi_window_chooser"
 bindsym $tc $mod+Shift+q            kill
 
 # change focus
@@ -120,10 +118,10 @@ bindsym $tc $mod+Shift+j     move down
 bindsym $tc $mod+Shift+k     move up
 bindsym $tc $mod+Shift+l     move right
 
-bindsym $tc $mod+Shift+Left  move left
-bindsym $tc $mod+Shift+Down  move down
-bindsym $tc $mod+Shift+Up    move up
-bindsym $tc $mod+Shift+Right move right
+bindsym $tc $mod+Shift+Left   move left
+bindsym $tc $mod+Shift+Down   move down
+bindsym $tc $mod+Shift+Up     move up
+bindsym $tc $mod+Shift+Right  move right
 
 # Move workspaces between outputs
 bindsym $tc $mod+o       focus output right
@@ -260,7 +258,6 @@ set $scpath $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
 set $fmon -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
 set $fwin swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp
 
-bindsym $tc                Print               exec            grim       $scpath && notify-send "screenshot taken"
 bindsym $tc          Shift+Print               exec            grim $fmon $scpath && notify-send "screenshot taken"
 bindsym $tc           $mod+Print               exec            $fwin | grim -g - $scpath && notify-send "screenshot of window taken"
 bindsym $tc                Control+Print       exec sleep 5 && grim       $scpath && notify-send "screenshot in 5s"
@@ -314,8 +311,8 @@ bindsym $tc button4 nop
 bindsym $tc button5 nop
 
 # Notifications
-bindsym Control+Space exec makoctl dismiss
-bindsym Control+Shift+Space exec makoctl dismiss --all
+bindsym $tc $mod+Escape exec makoctl dismiss
+bindsym $tc $mod+Shift+u exec makoctl dismiss --all
 
 # choose xrandr displaymode
 set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
@@ -380,22 +377,16 @@ mode "Tasks" {
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
-    bindsym $tc Escape mode "default"
-}
-bindsym $tc $mod+t mode "Tasks"
+        bindsym $tc Escape mode "default"
+    }
+    bindsym $tc $mod+t mode "Tasks"
 
-mode "Wallpaper" {
-    # Non-exiting
-    bindsym $tc r exec "ls ~/wallpapers | shuf -n 1 |  xargs -I{} ogurictl output eDP-1 --image ~/wallpapers/{}"
+    mode "Wallpaper" {
+        # Non-exiting
+        bindsym $tc r exec "ls ~/wallpapers | shuf -n 1 |  xargs -I{} swww img ~/wallpapers/{}"
 
-    # Exiting
-    bindsym $tc c mode "default", exec "ls ~/wallpapers | rofi -dmenu |  xargs -I{} ogurictl output eDP-1 --image ~/wallpapers/{}"
-
-    bindsym $tc b mode "default", exec "ogurictl output eDP-1 --filter best"
-    bindsym $tc n mode "default", exec "ogurictl output eDP-1 --filter nearest"
-
-    bindsym $tc s mode "default", exec "ogurictl output eDP-1 --scaling-mode stretch"
-    bindsym $tc f mode "default", exec "ogurictl output eDP-1 --scaling-mode fill"
+        # Exiting
+        bindsym $tc c mode "default", exec "ls ~/wallpapers | wofi -dmenu |  xargs -I{} swww img ~/wallpapers/{}"
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
@@ -406,32 +397,33 @@ bindsym $tc $mod+w mode "Wallpaper"
 # Brightness control
 bindsym $tc $mod+f12 exec light -A 1
 bindsym $tc $mod+f11 exec light -U 1
+bindsym $tc $mod+shift+f12 exec light -A .1
+bindsym $tc $mod+shift+f11 exec light -U .1
 
 # Network setup (starts in rofi)
 bindsym $tc $mod+n exec networkmanager_dmenu
 
 # Pass binding
-bindsym $tc $mod+z exec passmenu $rofi_style -p "pass"
+bindsym $tc $mod+z exec passmenu -s
 
 # Calculator
 bindsym $tc $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 
 # Russian translation menu
-bindsym $tc $mod+backslash          exec "cat ~/wordlists/russian.txt | rofi -dmenu -sort -matching fuzzy -i -p 'translate' | trans -b ru:en | xargs -I{} notify-send Translation '{}'"
+bindsym $tc $mod+backslash          exec "cat ~/wordlists/czech.txt | wofi -dmenu -sort -matching fuzzy -i -p 'translate' | trans -b cs:en | xargs -I{} notify-send Translation '{}'"
+
+# Youtube mode
+bindsym $tc $mod+y  exec ytfzf -D
 
 ### USER EXEC ###
 exec           dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus 
 exec           udiskie
-exec           gammastep
+exec $nsi      gammastep
 exec           syncthing --no-browser
 exec           mpd
 exec $nsi      pipewire
-
-exec_always $nsi workstyle &> /tmp/workstyle.log
-
-#TODO
-#Remote audio controls
-#Solve world hunger
-#Reorganize things in a logical manner
-#Organize and use color names
-#Seek other configs
+exec $nsi      pipewire-pulse
+exec $nsi      /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr
+exec $nsi      wireplumber
+exec $nsi      mako
+exec $nsi      swww init && sleep 2 && ls ~/wallpapers | shuf -n 1 |  xargs -I{} swww img ~/wallpapers/{}

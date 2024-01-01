@@ -3,7 +3,6 @@
 [[ -o interactive ]] || return
 
 # Vi bindings
-bindkey -v
 export KEYTIMEOUT=1 
 
 # Path
@@ -76,6 +75,9 @@ setopt hist_save_no_dups
 # Better globbing
 setopt extended_glob
 
+# Directory stack
+setopt autopushd pushdminus pushdsilent pushdtohome
+
 # Style
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}  # Use LS COLORS to autocomplete
 
@@ -105,5 +107,29 @@ source /etc/profile.d/vte.sh
 autoload -Uz compinit
 compinit
 
+zstyle ":anyframe:selector:" use fzf-tmux
+zstyle ":anyframe:selector:fzf-tmux:" command 'fzf-tmux -h'
 
 eval $(thefuck --alias)
+bindkey -v
+
+bindkey '^xb' anyframe-widget-cdr
+bindkey '^x^b' anyframe-widget-checkout-git-branch
+
+bindkey '^xr' anyframe-widget-execute-history
+bindkey '^x^r' anyframe-widget-execute-history
+
+bindkey '^xi' anyframe-widget-put-history
+bindkey '^x^i' anyframe-widget-put-history
+
+bindkey '^xg' anyframe-widget-cd-ghq-repository
+bindkey '^x^g' anyframe-widget-cd-ghq-repository
+
+bindkey '^xk' anyframe-widget-kill
+bindkey '^x^k' anyframe-widget-kill
+
+bindkey '^xe' anyframe-widget-insert-git-branch
+bindkey '^x^e' anyframe-widget-insert-git-branch
+
+# opam configuration
+[[ ! -r /home/kreest/.opam/opam-init/init.zsh ]] || source /home/kreest/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
