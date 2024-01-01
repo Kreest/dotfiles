@@ -15,16 +15,17 @@ set linebreak
 set nolist
 set formatoptions-=t
 set formatoptions+=l
+set noequalalways
 
 " Appearance
 set cursorline
 filetype plugin indent on
 syntax on
+set termguicolors
 set lazyredraw
 set number
-set norelativenumber
 set ruler
-set foldcolumn=2
+set foldcolumn=1
 set breakindent
 set splitbelow
 set splitright
@@ -48,6 +49,7 @@ map      <Leader>v :so ~/.vimrc<CR>:edit!<CR>
 inoremap <F5>      <C-R>=strftime("%Y-%m-%d %H:%M:%S (%Z)")<CR>
 nnoremap <Leader>, ;
 nnoremap <Leader>; ,
+nnoremap Q @@
 
 nnoremap k gk
 nnoremap j gj
@@ -117,16 +119,13 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   silent !mkdir -p ~/.vim/.swp ~/.vim/.backup ~/.vim/.undo ~/.vim/files/info
 endif
 
-"" Conjure
-let g:conjure#log#hud#enabled=v:false
-
 " ----------------------------------------------------------------------------
 " Plugins, Manager - https://github.com/junegunn/vim-plug
 " ----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
     " Theme
-    Plug 'whatyouhide/vim-gotham'
-    Plug 'robertmeta/nofrils'
+    " Plug 'whatyouhide/vim-gotham'
+    " Plug 'robertmeta/nofrils'
     Plug 'kien/rainbow_parentheses.vim'   " So pretty
     Plug 'morhetz/gruvbox'
     " TPope or as good or your money back
@@ -138,22 +137,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'             " For blaming stuff
     Plug 'tpope/vim-abolish'              " Autocorrect+subversion+coercion
     Plug 'tpope/vim-eunuch'               " Sudo write
-    Plug 'adelarsq/vim-matchit'		      " Better % matching
     Plug 'tpope/vim-obsession'            " Session handling for tmux
+    Plug 'adelarsq/vim-matchit'		  " Better % matching
     " Editing
     Plug 'machakann/vim-swap'             " Swapping things
-    Plug 'ervandew/supertab'              " Enhanced TAB key
     Plug 'sirver/ultisnips'               " Snippet manager
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
     Plug 'honza/vim-snippets'             " Common snippets
     Plug 'junegunn/vim-easy-align'        " Linus up text better
-    Plug 'mbbill/undotree'		          " Undoes trees
+    Plug 'mbbill/undotree'		  " Undoes trees
     Plug 'farmergreg/vim-lastplace'       " Last place
     Plug 'wellle/targets.vim'             " Adds text objects for extra editing power
     Plug 'airblade/vim-gitgutter'
+    " Plug 'sourcegraph/sg.nvim', { 'do': 'nvim -l build/init.lua' }
+    Plug 'nvim-lua/plenary.nvim'          " Telescope dependency
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'fannheyward/telescope-coc.nvim'
     " Navigation and marks
     Plug 'kshenoy/vim-signature'          " Marking lines
-    Plug 'francoiscabrol/ranger.vim'      " Ranger instead of netrw
     Plug 'junegunn/fzf.vim'               " Fuzzy finder
     " Languages
     Plug 'rust-lang/rust.vim'             " Config for rust
@@ -162,23 +163,33 @@ call plug#begin('~/.vim/plugged')
     Plug 'python-mode/python-mode', { 'branch': 'develop' }
     Plug 'gauteh/vim-cppman'		      " Cppman integration
     Plug 'PolyCement/vim-tweego'		      
-if has("nvim")
-    Plug 'Olical/conjure'		          " LISP conversational development
-endif
     Plug 'wlangstroth/vim-racket'
     " Writing, non-code
     Plug 'junegunn/goyo.vim'              " Distraction free writing
-    Plug 'junegunn/limelight.vim'         " Highlighter for goyo
+    " Plug 'junegunn/limelight.vim'         " Highlighter for goyo
     " Plug 'vim-pandoc/vim-pandoc-syntax'   " Markdown
     " Plug 'vim-pandoc/vim-pandoc'          " Markdown
     Plug 'ledger/vim-ledger'		      " For budgeting
     Plug 'vimwiki/vimwiki', { 'branch': 'dev' }		          " Personal Wiki management
-    Plug 'tools-life/taskwiki'		      " Taskwarrior in vimwiki
-    Plug 'lervag/vimtex'		          " Latex editing
-    Plug 'rhysd/vim-grammarous'	          " Grammarly but cooler
+    " Plug 'tools-life/taskwiki'	    " Taskwarrior in vimwiki
+    Plug 'lervag/vimtex'		    " Latex editing
+    Plug 'rhysd/vim-grammarous'	            " Grammarly but cooler
     Plug 'pangloss/vim-javascript'
     Plug 'leafgarland/typescript-vim'
-    Plug 'maxmellon/vim-jsx-pretty'
+    Plug 'peitalin/vim-jsx-typescript'
+
+    " nvim specific
+    if has("nvim")
+        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+        Plug 'antoinemadec/coc-fzf'
+        Plug 'jbyuki/instant.nvim'                " Code collab
+        Plug 'kyazdani42/nvim-web-devicons'       " for file icons
+        Plug 'kyazdani42/nvim-tree.lua'
+        Plug 'feline-nvim/feline.nvim'
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        Plug 'puremourning/vimspector'
+        " Plug 'github/copilot.vim'
+    endif
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -186,11 +197,8 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 "" Theme
-let g:nofrils_heavylinenumbers=1
-let g:nofrils_heavycomments=1
-let g:nofrils_strbackgrounds=1
 colorscheme gruvbox   "set vim colorscheme
-hi Normal ctermbg=none
+hi Normal ctermbg=none guibg=none
 let &t_TI = ""
 let &t_TE = ""
 
@@ -198,28 +206,27 @@ let &t_TE = ""
 set completeopt=menu,menuone,noinsert
 set shortmess+=c " Turn off completion messages
 
-let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType    = '<C-n>'
-
 "" Snippets
-let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
-let g:UltiSnipsListSnippets	   = "<c-r>"
-let g:UltiSnipsEditSplit           = "context"
-let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
+let g:UltiSnipsListSnippets       = "<c-r>"
+let g:UltiSnipsEditSplit          = "context"
+let g:UltiSnipsExpandTrigger      = "<c-j>"
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+command USE UltiSnipsEdit
 
+" use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" : "\<Tab>" 
+
+inoremap <silent><expr> <S-Tab> 
+      \pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+let g:coc_snippet_next = '<Tab>'
 
 "" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vip,a)
@@ -231,24 +238,6 @@ nmap <Leader>a <Plug>(EasyAlign)
 "" Signature
 nmap <leader>s :SignatureToggle<CR>
 
-"" Goyo
-fun! s:goyo_enter()
-  Limelight
-endf
-
-fun! s:goyo_leave()
-  " Turns off limelight, restarts normal highlight coloring
-  Limelight!
-  hi Normal ctermbg=none
-endf
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-"" Limelight settings
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
 "" Pymode
 let g:pymode_python = 'python3'
 let g:pymode_run = 0 
@@ -256,16 +245,17 @@ let g:pymode_indent = 1
 let g:pymode_lint_ignore = ["E127"]
 
 " Run
-nnoremap <silent> <leader>pr :terminal python -i %<CR>
-" Debug
-nnoremap <silent> <leader>pd :terminal ipdb %<CR>
-" Debug until current line
-nnoremap <silent> <leader>pl :terminal python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
-" Autolint
-nnoremap <silent> <leader>pa :PymodeLintAuto<CR>
-
-"" Ranger
-let g:ranger_replace_netrw = 1
+augroup python
+  autocmd!
+  autocmd FileType python
+        \ nnoremap <silent> <leader>pr :terminal python -i %<CR>
+  autocmd FileType python
+        \ nnoremap <silent> <leader>pd :terminal ipdb %<CR>
+  autocmd FileType python
+        \ nnoremap <silent> <leader>pl :terminal python -m ipdb -c "unt <C-r>=line('.')<CR>" %<CR>
+  autocmd FileType python
+        \ nnoremap <silent> <leader>pa :PymodeLintAuto<CR>
+augroup END
 
 "" Latex
 "wordcount
@@ -284,36 +274,20 @@ function! VimwikiLinkHandler(link)
     return 0
 endfunction
 
-" Wikis setup
-let wiki_1 = {}
-let wiki_1.path = '~/vimwiki/'
-let wiki_1.path_html = '~/vimwiki_html/'
-let wiki_1.ext = '.md'
-
-let wiki_2 = {}
-let wiki_2.path = '~/games/dnd/poliwiki/'
-let wiki_2.path_html = '~/games/dnd/poliwiki_html/'
-let wiki_2.ext = '.md'
-
-let wiki_3 = {}
-let wiki_3.path = '~/mathwiki/'
-let wiki_3.path_html = '~/mathwiki_html/'
-let wiki_3.ext = '.md'
-
-let wiki_4 = {}
-let wiki_4.path = '~/games/dnd/janiwiki/'
-let wiki_4.path_html = '~/games/dnd/janiwiki_html/'
-let wiki_4.ext = '.md'
-
-let wiki_5 = {}
-let wiki_5.path = '~/projects/cyberspyre'
-let wiki_5.path_html = '~/projects/cyberspyre_html'
-let wiki_5.ext = '.md'
-
-let g:vimwiki_list = [wiki_1, wiki_2, wiki_3, wiki_4, wiki_5]
+"" Vimwiki
+source ~/.vimwikirc
 
 "" Undotree
-nnoremap <F5> :UndotreeToggle<cr>
+nnoremap <C-h> :UndotreeToggle<cr>
+
+"" Nvim tree
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
+lua<<EOF
+require'nvim-tree'.setup {}
+EOF
 
 "" Octave options
 augroup filetypedetect
@@ -345,11 +319,29 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 "" FZF
-nnoremap <C-p> :Files<Cr>
+command! Ctrlp execute (exists("*fugitive#head") && len(fugitive#head())) ? 'GFiles' : 'Files'
+map <C-p> :Ctrlp<CR>
+nnoremap <C-A-p> :Commands<Cr>
 nnoremap <silent> <Leader>sw :Ag <C-R><C-W><CR>
 
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
-"" COC
+" Insert mode completion
+imap <c-f><c-k> <plug>(fzf-complete-word)
+imap <c-f><c-f> <plug>(fzf-complete-path)
+imap <c-f><c-l> <plug>(fzf-complete-line)
+
+"" YEP COC
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+set updatetime=300
+set signcolumn=yes
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -357,6 +349,105 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx " was javascript
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx " was typescript
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap <leader>ca  <Plug>(coc-codeaction-selected)<cr>
+nmap <leader>ca  <Plug>(coc-codeaction-selected)<cr>
+
+" Run the Code Lens action on the current line
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+
+" Mappings for CoCList/Telescope coc
+" Show all diagnostics.
+nnoremap <silent><nowait> <leader>tc  :<C-u>Telescope coc<cr>
+" Show all diagnostics.
+nnoremap <silent><nowait> <leader>cd  :<C-u>Telescope coc workspace_diagnostics<cr>
+" Show commands.
+nnoremap <silent><nowait> <leader>cc  :<C-u>Telescope coc commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <leader>co  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <leader>cs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <leader>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <leader>cr  :<C-u>CocListResume<CR>
+" Toggle inlay hints (end of line hints
+nnoremap <silent><nowait> <leader>ci :<C-u>CocCommand document.toggleInlayHint<CR>
+
+"" Debugging
+let g:vimspector_enable_mappings = 'HUMAN'
+nmap <Leader>db <Plug>VimspectorBreakpoints
+nmap <Leader>dj <Plug>VimspectorGoToCurrentLine
+
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
+
+cnoreabbrev vr VimspectorReset
+
+"" Statusline
+lua << EOC
+local gruvbox = {
+  bg = '#282828',
+  black = '#282828',
+  yellow = '#d8a657',
+  cyan = '#89b482',
+  oceanblue = '#45707a',
+  green = '#a9b665',
+  orange = '#e78a4e',
+  violet = '#d3869b',
+  magenta = '#c14a4a',
+  white = '#a89984',
+  fg = '#a89984',
+  skyblue = '#7daea3',
+  red = '#ea6962',
+}
+
+require('feline').setup({
+  theme = gruvbox,
+})
+EOC
+
+"" Copilot
+let g:copilot_filetypes = {
+      \ '*': v:false,
+      \ "rust": v:true,
+      \ "python": v:true,
+      \ }
+
+"" Grammar
+let g:grammarous#jar_url = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
+
+"" Telescope
+
+nnoremap <leader>tt <cmd>Telescope<cr>
+
+lua << EOF
+require("telescope").setup({
+  extensions = {
+    coc = {
+        theme = 'ivy',
+        prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+    }
+  },
+})
+require('telescope').load_extension('coc')
+EOF
 
 " TODO: Plugins to check out:
 "
