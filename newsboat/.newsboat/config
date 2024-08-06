@@ -14,7 +14,7 @@ browser "firefox %u"
 macro y set browser "nohup mpv --ytdl-format=136+250 %u 2>&1 &"; open-in-browser ; set browser "firefox %u"
 macro c set browser "echo %u | wl-copy"; open-in-browser ; set browser "firefox %u"
 macro t pipe-to "trans -e google -b 2>> ~/wordlists/log | gvim -c 'set go=' -R -"
-macro e pipe-to "egrep '(^Title:|^Link:)' - >> ~/vimwiki/Queue.wiki && echo '-------\n\n\n' >> ~/vimwiki/Queue.wiki"
+macro e pipe-to "egrep '(^Title:|^Link:)' - >> ~/vimwiki/Queue.md && echo '-------\n\n\n' >> ~/vimwiki/Queue.md"
 player "mpv"
 download-path "~/podcasts/%h/%n"
 
