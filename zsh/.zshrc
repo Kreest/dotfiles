@@ -133,3 +133,9 @@ bindkey '^x^e' anyframe-widget-insert-git-branch
 
 # opam configuration
 [[ ! -r /home/kreest/.opam/opam-init/init.zsh ]] || source /home/kreest/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# atuin
+eval "$(atuin init zsh --disable-up-arrow)"
+
+# spaceship
+eval "$(starship init zsh)"
