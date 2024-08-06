@@ -1,6 +1,6 @@
 # Sway config
-input * xkb_layout "gb,hu,cz"
-input * xkb_variant ",,qwerty"
+input * xkb_layout "us,hu,cz"
+input * xkb_variant "euro,,qwerty"
 input * xkb_options "grp:alt_space_toggle,compose:altgr,caps:escape"
 
 default_border pixel 
@@ -81,7 +81,7 @@ set $rofi_style     -lines 10 -hide-scrollbar -separator-style none -line-paddin
 set $tc --to-code
 
 # Swaylock options
-set $lock -i ~/wallpapers/kirsten-underwater.jpg
+set $lock -f -i ~/wallpapers/lock/fractal-mka.jpeg
 
 ### KEYBINDINGS ###
 # start a terminal
@@ -142,7 +142,6 @@ bindsym $tc $mod+e       layout toggle split
 # Floating controls
 bindsym $tc $mod+Shift+p floating toggle
 bindsym $tc $mod+p       focus mode_toggle
-bindsym $tc $mod+g       sticky toggle
 
 # focus the parent/child container
 bindsym $tc $mod+a                  focus parent
@@ -239,7 +238,7 @@ bindsym $tc $mod+Shift+x            exec swaylock $lock
 # Idle options
 exec swayidle -w \
          timeout 300 'swaylock $lock' \
-         timeout 600 'systemctl suspend' \
+         timeout 600 'loginctl suspend' \
          before-sleep 'swaylock $lock'
 
 
@@ -258,10 +257,8 @@ set $scpath $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
 set $fmon -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
 set $fwin swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp
 
-bindsym $tc          Shift+Print               exec            grim $fmon $scpath && notify-send "screenshot taken"
-bindsym $tc           $mod+Print               exec            $fwin | grim -g - $scpath && notify-send "screenshot of window taken"
-bindsym $tc                Control+Print       exec sleep 5 && grim       $scpath && notify-send "screenshot in 5s"
-bindsym $tc                $mod+Control+Print  exec export SCPATH=$scpath &&      $fwin | grim -g - $SCPATH && notify-send $SCPATH && firefox $SCPATH
+bindsym $tc Print      exec flameshot gui
+bindsym $tc $mod+Print exec flameshot gui --raw | wl-copy
 
 # Pulse Audio controls
 bindsym $tc XF86AudioRaiseVolume exec amixer -c 0 set Master 1+
@@ -299,6 +296,7 @@ mode "resize" {
 
         # MPV mode
         bindsym m fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1315 0
+        bindsym s sticky toggle
 
         # back to normal: Enter or Escape
         bindsym $tc Return mode "default"
@@ -314,19 +312,19 @@ bindsym $tc button5 nop
 bindsym $tc $mod+Escape exec makoctl dismiss
 bindsym $tc $mod+Shift+u exec makoctl dismiss --all
 
-# choose xrandr displaymode
-set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
-mode "$mode_display" {
-    bindsym $tc d exec sh ~/.display dual, mode "default"
-    bindsym $tc m exec sh ~/.display monitor, mode "default"
-    bindsym $tc l exec sh ~/.display laptop, mode "default"
-    bindsym $tc s exec sh ~/.display mirror, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym $tc Return mode "default"
-    bindsym $tc Escape mode "default"
-}
-bindsym $tc $mod+i mode "$mode_display"
+# # choose xrandr displaymode
+# set $mode_display Display mode (d) dual, (m) monitor, (l) laptop, (s) mirror
+# mode "$mode_display" {
+#     bindsym $tc d exec sh ~/.display dual, mode "default"
+#     bindsym $tc m exec sh ~/.display monitor, mode "default"
+#     bindsym $tc l exec sh ~/.display laptop, mode "default"
+#     bindsym $tc s exec sh ~/.display mirror, mode "default"
+#
+#     # back to normal: Enter or Escape
+#     bindsym $tc Return mode "default"
+#     bindsym $tc Escape mode "default"
+# }
+# bindsym $tc $mod+i mode "$mode_display"
 
 # Music mode!
 set $mpc_opt -p 6600
@@ -372,21 +370,20 @@ mode "Tasks" {
 
     bindsym $tc a exec task add `dmenu`, mode "default"
 
-  
     bindsym $tc c exec task context `task context list | tail -n +4 | head -n -1 | echo "$(cat -)\\nnone"| dmenu | grep -o '^\w\+'`, mode "default"
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
-        bindsym $tc Escape mode "default"
-    }
-    bindsym $tc $mod+t mode "Tasks"
+    bindsym $tc Escape mode "default"
+}
+bindsym $tc $mod+t mode "Tasks"
 
-    mode "Wallpaper" {
-        # Non-exiting
-        bindsym $tc r exec "ls ~/wallpapers | shuf -n 1 |  xargs -I{} swww img ~/wallpapers/{}"
+mode "Wallpaper" {
+    # Non-exiting
+    bindsym $tc r exec "ls ~/wallpapers | shuf -n 1 |  xargs -I{} swww img ~/wallpapers/{}"
 
-        # Exiting
-        bindsym $tc c mode "default", exec "ls ~/wallpapers | wofi -dmenu |  xargs -I{} swww img ~/wallpapers/{}"
+    # Exiting
+    bindsym $tc c mode "default", exec "ls ~/wallpapers | wofi -dmenu |  xargs -I{} swww img ~/wallpapers/{}"
 
     # back to normal: Enter or Escape
     bindsym $tc Return mode "default"
@@ -412,8 +409,11 @@ bindsym $tc $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 # Russian translation menu
 bindsym $tc $mod+backslash          exec "cat ~/wordlists/czech.txt | wofi -dmenu -sort -matching fuzzy -i -p 'translate' | trans -b cs:en | xargs -I{} notify-send Translation '{}'"
 
-# Youtube mode
-bindsym $tc $mod+y  exec ytfzf -D
+# Neovide anywhere
+bindsym $tc $mod+i  exec ~/bin/vim-anywhere
+
+# flameshot window
+for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
 
 ### USER EXEC ###
 exec           dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus 
